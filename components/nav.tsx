@@ -86,7 +86,7 @@ export default function Nav() {
             <span className="absolute inline-flex h-full w-full rounded-full bg-signal opacity-75 animate-ping_slow" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-signal" />
           </span>
-          available
+          say hi
           <span aria-hidden className="opacity-60">→</span>
         </a>
       </div>
