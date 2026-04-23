@@ -1,91 +1,80 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const FloatingObject = dynamic(() => import("./floating-object"), { ssr: false });
 
 const beliefs = [
   {
     n: "01",
     t: "Ship beats perfect.",
-    b: "A v1 in prod learns more in a week than a v2 in a deck learns in a quarter.",
+    b: "A v1 in prod learns more in a week than a v2 in a deck learns in a quarter. Direction beats precision until you know the direction.",
   },
   {
     n: "02",
-    t: "Metrics describe, narrative decides.",
-    b: "Numbers prove you're not crazy. Stories tell teams what to do next.",
+    t: "Metrics describe. Narrative decides.",
+    b: "Dashboards prove you're not crazy. Stories tell the team what to do next. A PM who can only read charts is a report.",
   },
   {
     n: "03",
     t: "Kill features proudly.",
-    b: "The most under-rated PM skill is saying no with a smile and a reason.",
+    b: "The most under-rated PM muscle is saying no with a smile and a reason. Every no is a yes to the thing that matters.",
   },
   {
     n: "04",
     t: "Ops is product.",
-    b: "Community, logistics, CX — if the user feels it, it's in scope.",
+    b: "Community, logistics, CX, vendor ops — if the user feels it, it's in scope. The best products look like software and run like restaurants.",
   },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="relative px-6 py-24 bg-ink text-cream overflow-hidden">
-      <div className="absolute inset-0 opacity-10 grain pointer-events-none" />
-      <div className="relative max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-5">
-            <p className="font-mono text-xs uppercase tracking-widest text-lime">
-              who I am
-            </p>
-            <h2 className="mt-3 font-display text-6xl md:text-7xl leading-[0.95]">
-              PM by day.{" "}
-              <span className="italic text-lime">founder</span> by reflex.
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-cream/80 max-w-md">
-              I've built 0→1 from a Google Doc, scaled 1→100 with a real team, and co-founded a label that hit ₹25L in six months. I like the part where the problem is messy and nobody has written the PRD yet.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {[
-                "Jira",
-                "Linear",
-                "Mixpanel",
-                "CleverTap",
-                "AppsFlyer",
-                "Figma",
-                "Postman",
-                "WhatsApp Biz API",
-              ].map((t) => (
-                <span
-                  key={t}
-                  className="inline-flex items-center rounded-full border border-cream/30 px-3 py-1.5 text-[11px] font-mono uppercase tracking-widest"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
+    <section id="about" className="relative px-6 py-32 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-16">
+        <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+            · 03 / operating principles
+          </span>
+          <h2 className="mt-4 font-display font-medium text-5xl md:text-7xl leading-[0.98] tracking-[-0.025em]">
+            how I<br />
+            <span className="italic text-iris">operate</span>.
+          </h2>
+          <p className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-ink/75 max-w-md">
+            Six years of shipping across AdTech, GenAI, E-commerce, and retail taught me a handful of things. The rest is just discipline and taste.
+          </p>
 
-          <ol className="md:col-span-7 space-y-3">
-            {beliefs.map((b, i) => (
-              <motion.li
-                key={b.n}
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group border-t border-cream/20 py-6 first:border-t-0 flex gap-6 hover:bg-cream/5 rounded-xl px-2 transition"
-              >
-                <span className="font-mono text-xs uppercase tracking-widest text-lime shrink-0 mt-1">
+          <div className="relative mt-10 h-64 hidden md:block">
+            <FloatingObject shape="torus" color="#8EFFE9" />
+          </div>
+        </div>
+
+        <ol className="md:col-span-7 space-y-4">
+          {beliefs.map((b, i) => (
+            <motion.li
+              key={b.n}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              className="group relative rounded-3xl hairline-border bg-panel/40 backdrop-blur p-6 md:p-10 hover:border-ink/30 transition-colors"
+            >
+              <div className="flex items-start gap-4 md:gap-8">
+                <span className="font-mono text-xs uppercase tracking-[0.25em] text-acid shrink-0 pt-1.5 md:pt-2">
                   {b.n}
                 </span>
-                <div>
-                  <h3 className="font-display text-3xl md:text-4xl leading-tight">
+                <div className="min-w-0">
+                  <h3 className="font-display font-medium text-2xl md:text-4xl lg:text-5xl leading-[1.05] tracking-[-0.015em]">
                     {b.t}
                   </h3>
-                  <p className="mt-2 text-cream/70 leading-relaxed">{b.b}</p>
+                  <p className="mt-3 md:mt-4 text-ink/70 text-base md:text-lg leading-relaxed max-w-xl">
+                    {b.b}
+                  </p>
                 </div>
-              </motion.li>
-            ))}
-          </ol>
-        </div>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
       </div>
     </section>
   );

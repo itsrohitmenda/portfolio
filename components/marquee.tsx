@@ -2,27 +2,35 @@
 
 type Props = {
   items: string[];
-  speed?: "normal" | "slow";
+  reverse?: boolean;
   className?: string;
 };
 
-export default function Marquee({ items, speed = "normal", className = "" }: Props) {
-  const anim = speed === "slow" ? "animate-marquee-slow" : "animate-marquee";
+export default function Marquee({ items, reverse, className = "" }: Props) {
+  const anim = reverse ? "animate-marquee-reverse" : "animate-marquee";
   const loop = [...items, ...items];
 
   return (
     <div className={`ticker-mask overflow-hidden ${className}`}>
-      <div className={`flex whitespace-nowrap ${anim} w-max`}>
+      <ul
+        className={`flex whitespace-nowrap ${anim} w-max items-center`}
+        aria-hidden
+      >
         {loop.map((item, i) => (
-          <span
+          <li
             key={i}
-            className="inline-flex items-center gap-6 px-6 font-display text-6xl md:text-8xl"
+            className="flex items-center gap-8 md:gap-12 pr-8 md:pr-12 font-display text-5xl md:text-7xl leading-[0.9] text-ink"
           >
-            {item}
-            <span className="text-hot">✦</span>
-          </span>
+            <span className="inline-block translate-y-[-0.05em]">{item}</span>
+            <span
+              aria-hidden
+              className="inline-block text-acid text-2xl md:text-3xl translate-y-[-0.1em]"
+            >
+              ◆
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

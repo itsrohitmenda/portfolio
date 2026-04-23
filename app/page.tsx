@@ -9,16 +9,16 @@ export default function Home() {
     <>
       <Hero />
 
-      <div className="py-6 border-y-2 border-ink bg-ink text-cream">
+      <div className="py-10 border-y border-hairline overflow-hidden">
         <Marquee
           items={[
             "Flipkart",
-            "Reliance",
-            "Polygon",
-            "Collective Artists",
+            "Reliance Retail",
+            "Collective Artists Network",
+            "Nagarro",
             "Under 25",
             "Buthey",
-            "Nagarro",
+            "Reliance Jio",
           ]}
         />
       </div>

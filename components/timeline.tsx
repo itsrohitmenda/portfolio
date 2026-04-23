@@ -1,53 +1,122 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const stops = [
-  { year: "2017", place: "Reliance Jio", note: "intern who shipped a 250K-impression campaign", tag: "start" },
-  { year: "2020", place: "Under 25", note: "first real PM job · 20K users in 90d", tag: "0→1" },
-  { year: "2023", place: "War Room × Flipkart", note: "GenAI shipped inside Big Billion Day", tag: "GenAI" },
-  { year: "2024", place: "Buthey", note: "co-founded a premium women's wear label · ₹25L in 6mo", tag: "founder" },
-  { year: "2025", place: "Collective Artists", note: "head of product · 100K → 1.6M users", tag: "scale" },
-  { year: "now", place: "Nagarro × Reliance", note: "product owner · Swadesh US launch in 45d", tag: "current" },
+  {
+    year: "2017",
+    place: "Reliance Jio",
+    role: "Intern",
+    note: "First campaign, first wins. 250K impressions in 3 weeks.",
+    tag: "start",
+  },
+  {
+    year: "2020",
+    place: "Under 25",
+    role: "Product Manager",
+    note: "First real PM seat. 20K users in 90 days, 40% MoM retention.",
+    tag: "0 → 1",
+  },
+  {
+    year: "2023",
+    place: "War Room × Flipkart",
+    role: "Product Manager",
+    note: "Shipped generative AI inside Big Billion Day 2023. Record engagement, record sales.",
+    tag: "genai",
+  },
+  {
+    year: "2024",
+    place: "Buthey",
+    role: "Co-Founder / COO",
+    note: "Premium women's wear, ₹25L in 6 months. Supply chain to CX.",
+    tag: "founder",
+  },
+  {
+    year: "2025",
+    place: "Collective Artists",
+    role: "Head of Product",
+    note: "AdTech 0 → 1 → scale. 100K → 1.6M users. ₹12Cr in-app revenue.",
+    tag: "scale",
+  },
+  {
+    year: "now",
+    place: "Nagarro × Reliance Retail",
+    role: "Product Owner",
+    note: "Swadesh US launch in 45 days. +32% conversion. AI demand forecasting.",
+    tag: "current",
+  },
 ];
 
 export default function Timeline() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const lineScale = useTransform(scrollYProgress, [0.1, 0.9], [0, 1]);
+
   return (
-    <section className="relative px-6 py-24">
+    <section id="path" className="relative px-6 py-32">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-widest text-ink/60">
-              the path so far
-            </p>
-            <h2 className="mt-3 font-display text-5xl md:text-7xl leading-none">
-              seven years, five companies,
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12 md:mb-20">
+          <div className="flex flex-col md:flex-row md:items-end md:gap-6">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted md:mb-3">
+              · 02 / path
+            </span>
+            <h2 className="mt-4 md:mt-0 font-display font-medium text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.025em]">
+              seven years,
               <br />
-              <span className="italic text-electric">zero dull quarters</span>.
+              <span className="italic text-violet">zero dull quarters</span>.
             </h2>
           </div>
         </div>
 
-        <div className="relative">
-          <div className="absolute left-0 right-0 top-1/2 h-0.5 bg-ink/20 hidden md:block" />
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+        <div ref={ref} className="relative">
+          {/* Scroll-driven spine line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-hairline -translate-x-1/2 hidden md:block" />
+          <motion.div
+            style={{ scaleY: lineScale }}
+            className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-acid via-violet to-signal -translate-x-1/2 origin-top hidden md:block"
+          />
+
+          <div className="space-y-8 md:space-y-20">
             {stops.map((s, i) => (
               <motion.div
                 key={s.year + s.place}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
-                className="relative bg-cream border-2 border-ink rounded-2xl p-4 hover:-translate-y-1 transition"
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.7, delay: i * 0.05 }}
+                className={`relative md:grid md:grid-cols-2 md:gap-16 items-center ${
+                  i % 2 === 0 ? "" : "md:[&>*:first-child]:order-2"
+                }`}
               >
-                <div className="font-display text-3xl leading-none">{s.year}</div>
-                <div className="mt-2 font-mono text-[11px] uppercase tracking-widest">
-                  {s.place}
+                <div className={i % 2 === 0 ? "md:text-right md:pr-10" : "md:pl-10"}>
+                  <div className="inline-flex items-center gap-3 mb-3 md:mb-4">
+                    <span className="font-display font-medium text-5xl md:text-7xl leading-none text-ink">
+                      {s.year}
+                    </span>
+                    <span className="inline-flex items-center rounded-full hairline-border px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-muted">
+                      {s.tag}
+                    </span>
+                  </div>
+                  <h3 className="font-display italic text-2xl md:text-4xl leading-tight">
+                    {s.place}
+                  </h3>
+                  <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.25em] text-muted">
+                    {s.role}
+                  </p>
                 </div>
-                <p className="mt-2 text-sm leading-snug">{s.note}</p>
-                <span className="absolute -top-2 -right-2 inline-flex items-center rounded-full bg-lime border-2 border-ink px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest">
-                  {s.tag}
-                </span>
+
+                <div className={i % 2 === 0 ? "md:pl-10 mt-3 md:mt-0" : "md:pr-10 mt-3 md:mt-0 md:text-right"}>
+                  <p className="text-base md:text-xl leading-relaxed text-ink/80 max-w-md">
+                    {s.note}
+                  </p>
+                </div>
+
+                {/* Node */}
+                <span className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-acid ring-4 ring-void" />
               </motion.div>
             ))}
           </div>

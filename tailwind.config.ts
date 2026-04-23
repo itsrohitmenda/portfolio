@@ -9,13 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#FBF7F0",
-        butter: "#F5E9D0",
-        ink: "#0B0B0B",
-        lime: "#D4FF4A",
-        hot: "#FF5ACD",
-        electric: "#2E5BFF",
-        peach: "#FFB4A2",
+        void: "#0A0A0C",
+        panel: "#121216",
+        panel2: "#1A1A22",
+        hairline: "#2A2A33",
+        ink: "#F4F2EC",
+        muted: "#8A8A94",
+        dim: "#5A5A66",
+        acid: "#BFFF1A",
+        violet: "#7C5CFF",
+        signal: "#FF4D2E",
+        iris: "#8EFFE9",
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],
@@ -23,24 +27,23 @@ const config: Config = {
         mono: ["var(--font-mono)", "monospace"],
       },
       animation: {
-        marquee: "marquee 30s linear infinite",
-        "marquee-slow": "marquee 60s linear infinite",
-        wiggle: "wiggle 2s ease-in-out infinite",
-        float: "float 6s ease-in-out infinite",
-        spin_slow: "spin 18s linear infinite",
+        marquee: "marquee 40s linear infinite",
+        "marquee-reverse": "marquee-reverse 40s linear infinite",
+        float: "float 8s ease-in-out infinite",
+        ping_slow: "ping 3s cubic-bezier(0, 0, 0.2, 1) infinite",
       },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
         },
-        wiggle: {
-          "0%, 100%": { transform: "rotate(-3deg)" },
-          "50%": { transform: "rotate(3deg)" },
+        "marquee-reverse": {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0%)" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-14px)" },
+          "50%": { transform: "translateY(-18px)" },
         },
       },
     },

@@ -1,125 +1,135 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import dynamic from "next/dynamic";
 
-const rotating = [
-  "AdTech",
-  "GenAI",
-  "Web3",
-  "E-comm",
-  "0→1",
-  "community",
-  "retail",
-];
+const Scene = dynamic(() => import("./scene"), { ssr: false });
 
 export default function Hero() {
-  const [idx, setIdx] = useState(0);
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
 
-  useEffect(() => {
-    const t = setInterval(() => setIdx((i) => (i + 1) % rotating.length), 1800);
-    return () => clearInterval(t);
-  }, []);
+  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
+  const opacityText = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
       id="top"
-      className="relative min-h-[100svh] pt-28 pb-20 px-6 overflow-hidden"
+      ref={ref}
+      className="relative min-h-[100svh] overflow-hidden"
     >
-      <div className="pointer-events-none absolute -top-20 -right-20 h-[520px] w-[520px] rounded-full bg-lime blur-3xl opacity-60 animate-float" />
-      <div className="pointer-events-none absolute -bottom-40 -left-20 h-[420px] w-[420px] rounded-full bg-hot blur-3xl opacity-40 animate-float" />
+      <div className="absolute inset-0 radial-fade pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-lime opacity-75 animate-ping" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-lime" />
-          </span>
-          available for new roles · bangalore 🌴
-        </motion.div>
+      {/* 3D scene as background — scroll-linked */}
+      <div className="absolute inset-0 z-0">
+        <Scene scrollRef={ref} />
+      </div>
 
-        <h1 className="mt-10 font-display leading-[0.92] tracking-tight text-[18vw] md:text-[11vw] lg:text-[9.5rem]">
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
+      {/* Foreground content */}
+      <motion.div
+        style={{ y: yText, opacity: opacityText }}
+        className="relative z-10 max-w-7xl mx-auto px-6 pt-36 pb-20 min-h-[100svh] flex flex-col justify-between"
+      >
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="block"
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-muted"
           >
-            hi, I'm <span className="italic text-hot">Rohit</span>.
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="block"
-          >
-            a PM who ships
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="block relative"
-          >
-            <span className="relative inline-block">
-              <span className="absolute inset-0 bg-lime -skew-x-6 translate-y-2" aria-hidden />
-              <span className="relative italic">{rotating[idx]}</span>
-            </span>{" "}
-            products.
-          </motion.span>
-        </h1>
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-acid opacity-75 animate-ping_slow" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-acid" />
+            </span>
+            <span className="text-ink">open to roles</span>
+            <span className="opacity-40">/</span>
+            <span>bangalore · ist (utc+5:30)</span>
+          </motion.div>
 
-        <div className="mt-12 grid md:grid-cols-12 gap-8 items-end">
+          <h1 className="mt-10 md:mt-14 font-display font-medium leading-[0.92] tracking-[-0.025em] text-[14vw] md:text-[10vw] lg:text-[9.5rem]">
+            <motion.span
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="block"
+            >
+              Product
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="block italic text-ink/90"
+            >
+              with taste,
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="block"
+            >
+              shipped with <span className="italic text-acid">velocity</span>.
+            </motion.span>
+          </h1>
+        </div>
+
+        <div className="mt-12 md:mt-16 grid md:grid-cols-12 gap-8 md:gap-10 items-end">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="md:col-span-7 text-lg md:text-xl max-w-2xl leading-relaxed"
+            transition={{ delay: 0.6, duration: 1 }}
+            className="md:col-span-5 md:col-start-1 text-base md:text-lg leading-relaxed text-ink/80 max-w-lg"
           >
-            I turn <span className="font-display italic text-2xl md:text-3xl">chaotic zero-to-one briefs</span> into
-            products real humans use. 6+ years across{" "}
-            <span className="underline decoration-hot decoration-2 underline-offset-4">
-              AdTech, GenAI, Web3, and retail
-            </span>
-            . Shipped with Flipkart, Reliance, and Polygon. Built 0→1 twice. Drank a lot of coffee.
+            I'm <span className="text-ink font-medium">Rohit Menda</span> — product manager and founder with six years turning chaotic briefs into products that ship. AdTech, GenAI, E-commerce, retail. Built with Flipkart, Reliance, and friends.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="md:col-span-5 flex flex-wrap gap-2 md:justify-end"
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="md:col-span-6 md:col-start-7 grid grid-cols-2 md:grid-cols-4 gap-3"
           >
             {[
-              "15× growth",
-              "750% DAU",
-              "₹18Cr+ revenue",
-              "1B+ impressions",
-              "97% roadmap hit",
-            ].map((k) => (
-              <span key={k} className="chip">
-                {k}
-              </span>
+              { v: "15×", l: "user growth" },
+              { v: "+750%", l: "DAU uplift" },
+              { v: "₹18Cr+", l: "revenue" },
+              { v: "1B+", l: "impressions" },
+            ].map((m) => (
+              <div
+                key={m.l}
+                className="hairline-border rounded-2xl p-4 bg-ink/[0.02] backdrop-blur"
+              >
+                <div className="font-display text-3xl leading-none text-ink">
+                  {m.v}
+                </div>
+                <div className="mt-2 font-mono text-[10px] uppercase tracking-widest text-muted">
+                  {m.l}
+                </div>
+              </div>
             ))}
           </motion.div>
         </div>
+      </motion.div>
 
+      {/* Bottom scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 1 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted"
+      >
+        <span>scroll</span>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="absolute bottom-8 right-6 hidden md:flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest"
-        >
-          <span className="h-px w-12 bg-ink/40" />
-          scroll, it gets better
-          <span className="animate-bounce">↓</span>
-        </motion.div>
-      </div>
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="h-8 w-px bg-gradient-to-b from-muted to-transparent"
+        />
+      </motion.div>
     </section>
   );
 }
