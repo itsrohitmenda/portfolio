@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import type { CaseStudy } from "@/lib/case-studies";
+import type { CaseStudy, Scene, Story } from "@/lib/case-studies";
 
 const FloatingObject = dynamic(() => import("@/components/floating-object"), { ssr: false });
 
@@ -151,39 +151,8 @@ export default function CaseStudyBody({
         </div>
       </section>
 
-      {/* Chapters */}
-      <section className="relative px-6 py-28">
-        <div className="max-w-4xl mx-auto">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
-            · the story
-          </span>
-          {study.chapters.map((ch, i) => (
-            <motion.div
-              key={ch.heading}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, delay: i * 0.04 }}
-              className="relative pt-16 pb-16 border-b border-hairline last:border-b-0 last:pb-0"
-            >
-              <div className="flex items-baseline gap-4">
-                <span
-                  className="font-mono text-xs uppercase tracking-[0.25em]"
-                  style={{ color }}
-                >
-                  ch. {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <h3 className="mt-4 font-display font-medium text-2xl md:text-4xl lg:text-5xl leading-[1.1] tracking-[-0.015em]">
-                {ch.heading}
-              </h3>
-              <p className="mt-6 text-base md:text-lg leading-[1.7] text-ink/75 max-w-2xl">
-                {ch.body}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* Story — split-screen scrollytelling */}
+      <StorySection story={study.story} color={color} />
 
       {/* Shipped + Stack */}
       <section className="relative px-6 py-24 border-t border-hairline">
@@ -271,5 +240,178 @@ export default function CaseStudyBody({
         </Link>
       </section>
     </article>
+  );
+}
+
+const STORY_ACTS: { key: keyof Story; label: string }[] = [
+  { key: "context", label: "Context" },
+  { key: "problem", label: "Problem" },
+  { key: "bet", label: "Bet" },
+  { key: "outcome", label: "Outcome" },
+];
+
+function StorySection({ story, color }: { story: Story; color: string }) {
+  const [active, setActive] = useState(0);
+
+  return (
+    <section className="relative px-6 py-28">
+      <div className="max-w-7xl mx-auto">
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+          · the story
+        </span>
+
+        <div className="mt-10 grid md:grid-cols-12 md:gap-16">
+          <aside className="hidden md:block md:col-span-5">
+            <div className="sticky top-28 h-[calc(100vh-8rem)] flex flex-col justify-center">
+              <div
+                aria-hidden
+                className="absolute -left-10 top-1/2 -translate-y-1/2 h-[560px] w-[560px] pointer-events-none opacity-20 blur-3xl rounded-full"
+                style={{ background: color }}
+              />
+              <span
+                className="relative font-mono text-[11px] uppercase tracking-[0.3em]"
+                style={{ color }}
+              >
+                act {String(active + 1).padStart(2, "0")} / {String(STORY_ACTS.length).padStart(2, "0")}
+              </span>
+              <div className="relative mt-5 h-[1.05em] overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.h2
+                    key={active}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: "-100%", opacity: 0 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="font-display italic font-medium text-7xl lg:text-8xl leading-none tracking-[-0.025em]"
+                    style={{ color }}
+                  >
+                    {STORY_ACTS[active].label}.
+                  </motion.h2>
+                </AnimatePresence>
+              </div>
+              <ol className="relative mt-14 space-y-3 font-mono text-[11px] uppercase tracking-[0.25em]">
+                {STORY_ACTS.map((a, i) => (
+                  <li
+                    key={a.key}
+                    className={`flex items-center gap-4 transition-colors duration-300 ${
+                      i === active ? "text-ink" : "text-muted"
+                    }`}
+                  >
+                    <span className="w-6 text-dim">{String(i + 1).padStart(2, "0")}</span>
+                    <span
+                      className={`h-px transition-all duration-500 ${
+                        i === active ? "w-14" : "w-6"
+                      }`}
+                      style={{ background: i === active ? color : undefined }}
+                    />
+                    {a.label}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </aside>
+
+          <div className="md:col-span-7">
+            {STORY_ACTS.map((a, i) => (
+              <SceneBlock
+                key={a.key}
+                scene={story[a.key]}
+                label={a.label}
+                index={i}
+                total={STORY_ACTS.length}
+                color={color}
+                first={i === 0}
+                last={i === STORY_ACTS.length - 1}
+                onActive={() => setActive(i)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SceneBlock({
+  scene,
+  label,
+  index,
+  total,
+  color,
+  first,
+  last,
+  onActive,
+}: {
+  scene: Scene;
+  label: string;
+  index: number;
+  total: number;
+  color: string;
+  first?: boolean;
+  last?: boolean;
+  onActive: () => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "-45% 0px -45% 0px" });
+
+  useEffect(() => {
+    if (inView) onActive();
+  }, [inView, onActive]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7 }}
+      className={`relative ${first ? "md:pt-[30vh]" : "pt-16 md:pt-[40vh]"} pb-10 ${
+        last ? "md:pb-[30vh]" : "md:pb-[10vh]"
+      }`}
+    >
+      <div className="md:hidden flex items-center gap-3 mb-5">
+        <span
+          className="font-mono text-[11px] uppercase tracking-[0.3em]"
+          style={{ color }}
+        >
+          act {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+        </span>
+        <span
+          aria-hidden
+          className="h-px flex-1"
+          style={{ background: `${color}55` }}
+        />
+        <span
+          className="font-display italic text-sm"
+          style={{ color }}
+        >
+          {label}
+        </span>
+      </div>
+
+      <h3 className="font-display font-medium text-2xl md:text-4xl lg:text-5xl leading-[1.1] tracking-[-0.02em] max-w-xl">
+        {scene.heading}
+      </h3>
+
+      <p className="mt-5 md:mt-6 text-base md:text-lg leading-[1.7] text-ink/75 max-w-xl">
+        {scene.body}
+      </p>
+
+      {scene.beat && (
+        <div className="mt-7 md:mt-9 flex items-start gap-4 max-w-lg">
+          <span
+            aria-hidden
+            className="mt-3 md:mt-4 h-8 md:h-10 w-1 shrink-0 rounded-full"
+            style={{ background: color }}
+          />
+          <p
+            className="font-display italic font-medium text-xl md:text-2xl leading-[1.25] tracking-[-0.01em]"
+            style={{ color }}
+          >
+            {scene.beat}
+          </p>
+        </div>
+      )}
+    </motion.div>
   );
 }
