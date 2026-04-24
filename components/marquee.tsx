@@ -31,12 +31,14 @@ export default function Marquee({ items, reverse, className = "" }: Props) {
             <LogoMark
               name={item.name}
               slug={item.slug}
-              className="h-24 md:h-24 w-[240px] md:w-[280px]"
+              className="h-28 md:h-32 w-[260px] md:w-[320px]"
             />
             <span
               aria-hidden
-              className="inline-block h-1.5 w-1.5 rounded-full bg-ink/40 shrink-0"
-            />
+              className="inline-block text-ink/30 font-mono text-lg shrink-0 select-none"
+            >
+              ✦
+            </span>
           </li>
         ))}
       </ul>
