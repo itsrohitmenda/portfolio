@@ -1,9 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-
-type Phase = "all" | "scale" | "0→1" | "founder";
 
 type Stop = {
   year: string;
@@ -11,7 +8,6 @@ type Stop = {
   role: string;
   note: string;
   tag: string;
-  phase: Exclude<Phase, "all">;
   domain: string;
   accent: "sun" | "acid" | "iris" | "hot" | "sky" | "cream";
 };
@@ -23,7 +19,6 @@ const stops: Stop[] = [
     role: "Intern",
     note: "First campaign, first wins. 250K impressions in 3 weeks.",
     tag: "start",
-    phase: "0→1",
     domain: "Telecom · AdTech",
     accent: "sky",
   },
@@ -33,7 +28,6 @@ const stops: Stop[] = [
     role: "Product Manager",
     note: "First real PM seat. 20K users in 90 days, 40% MoM retention.",
     tag: "0 → 1",
-    phase: "0→1",
     domain: "Consumer · Community",
     accent: "sun",
   },
@@ -43,7 +37,6 @@ const stops: Stop[] = [
     role: "Product Manager",
     note: "Shipped generative AI inside Big Billion Day 2023. Record engagement, record sales.",
     tag: "genai",
-    phase: "scale",
     domain: "GenAI · E-commerce",
     accent: "acid",
   },
@@ -53,7 +46,6 @@ const stops: Stop[] = [
     role: "Co-Founder / COO",
     note: "Premium women's wear, ₹25L in 6 months. Supply chain to CX.",
     tag: "founder",
-    phase: "founder",
     domain: "Retail · Ops",
     accent: "hot",
   },
@@ -63,7 +55,6 @@ const stops: Stop[] = [
     role: "Head of Product",
     note: "AdTech 0 → 1 → scale. 100K → 1.6M users. ₹12Cr in-app revenue.",
     tag: "scale",
-    phase: "scale",
     domain: "AdTech · Creator economy",
     accent: "iris",
   },
@@ -73,7 +64,6 @@ const stops: Stop[] = [
     role: "Product Owner",
     note: "Swadesh US launch in 45 days. +32% conversion. AI demand forecasting.",
     tag: "current",
-    phase: "scale",
     domain: "E-commerce · AI/ML",
     accent: "cream",
   },
@@ -88,17 +78,7 @@ const accentBg: Record<Stop["accent"], string> = {
   cream: "bg-cream",
 };
 
-const filters: { key: Phase; label: string }[] = [
-  { key: "all", label: "All" },
-  { key: "scale", label: "Scale" },
-  { key: "0→1", label: "0 → 1" },
-  { key: "founder", label: "Founder" },
-];
-
 export default function Timeline() {
-  const [filter, setFilter] = useState<Phase>("all");
-  const visible = stops.filter((s) => filter === "all" || s.phase === filter);
-
   return (
     <section id="path" className="relative px-6 py-24 md:py-32">
       <div className="max-w-7xl mx-auto">
@@ -122,24 +102,8 @@ export default function Timeline() {
           </div>
         </div>
 
-        {/* Filter tabs (ref-style pill group) */}
-        <div className="mb-10 inline-flex bg-cream border-[1.5px] border-ink rounded-full p-1.5 shadow-[0_3px_0_0_#171412]">
-          {filters.map((f) => (
-            <button
-              key={f.key}
-              onClick={() => setFilter(f.key)}
-              data-cursor-label="filter"
-              className={`tab ${
-                filter === f.key ? "tab-active bg-sun" : "text-ink/70 hover:text-ink"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
         <ul className="space-y-3 md:space-y-4">
-          {visible.map((s, i) => (
+          {stops.map((s, i) => (
             <motion.li
               key={s.year + s.place}
               initial={{ opacity: 0, y: 20 }}
@@ -197,12 +161,6 @@ export default function Timeline() {
             </motion.li>
           ))}
         </ul>
-
-        {visible.length === 0 && (
-          <p className="mt-10 text-center text-ink font-medium font-mono text-sm">
-            nothing here — try another filter.
-          </p>
-        )}
       </div>
     </section>
   );

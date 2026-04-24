@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Edges } from "@react-three/drei";
-import { useRef, useMemo, useEffect, Suspense } from "react";
+import { useRef, useMemo, useEffect, useState, Suspense } from "react";
 import * as THREE from "three";
 import type { Group } from "three";
 import type { MotionValue } from "framer-motion";
@@ -224,6 +224,7 @@ function Sticker({
 function Stickers({ scroll }: { scroll: Scroll }) {
   const group = useRef<Group>(null);
   const mouse = useRef({ x: 0, y: 0 });
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const heart = useHeartGeometry();
   const star = useStarGeometry();
@@ -231,12 +232,19 @@ function Stickers({ scroll }: { scroll: Scroll }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
     const onMove = (e: MouseEvent) => {
       mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
       mouse.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
     };
     window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      mq.removeEventListener("change", update);
+    };
   }, []);
 
   useFrame(() => {
@@ -247,11 +255,15 @@ function Stickers({ scroll }: { scroll: Scroll }) {
       (mouse.current.y * 0.06 - group.current.rotation.x) * 0.04;
   });
 
+  // Desktop: shrink so stickers frame the headline rather than fight it.
+  // Mobile: keep them readable at a smaller canvas.
+  const groupScale = isDesktop ? 0.58 : 0.8;
+
   return (
-    <group ref={group}>
-      {/* Hero element: big hot-pink pill, upper right */}
+    <group ref={group} scale={groupScale}>
+      {/* Hot-pink pill — far upper right, pushed out of the headline block */}
       <Sticker
-        basePos={[1.5, 0.9, 0]}
+        basePos={[3.1, 1.7, -0.2]}
         scroll={scroll}
         mouse={mouse}
         scrollBias={1.4}
@@ -261,9 +273,9 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         <Pill color={PALETTE.pink} />
       </Sticker>
 
-      {/* Smiley sun — top-left anchor */}
+      {/* Smiley sun — far upper left */}
       <Sticker
-        basePos={[-1.85, 1.2, 0.3]}
+        basePos={[-3.2, 1.9, 0.2]}
         scroll={scroll}
         mouse={mouse}
         scrollBias={0.7}
@@ -273,9 +285,9 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         <SmileySun />
       </Sticker>
 
-      {/* Lime puffy star — lower right */}
+      {/* Lime puffy star — far lower right */}
       <Sticker
-        basePos={[2.0, -1.0, 0.2]}
+        basePos={[3.3, -1.6, 0.2]}
         scroll={scroll}
         mouse={mouse}
         scrollBias={1.9}
@@ -288,9 +300,9 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         </mesh>
       </Sticker>
 
-      {/* Cherry heart — mid left */}
+      {/* Cherry heart — far lower left */}
       <Sticker
-        basePos={[-1.5, -0.7, 0.4]}
+        basePos={[-2.9, -1.4, 0.3]}
         scroll={scroll}
         mouse={mouse}
         scrollBias={1.2}
@@ -303,9 +315,9 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         </mesh>
       </Sticker>
 
-      {/* Sky plus sign — lower middle */}
+      {/* Sky plus sign — bottom center, below the metric tiles area */}
       <Sticker
-        basePos={[0.4, -1.7, 0.1]}
+        basePos={[0.3, -2.6, 0.1]}
         scroll={scroll}
         mouse={mouse}
         scrollBias={2.2}
@@ -318,9 +330,9 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         </mesh>
       </Sticker>
 
-      {/* Lavender orb — background depth */}
+      {/* Lavender orb — deep background, a soft anchor */}
       <Sticker
-        basePos={[0, 0.2, -1.3]}
+        basePos={[0, 0.2, -2.2]}
         scroll={scroll}
         mouse={mouse}
         scrollBias={0.5}
