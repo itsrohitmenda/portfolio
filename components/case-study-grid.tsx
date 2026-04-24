@@ -7,16 +7,16 @@ import { caseStudies, type CaseStudy } from "@/lib/case-studies";
 
 const FloatingObject = dynamic(() => import("./floating-object"), { ssr: false });
 
-// Mapped to the warm playful palette
+// Accent colour per card — drives the 3D object and the top band of the card.
 const accentHex: Record<CaseStudy["accent"], string> = {
-  lime: "#BFFF3D",       // acid
-  hot: "#FF3E9D",        // hot pink
-  electric: "#7AB9FF",   // sky (was electric violet)
-  peach: "#FFB4A2",      // peach (unused now)
-  butter: "#FFC22E",     // sun yellow
+  lime: "#BFFF3D",
+  hot: "#FF3E9D",
+  electric: "#7AB9FF",
+  peach: "#FFB4A2",
+  butter: "#FFC22E",
 };
 
-const cardBg: Record<CaseStudy["accent"], string> = {
+const accentBg: Record<CaseStudy["accent"], string> = {
   lime: "bg-acid",
   hot: "bg-hot",
   electric: "bg-sky",
@@ -63,47 +63,32 @@ export default function CaseStudyGrid() {
           </div>
         </div>
 
-        {/* Bento grid — 4 cards, 6-col layout on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-6 auto-rows-[minmax(260px,auto)] gap-4 md:gap-6">
-          {caseStudies.map((c, i) => {
-            let className = "md:col-span-3";
-            if (i === 0) className = "md:col-span-4 md:row-span-2";
-            if (i === 1) className = "md:col-span-2 md:row-span-2";
-            if (i === 2 || i === 3) className = "md:col-span-3";
-            return (
-              <motion.div
-                key={c.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, delay: i * 0.06 }}
-                className={className}
-              >
-                <Card study={c} big={i === 0} index={i} />
-              </motion.div>
-            );
-          })}
+        {/* Uniform 2-col grid — every card same size + same structure */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          {caseStudies.map((c, i) => (
+            <motion.div
+              key={c.slug}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+            >
+              <Card study={c} />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function Card({
-  study,
-  big,
-  index,
-}: {
-  study: CaseStudy;
-  big?: boolean;
-  index: number;
-}) {
+function Card({ study }: { study: CaseStudy }) {
   const color = accentHex[study.accent];
+  const band = accentBg[study.accent];
   const shape = shapeMap[study.slug] ?? "icosa";
 
-  // Alternate card backgrounds so the grid reads colorful (ref vibes)
-  // Hero card stays cream for readability
-  const bg = index === 0 ? "bg-cream" : cardBg[study.accent] ?? "bg-cream";
+  // First 3 metrics so every card shows a consistent strip
+  const metrics = study.metrics.slice(0, 3);
 
   return (
     <Link
@@ -111,81 +96,72 @@ function Card({
       data-cursor-label="open case"
       className="group block h-full"
     >
-      <article
-        className={`relative h-full rounded-3xl border-[1.5px] border-ink overflow-hidden p-6 md:p-10 flex flex-col text-ink ${bg} shadow-[0_6px_0_0_#171412] transition-all duration-400 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_10px_0_0_#171412]`}
-      >
-        {/* 3D accent in the top-right */}
-        <div
-          className={`absolute pointer-events-none transition-transform duration-500 ease-out group-hover:scale-110 ${
-            big
-              ? "top-3 right-3 h-36 w-36 md:top-6 md:right-6 md:h-56 md:w-56"
-              : "top-2 right-2 h-24 w-24 md:top-4 md:right-4 md:h-32 md:w-32"
-          }`}
-        >
-          <FloatingObject shape={shape} color={color} />
-        </div>
+      <article className="relative h-full rounded-3xl border-[1.5px] border-ink overflow-hidden bg-cream text-ink shadow-[0_6px_0_0_#171412] transition-all duration-400 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_10px_0_0_#171412] flex flex-col">
+        {/* Accent band with 3D mark */}
+        <div className={`relative ${band} border-b-[1.5px] border-ink px-6 md:px-8 py-5 md:py-6`}>
+          <div className="relative flex items-start justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="chip chip-solid">
+                {String(study.order).padStart(2, "0")} / {String(caseStudies.length).padStart(2, "0")}
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/70">
+                {study.company.split(" × ")[0]} · {study.year}
+              </span>
+            </div>
+          </div>
 
-        <div className="relative flex items-start justify-between gap-3">
-          <span className="chip chip-solid">
-            {String(study.order).padStart(2, "0")} / 04
-          </span>
-          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] opacity-70">
-            <span>{study.company.split(" × ")[0]}</span>
-            <span className="opacity-40">·</span>
-            <span>{study.year}</span>
+          {/* 3D accent, fixed size on every card */}
+          <div
+            aria-hidden
+            className="absolute -top-2 right-2 md:-top-4 md:right-4 h-24 w-24 md:h-28 md:w-28 pointer-events-none transition-transform duration-500 ease-out group-hover:scale-110"
+          >
+            <FloatingObject shape={shape} color={color} />
           </div>
         </div>
 
-        <div className="relative mt-auto pt-10">
-          <h3
-            className={`font-display font-medium leading-[0.95] tracking-[-0.02em] ${
-              big ? "text-4xl md:text-6xl lg:text-7xl" : "text-2xl md:text-4xl"
-            }`}
-          >
+        {/* Body */}
+        <div className="flex flex-col flex-1 px-6 md:px-8 py-6 md:py-8">
+          <h3 className="font-display font-medium text-2xl md:text-3xl leading-[1.05] tracking-[-0.02em]">
             {study.title}
           </h3>
-
-          <p
-            className={`mt-5 leading-relaxed opacity-80 ${
-              big ? "text-base md:text-lg max-w-lg" : "text-sm max-w-sm"
-            }`}
-          >
+          <p className="mt-3 text-sm md:text-[15px] leading-relaxed text-ink/75">
             {study.tagline}
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-2">
-            {study.domain.slice(0, big ? 4 : 2).map((d) => (
+          {/* Metrics strip — always 3 on every card */}
+          <div className="mt-6 grid grid-cols-3 gap-3 md:gap-4 py-4 border-y border-ink/15">
+            {metrics.map((m) => (
+              <div key={m.label}>
+                <div className="font-display font-bold text-xl md:text-2xl leading-none tracking-tight">
+                  {m.value}
+                </div>
+                <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-ink/60 leading-tight">
+                  {m.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Domain chips */}
+          <div className="mt-5 flex flex-wrap gap-2">
+            {study.domain.slice(0, 3).map((d) => (
               <span
                 key={d}
-                className="inline-flex items-center rounded-full border-[1.5px] border-ink bg-cream2 px-2.5 py-1 text-[10px] font-mono font-medium uppercase tracking-widest"
+                className="inline-flex items-center rounded-full border-[1.5px] border-ink bg-paperDeep px-2.5 py-1 text-[10px] font-mono font-medium uppercase tracking-widest"
               >
                 {d}
               </span>
             ))}
           </div>
 
-          {big && (
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-8 border-t border-ink/20">
-              {study.metrics.slice(0, 4).map((m) => (
-                <div key={m.label}>
-                  <div className="font-display font-medium text-3xl leading-none">
-                    {m.value}
-                  </div>
-                  <div className="mt-2 font-mono text-[9px] uppercase tracking-widest opacity-70">
-                    {m.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <div className="mt-8 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] opacity-70">
+          {/* Footer */}
+          <div className="mt-auto pt-6 flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/70">
               {study.role}
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] flex items-center gap-2 font-medium">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] flex items-center gap-2 font-semibold">
               read
-              <span className="inline-block transition-transform group-hover:translate-x-2">
+              <span className="inline-flex items-center justify-center h-7 w-7 rounded-full border-[1.5px] border-ink bg-sun transition-transform group-hover:translate-x-1">
                 →
               </span>
             </span>

@@ -82,7 +82,7 @@ export default function Timeline() {
   return (
     <section id="path" className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
               · 02 / path
@@ -102,65 +102,64 @@ export default function Timeline() {
           </div>
         </div>
 
-        <ul className="space-y-3 md:space-y-4">
-          {stops.map((s, i) => (
-            <motion.li
-              key={s.year + s.place}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.04 }}
-              className="group"
-            >
-              <div
-                className={`bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#171412] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_0_0_#171412] overflow-hidden`}
-              >
-                <div className="grid grid-cols-12 items-center gap-3 md:gap-6 px-4 md:px-6 py-4 md:py-5">
-                  {/* Year */}
-                  <div className="col-span-3 md:col-span-1 font-mono text-xs md:text-sm font-medium uppercase tracking-widest text-ink/60">
-                    {s.year}
-                  </div>
-                  {/* Accent swatch */}
-                  <div className="col-span-2 md:col-span-1 flex items-center">
-                    <span
-                      className={`h-9 w-9 md:h-10 md:w-10 rounded-xl border-[1.5px] border-ink ${accentBg[s.accent]} shrink-0`}
-                    />
-                  </div>
-                  {/* Place + role */}
-                  <div className="col-span-7 md:col-span-4">
-                    <h3 className="font-display font-medium text-lg md:text-xl leading-tight text-ink">
-                      {s.place}
-                    </h3>
-                    <p className="mt-1 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-ink/60">
-                      {s.role}
-                    </p>
-                  </div>
-                  {/* Domain chip */}
-                  <div className="hidden md:flex col-span-3 items-center gap-2">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink/60" />
-                    <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink/70">
-                      {s.domain}
+        {/* Timeline rail — mobile: year stacks above card; desktop: year left of rail */}
+        <div className="relative md:pl-32">
+          <div className="relative pl-10 md:pl-12">
+            {/* Vertical ink rail (rail center sits at left-4 md:left-5) */}
+            <span
+              aria-hidden
+              className="absolute top-3 bottom-3 w-[2px] bg-ink/25"
+              style={{ left: "1rem" }}
+            />
+
+            <ul className="space-y-8 md:space-y-10">
+              {stops.map((s, i) => (
+                <motion.li
+                  key={s.year + s.place}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  className="relative"
+                >
+                  {/* Node dot, centered on the rail */}
+                  <span
+                    aria-hidden
+                    className={`absolute top-4 h-5 w-5 md:h-6 md:w-6 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} shadow-[0_2px_0_0_#171412]`}
+                    style={{ left: "1rem", transform: "translateX(-50%)" }}
+                  />
+
+                  {/* Year — stacks above on mobile, sits in left gutter on desktop */}
+                  <div className="mb-2 md:mb-0 md:absolute md:top-[0.65rem] md:w-28 md:text-right md:-left-32">
+                    <span className="font-mono text-[11px] md:text-xs font-semibold uppercase tracking-[0.25em] text-ink/70">
+                      {s.year}
                     </span>
                   </div>
-                  {/* Tag pill + arrow */}
-                  <div className="hidden md:flex col-span-3 justify-end items-center gap-3">
-                    <span className="chip chip-solid text-[9px]">{s.tag}</span>
-                    <span
-                      aria-hidden
-                      className="inline-flex items-center justify-center h-8 w-8 rounded-full border-[1.5px] border-ink bg-sun text-ink font-display transition-transform group-hover:translate-x-1"
-                    >
-                      →
-                    </span>
+
+                  {/* Card */}
+                  <div className="bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#171412] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#171412] overflow-hidden">
+                    <div className="p-5 md:p-6">
+                      <div className="flex items-start justify-between gap-3 mb-1">
+                        <h3 className="font-display font-medium text-xl md:text-2xl leading-tight text-ink">
+                          {s.place}
+                        </h3>
+                        <span className="chip chip-solid text-[9px] shrink-0 hidden md:inline-flex">
+                          {s.tag}
+                        </span>
+                      </div>
+                      <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-ink/60">
+                        {s.role} · {s.domain}
+                      </p>
+                      <p className="mt-3 text-sm md:text-[15px] text-ink/75 leading-relaxed">
+                        {s.note}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                {/* Row footer — the note, a soft strip */}
-                <div className="border-t border-ink/15 px-4 md:px-6 py-3 md:py-3.5 text-[13px] md:text-sm text-ink/75 leading-relaxed">
-                  {s.note}
-                </div>
-              </div>
-            </motion.li>
-          ))}
-        </ul>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );
