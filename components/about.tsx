@@ -37,7 +37,7 @@ export default function About() {
     <section id="about" className="relative px-6 py-24 md:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16">
         <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-cream/90">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
             · 03 / operating principles
           </span>
           <h2 className="mt-4 font-display font-medium text-cream text-5xl md:text-7xl leading-[0.98] tracking-[-0.025em]">
@@ -51,7 +51,7 @@ export default function About() {
             </span>
             .
           </h2>
-          <p className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-cream/95 max-w-md">
+          <p className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-ink font-medium max-w-md">
             Six years of shipping across AdTech, GenAI, E-commerce, and retail taught me a handful of things. The rest is just discipline and taste.
           </p>
 

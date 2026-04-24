@@ -70,16 +70,16 @@ export default function CaseStudyBody({
           <Link
             href="/#work"
             data-cursor-label="back"
-            className="font-mono text-[11px] uppercase tracking-[0.25em] text-cream/80 inline-flex items-center gap-2 hover:text-cream transition"
+            className="font-mono text-[11px] font-medium uppercase tracking-[0.25em] text-ink inline-flex items-center gap-2 hover:text-coralDeep transition"
           >
             ← all work
           </Link>
 
-          <div className="mt-16 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-cream/80">
+          <div className="mt-16 flex flex-wrap items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.25em] text-ink">
             <span>{study.company}</span>
-            <span className="opacity-40">·</span>
+            <span className="opacity-50">·</span>
             <span>{study.role}</span>
-            <span className="opacity-40">·</span>
+            <span className="opacity-50">·</span>
             <span>{study.duration}</span>
           </div>
 
@@ -96,7 +96,7 @@ export default function CaseStudyBody({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15 }}
-            className="mt-8 max-w-xl text-lg md:text-xl leading-relaxed text-cream/90 font-display italic"
+            className="mt-8 max-w-xl text-lg md:text-xl leading-relaxed text-ink font-display font-medium italic"
           >
             {study.tagline}
           </motion.p>
@@ -220,7 +220,7 @@ export default function CaseStudyBody({
           className="group block transition"
         >
           <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 overflow-hidden">
-            <span className="relative font-mono text-[10px] uppercase tracking-[0.3em] text-cream/80">
+            <span className="relative font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
               · next up / 0{next.order}
             </span>
             <div className="relative mt-6 flex items-center justify-between gap-6">
@@ -237,7 +237,7 @@ export default function CaseStudyBody({
                 →
               </span>
             </div>
-            <p className="relative mt-6 font-mono text-[11px] uppercase tracking-[0.25em] text-cream/80">
+            <p className="relative mt-6 font-mono text-[11px] font-medium uppercase tracking-[0.25em] text-ink">
               {next.company} · {next.year}
             </p>
           </div>
@@ -262,14 +262,14 @@ function StorySection({ story, accent }: { story: Story; accent: CaseStudy["acce
   return (
     <section className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
-        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-cream/90">
+        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
           · the story
         </span>
 
         <div className="mt-10 grid md:grid-cols-12 md:gap-16">
           <aside className="hidden md:block md:col-span-5">
             <div className="sticky top-28 h-[calc(100vh-8rem)] flex flex-col justify-center">
-              <span className="relative font-mono text-[11px] uppercase tracking-[0.3em] text-cream/90">
+              <span className="relative font-mono text-[11px] font-medium uppercase tracking-[0.3em] text-ink">
                 act {String(active + 1).padStart(2, "0")} / {String(STORY_ACTS.length).padStart(2, "0")}
               </span>
               <div className="relative mt-5 h-[1.05em] overflow-hidden">
@@ -292,20 +292,20 @@ function StorySection({ story, accent }: { story: Story; accent: CaseStudy["acce
                   </motion.h2>
                 </AnimatePresence>
               </div>
-              <ol className="relative mt-14 space-y-3 font-mono text-[11px] uppercase tracking-[0.25em]">
+              <ol className="relative mt-14 space-y-3 font-mono text-[11px] font-medium uppercase tracking-[0.25em]">
                 {STORY_ACTS.map((a, i) => (
                   <li
                     key={a.key}
                     className={`flex items-center gap-4 transition-colors duration-300 ${
-                      i === active ? "text-cream" : "text-cream/55"
+                      i === active ? "text-ink" : "text-ink/75"
                     }`}
                   >
-                    <span className="w-6 text-cream/45">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="w-6 text-ink/60">{String(i + 1).padStart(2, "0")}</span>
                     <span
                       className={`h-px transition-all duration-500 ${
                         i === active ? "w-14" : "w-6"
                       }`}
-                      style={{ background: i === active ? accentColor : "rgba(255,243,234,0.35)" }}
+                      style={{ background: i === active ? accentColor : "rgba(28,18,14,0.35)" }}
                     />
                     {a.label}
                   </li>

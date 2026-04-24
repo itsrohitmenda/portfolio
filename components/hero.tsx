@@ -25,8 +25,8 @@ export default function Hero() {
       {/* Warm radial glow */}
       <div className="absolute inset-0 radial-fade pointer-events-none" />
 
-      {/* 3D contraption — right-ish on desktop, center on mobile */}
-      <div className="absolute inset-0 z-0">
+      {/* 3D contraption — shrunk and pushed right on desktop */}
+      <div className="absolute inset-0 md:left-auto md:w-[55%] md:right-0 z-0 opacity-80 md:opacity-100">
         <Scene scrollRef={ref} />
       </div>
 
@@ -64,7 +64,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="block italic text-cream/90"
+              className="block italic text-cream"
             >
               with taste,
             </motion.span>
@@ -92,9 +92,9 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
-            className="md:col-span-5 md:col-start-1 text-base md:text-lg leading-relaxed text-cream/95 max-w-lg"
+            className="md:col-span-5 md:col-start-1 text-base md:text-lg leading-relaxed text-ink font-medium max-w-lg"
           >
-            I'm <span className="text-ink bg-cream px-1.5 rounded font-medium">Rohit Menda</span> — product manager and founder with six years turning chaotic briefs into products that ship. AdTech, GenAI, E-commerce, retail. Built with Flipkart, Reliance, and friends.
+            I'm <span className="bg-sun text-ink px-1.5 rounded font-semibold border-[1.5px] border-ink">Rohit Menda</span> — product manager and founder with six years turning chaotic briefs into products that ship. AdTech, GenAI, E-commerce, retail. Built with Flipkart, Reliance, and friends.
           </motion.p>
 
           <motion.div
@@ -130,13 +130,13 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-cream/80"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink"
       >
         <span>scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="h-8 w-[1.5px] bg-gradient-to-b from-cream/80 to-transparent"
+          className="h-8 w-[2px] bg-gradient-to-b from-ink to-transparent"
         />
       </motion.div>
     </section>

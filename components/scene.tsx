@@ -1,8 +1,8 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
-import { useRef, useMemo, Suspense } from "react";
+import { Float, Edges } from "@react-three/drei";
+import { useRef, useMemo, Suspense, useEffect } from "react";
 import type { Group, Mesh } from "three";
 import type { MotionValue } from "framer-motion";
 import { useScroll } from "framer-motion";
@@ -46,8 +46,9 @@ function Gear({
   return (
     <group ref={ref} position={position} rotation={rotation}>
       <mesh>
-        <torusGeometry args={[radius, tube, 14, 36]} />
+        <torusGeometry args={[radius, tube, 18, 48]} />
         <meshToonMaterial color={color} />
+        <Edges threshold={15} color={PALETTE.ink} />
       </mesh>
       {/* Gear teeth */}
       {Array.from({ length: teeth }).map((_, i) => {
@@ -58,12 +59,13 @@ function Gear({
           <mesh key={i} position={[x, y, 0]} rotation={[0, 0, angle]}>
             <boxGeometry args={[tube * 1.8, tube * 1.3, tube * 1.7]} />
             <meshToonMaterial color={color} />
+            <Edges threshold={15} color={PALETTE.ink} />
           </mesh>
         );
       })}
       {/* Hub */}
       <mesh>
-        <cylinderGeometry args={[tube * 1.1, tube * 1.1, tube * 2.2, 16]} />
+        <cylinderGeometry args={[tube * 1.1, tube * 1.1, tube * 2.2, 20]} />
         <meshToonMaterial color={PALETTE.ink} />
       </mesh>
     </group>
@@ -185,23 +187,40 @@ function Screen({
 // The full contraption — a playful isometric machine
 function Contraption({ scrollYProgress }: { scrollYProgress: Scroll }) {
   const group = useRef<Group>(null);
+  const mouse = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onMove = (e: MouseEvent) => {
+      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouse.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
 
   useFrame((state) => {
     if (!group.current) return;
     const t = state.clock.elapsedTime;
     const scroll = scrollYProgress.get();
-    // Gentle drift + scroll-driven sink
-    group.current.rotation.y = Math.sin(t * 0.25) * 0.2 + scroll * 0.4;
-    group.current.position.y = Math.sin(t * 0.4) * 0.12 - scroll * 2.2;
+    // Scroll-driven spin + mouse parallax + gentle idle drift
+    const targetY =
+      Math.sin(t * 0.25) * 0.15 + scroll * 1.6 + mouse.current.x * 0.25;
+    const targetX = -0.25 + mouse.current.y * 0.15 - scroll * 0.3;
+    // Ease toward targets for sharpness
+    group.current.rotation.y += (targetY - group.current.rotation.y) * 0.08;
+    group.current.rotation.x += (targetX - group.current.rotation.x) * 0.08;
+    group.current.position.y = Math.sin(t * 0.4) * 0.1 - scroll * 2;
   });
 
   return (
-    <group ref={group} rotation={[-0.25, 0.4, 0]}>
-      <Float speed={0.8} floatIntensity={0.4} rotationIntensity={0}>
-        {/* Main body — stacked boxes */}
+    <group ref={group} rotation={[-0.25, 0.4, 0]} scale={0.75}>
+      <Float speed={0.9} floatIntensity={0.35} rotationIntensity={0}>
+        {/* Main body — stacked boxes with sharp edge outlines */}
         <mesh position={[0, -0.4, 0]}>
           <boxGeometry args={[2.4, 1.2, 1.6]} />
           <meshToonMaterial color={PALETTE.cream} />
+          <Edges threshold={15} color={PALETTE.ink} />
         </mesh>
         <mesh position={[0, -0.4, 0.81]}>
           <planeGeometry args={[2.38, 1.18]} />
@@ -221,6 +240,7 @@ function Contraption({ scrollYProgress }: { scrollYProgress: Scroll }) {
         <mesh position={[0, 0.3, 0]}>
           <boxGeometry args={[2.2, 0.2, 1.4]} />
           <meshToonMaterial color={PALETTE.ink} />
+          <Edges threshold={15} color={PALETTE.sun} />
         </mesh>
 
         {/* Gear on top-left */}
@@ -279,12 +299,13 @@ function Contraption({ scrollYProgress }: { scrollYProgress: Scroll }) {
         {/* Antenna */}
         <group position={[1.0, 0.9, 0]}>
           <mesh>
-            <cylinderGeometry args={[0.03, 0.03, 0.9, 8]} />
+            <cylinderGeometry args={[0.03, 0.03, 0.9, 10]} />
             <meshToonMaterial color={PALETTE.ink} />
           </mesh>
           <mesh position={[0, 0.5, 0]}>
-            <sphereGeometry args={[0.09, 16, 16]} />
+            <sphereGeometry args={[0.1, 20, 20]} />
             <meshToonMaterial color={PALETTE.sun} />
+            <Edges threshold={15} color={PALETTE.ink} />
           </mesh>
         </group>
       </Float>
@@ -329,26 +350,28 @@ function Orbiters({ scrollYProgress }: { scrollYProgress: Scroll }) {
     if (!group.current) return;
     const t = state.clock.elapsedTime;
     const scroll = scrollYProgress.get();
-    group.current.rotation.y = t * 0.08 + scroll * Math.PI * 0.5;
-    group.current.position.y = -scroll * 1.5;
+    group.current.rotation.y = t * 0.08 + scroll * Math.PI * 1.2;
+    group.current.rotation.x = scroll * 0.5;
+    group.current.position.y = -scroll * 1.8;
   });
 
   return (
-    <group ref={group}>
+    <group ref={group} scale={0.8}>
       {satellites.map((s, i) => (
         <Float
           key={i}
           speed={1.5 + i * 0.3}
-          rotationIntensity={1.2}
-          floatIntensity={1}
+          rotationIntensity={1.4}
+          floatIntensity={1.1}
         >
           <mesh position={s.pos}>
             {s.shape === "box" && <boxGeometry args={[s.size, s.size, s.size]} />}
-            {s.shape === "sphere" && <sphereGeometry args={[s.size, 16, 16]} />}
+            {s.shape === "sphere" && <sphereGeometry args={[s.size, 20, 20]} />}
             {s.shape === "torus" && (
-              <torusGeometry args={[s.size, s.size * 0.35, 10, 20]} />
+              <torusGeometry args={[s.size, s.size * 0.35, 16, 32]} />
             )}
             <meshToonMaterial color={s.color} />
+            <Edges threshold={15} color={PALETTE.ink} />
           </mesh>
         </Float>
       ))}
@@ -368,15 +391,15 @@ export default function Scene({
 
   return (
     <Canvas
-      camera={{ position: [0, 0.4, 5.5], fov: 42 }}
+      camera={{ position: [0, 0.4, 5.5], fov: 40 }}
       gl={{ antialias: true, alpha: true }}
       dpr={[1, 2]}
       style={{ width: "100%", height: "100%" }}
     >
-      <ambientLight intensity={0.9} />
-      <directionalLight position={[5, 6, 5]} intensity={1.4} color="#FFFFFF" />
-      <directionalLight position={[-4, 2, 3]} intensity={0.6} color="#FFD24A" />
-      <pointLight position={[2, -3, 2]} intensity={0.5} color="#FF5ACD" />
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[5, 6, 5]} intensity={1.5} color="#FFFFFF" />
+      <directionalLight position={[-4, 2, 3]} intensity={0.7} color="#FFD24A" />
+      <pointLight position={[2, -3, 2]} intensity={0.6} color="#FF5ACD" />
       <Suspense fallback={null}>
         <Contraption scrollYProgress={scrollYProgress} />
         <Orbiters scrollYProgress={scrollYProgress} />

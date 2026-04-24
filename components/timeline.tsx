@@ -104,7 +104,7 @@ export default function Timeline() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-cream/90 md:mb-3">
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
               · 02 / path
             </span>
             <h2 className="mt-4 md:mt-0 font-display font-medium text-cream text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.025em]">
@@ -199,7 +199,7 @@ export default function Timeline() {
         </ul>
 
         {visible.length === 0 && (
-          <p className="mt-10 text-center text-cream/80 font-mono text-sm">
+          <p className="mt-10 text-center text-ink font-medium font-mono text-sm">
             nothing here — try another filter.
           </p>
         )}

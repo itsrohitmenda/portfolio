@@ -34,9 +34,9 @@ export default function Nav() {
           >
             <span className="italic font-medium">r</span>
           </motion.span>
-          <div className="flex flex-col leading-tight text-cream">
-            <span className="text-sm font-medium">rohit menda</span>
-            <span className="font-mono text-[10px] uppercase tracking-widest opacity-80">
+          <div className="flex flex-col leading-tight text-ink">
+            <span className="text-sm font-semibold">rohit menda</span>
+            <span className="font-mono text-[10px] font-medium uppercase tracking-widest opacity-75">
               product manager
             </span>
           </div>
