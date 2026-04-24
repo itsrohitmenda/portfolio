@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const Scene = dynamic(() => import("./scene"), { ssr: false });
 
@@ -95,18 +96,47 @@ export default function Hero() {
         </div>
 
         <div className="mt-12 md:mt-16 grid md:grid-cols-12 gap-8 md:gap-10 items-end pointer-events-auto">
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
-            className="md:col-span-5 md:col-start-1 text-base md:text-lg leading-relaxed text-ink font-medium max-w-lg"
+            className="md:col-span-5 md:col-start-1 flex items-start gap-4 md:gap-5 max-w-lg"
           >
-            hi macha, I'm{" "}
-            <span className="bg-pink text-cream px-2 py-0.5 rounded-md font-bold border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] inline-block">
-              Rohit
-            </span>{" "}
-            — a product person shipping at AdTech, GenAI, E-comm and retail. six years of turning chaotic briefs into products that stick. built with Flipkart, Reliance, and friends along the way.
-          </motion.p>
+            {/* Polaroid-ish ID photo with 🤙 sticker */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
+              animate={{ opacity: 1, scale: 1, rotate: -4 }}
+              transition={{ delay: 0.8, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="shrink-0 relative"
+            >
+              <div className="bg-cream border-[1.5px] border-ink rounded-2xl p-1.5 shadow-[0_4px_0_0_#171412]">
+                <div className="relative h-20 w-20 md:h-24 md:w-24 rounded-xl overflow-hidden border-[1.5px] border-ink">
+                  <Image
+                    src="/rohit.jpg"
+                    alt="Rohit Menda"
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+              <span
+                aria-hidden
+                className="absolute -bottom-2 -right-2 h-8 w-8 rounded-full bg-sun border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] flex items-center justify-center text-sm rotate-6"
+              >
+                🤙
+              </span>
+            </motion.div>
+
+            <p className="text-base md:text-lg leading-relaxed text-ink font-medium">
+              hi macha, I'm{" "}
+              <span className="bg-pink text-cream px-2 py-0.5 rounded-md font-bold border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] inline-block">
+                Rohit
+              </span>{" "}
+              <span className="opacity-60">(the shaka guy</span> ←<span className="opacity-60">)</span> — product person shipping at AdTech, GenAI, E-comm and retail. six years of turning chaotic briefs into products that stick. built with Flipkart, Reliance, and friends along the way.
+            </p>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}

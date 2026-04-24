@@ -98,22 +98,20 @@ function Card({ study }: { study: CaseStudy }) {
     >
       <article className="relative h-full rounded-3xl border-[1.5px] border-ink overflow-hidden bg-cream text-ink shadow-[0_6px_0_0_#171412] transition-all duration-400 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_10px_0_0_#171412] flex flex-col">
         {/* Accent band with 3D mark */}
-        <div className={`relative ${band} border-b-[1.5px] border-ink px-6 md:px-8 py-5 md:py-6`}>
-          <div className="relative flex items-start justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="chip chip-solid">
-                {String(study.order).padStart(2, "0")} / {String(caseStudies.length).padStart(2, "0")}
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/70">
-                {study.company.split(" × ")[0]} · {study.year}
-              </span>
-            </div>
+        <div className={`relative ${band} border-b-[1.5px] border-ink px-6 md:px-8 pt-5 md:pt-6 pb-4 md:pb-5 min-h-[130px] md:min-h-[150px]`}>
+          <div className="relative flex items-center gap-3 pr-28 md:pr-32">
+            <span className="chip chip-solid">
+              {String(study.order).padStart(2, "0")} / {String(caseStudies.length).padStart(2, "0")}
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/70 truncate">
+              {study.company.split(" × ")[0]}
+            </span>
           </div>
 
-          {/* 3D accent, fixed size on every card */}
+          {/* 3D accent — breathing room from every edge */}
           <div
             aria-hidden
-            className="absolute -top-2 right-2 md:-top-4 md:right-4 h-24 w-24 md:h-28 md:w-28 pointer-events-none transition-transform duration-500 ease-out group-hover:scale-110"
+            className="absolute top-2 right-3 md:top-3 md:right-5 h-24 w-24 md:h-28 md:w-28 pointer-events-none transition-transform duration-500 ease-out group-hover:scale-110"
           >
             <FloatingObject shape={shape} color={color} />
           </div>

@@ -23,7 +23,7 @@ export default function Marquee({ items, reverse, className = "" }: Props) {
         {loop.map((item, i) => (
           <li
             key={i}
-            className="flex items-center gap-12 md:gap-20 pr-12 md:pr-20"
+            className="flex items-center gap-14 md:gap-20 pr-14 md:pr-20"
           >
             {/* Fixed-height, fixed-width slot so every brand keeps the same
                 baseline regardless of its aspect ratio. The logo image's own
@@ -31,7 +31,7 @@ export default function Marquee({ items, reverse, className = "" }: Props) {
             <LogoMark
               name={item.name}
               slug={item.slug}
-              className="h-16 md:h-20 w-[200px] md:w-[260px]"
+              className="h-24 md:h-24 w-[240px] md:w-[280px]"
             />
             <span
               aria-hidden

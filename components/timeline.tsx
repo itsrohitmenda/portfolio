@@ -122,16 +122,16 @@ export default function Timeline() {
                   transition={{ duration: 0.5, delay: i * 0.05 }}
                   className="relative"
                 >
-                  {/* Node dot, centered on the rail */}
-                  <span
-                    aria-hidden
-                    className={`absolute top-4 h-5 w-5 md:h-6 md:w-6 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} shadow-[0_2px_0_0_#171412]`}
-                    style={{ left: "1rem", transform: "translateX(-50%)" }}
-                  />
-
-                  {/* Year — stacks above on mobile, sits in left gutter on desktop */}
-                  <div className="mb-2 md:mb-0 md:absolute md:top-[0.65rem] md:w-28 md:text-right md:-left-32">
-                    <span className="font-mono text-[11px] md:text-xs font-semibold uppercase tracking-[0.25em] text-ink/70">
+                  {/* Year — mobile: bold accent pill above card; desktop: subtle left gutter */}
+                  <div className="mb-3 md:hidden">
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-ink shadow-[0_2px_0_0_#171412]`}
+                    >
+                      {s.year}
+                    </span>
+                  </div>
+                  <div className="hidden md:block md:absolute md:top-[0.65rem] md:w-28 md:text-right md:-left-32">
+                    <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-ink/70">
                       {s.year}
                     </span>
                   </div>
