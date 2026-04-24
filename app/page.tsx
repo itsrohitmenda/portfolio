@@ -7,11 +7,11 @@ import Timeline from "@/components/timeline";
 const brands = [
   { name: "Flipkart", slug: "flipkart" },
   { name: "Reliance Retail", slug: "reliance-retail" },
-  { name: "Collective Artists Network", slug: "collective-artists-network" },
   { name: "Nagarro", slug: "nagarro" },
+  { name: "Reliance Jio", slug: "reliance-jio" },
+  { name: "Swadesh", slug: "swadesh" },
   { name: "Under 25", slug: "under-25" },
   { name: "Buthey", slug: "buthey" },
-  { name: "Reliance Jio", slug: "reliance-jio" },
 ];
 
 export default function Home() {

@@ -23,16 +23,18 @@ export default function Marquee({ items, reverse, className = "" }: Props) {
         {loop.map((item, i) => (
           <li
             key={i}
-            className="flex items-center gap-10 md:gap-16 pr-10 md:pr-16"
+            className="flex items-center gap-10 md:gap-14 pr-10 md:pr-14"
           >
+            {/* Fixed-height, fixed-width slot keeps every brand on the same
+                baseline regardless of its native aspect ratio. */}
             <LogoMark
               name={item.name}
               slug={item.slug}
-              className="h-10 md:h-14 max-w-[240px] md:max-w-[320px] text-3xl md:text-5xl"
+              className="h-10 md:h-12 w-[140px] md:w-[180px]"
             />
             <span
               aria-hidden
-              className="inline-block h-2 w-2 rounded-full bg-ink/80 shrink-0"
+              className="inline-block h-2 w-2 rounded-full bg-ink/50 shrink-0"
             />
           </li>
         ))}
