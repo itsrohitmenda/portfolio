@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 import Cursor from "@/components/cursor";
 import SmoothScroll from "@/components/smooth-scroll";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
-const sans = Inter({
+const sans = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 const mono = JetBrains_Mono({

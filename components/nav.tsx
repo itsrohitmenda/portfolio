@@ -30,7 +30,7 @@ export default function Nav() {
             initial={{ rotate: 0 }}
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="relative inline-block h-11 w-11 rounded-2xl bg-cream border-[1.5px] border-ink grid place-items-center font-display text-xl text-ink shadow-[0_3px_0_0_#1C120E]"
+            className="relative inline-block h-11 w-11 rounded-2xl bg-cream border-[1.5px] border-ink grid place-items-center font-display text-xl text-ink shadow-[0_3px_0_0_#171412]"
           >
             <span className="italic font-medium">r</span>
           </motion.span>
@@ -43,7 +43,7 @@ export default function Nav() {
         </Link>
 
         <nav
-          className={`hidden md:flex items-center gap-1 rounded-full bg-cream border-[1.5px] border-ink px-2 py-1.5 transition-all shadow-[0_3px_0_0_#1C120E] ${
+          className={`hidden md:flex items-center gap-1 rounded-full bg-cream border-[1.5px] border-ink px-2 py-1.5 transition-all shadow-[0_3px_0_0_#171412] ${
             scrolled ? "opacity-100" : "opacity-0 md:opacity-100"
           }`}
         >

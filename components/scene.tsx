@@ -2,192 +2,232 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Edges } from "@react-three/drei";
-import { useRef, useMemo, Suspense, useEffect } from "react";
-import type { Group, Mesh } from "three";
+import { useRef, useMemo, useEffect, Suspense } from "react";
+import * as THREE from "three";
+import type { Group } from "three";
 import type { MotionValue } from "framer-motion";
 import { useScroll } from "framer-motion";
 
 type Scroll = MotionValue<number>;
+type MouseRef = React.RefObject<{ x: number; y: number }>;
 
 const PALETTE = {
-  cream: "#FFF3EA",
-  ink: "#1C120E",
-  sun: "#FFD24A",
-  iris: "#4AD6D6",
-  hot: "#FF5ACD",
-  sky: "#4A9EFF",
-  acid: "#C3F53E",
-  coral: "#F56B4A",
+  pink: "#FF3E9D",
+  cherry: "#FF4D4D",
+  lime: "#BFFF3D",
+  sky: "#7AB9FF",
+  sun: "#FFC22E",
+  iris: "#B8A8FF",
+  cream: "#FFFBEA",
+  ink: "#171412",
 };
 
-// Spinning gear — torus with segments
-function Gear({
-  position,
-  rotation = [0, 0, 0],
-  color,
-  radius = 0.6,
-  tube = 0.14,
-  speed = 1,
-  direction = 1,
-}: {
-  position: [number, number, number];
-  rotation?: [number, number, number];
-  color: string;
-  radius?: number;
-  tube?: number;
-  speed?: number;
-  direction?: 1 | -1;
-}) {
-  const ref = useRef<Group>(null);
-  useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.z += delta * speed * direction;
-  });
-  const teeth = 8;
+// ---- Shape geometries (memoized) ----
+
+function useHeartGeometry() {
+  return useMemo(() => {
+    const s = new THREE.Shape();
+    s.moveTo(0, 0.25);
+    s.bezierCurveTo(0, 0.6, 0.6, 0.8, 0.6, 0.2);
+    s.bezierCurveTo(0.6, -0.2, 0, -0.5, 0, -0.8);
+    s.bezierCurveTo(0, -0.5, -0.6, -0.2, -0.6, 0.2);
+    s.bezierCurveTo(-0.6, 0.8, 0, 0.6, 0, 0.25);
+    const g = new THREE.ExtrudeGeometry(s, {
+      depth: 0.32,
+      bevelEnabled: true,
+      bevelThickness: 0.08,
+      bevelSize: 0.08,
+      bevelSegments: 6,
+    });
+    g.center();
+    return g;
+  }, []);
+}
+
+function useStarGeometry() {
+  return useMemo(() => {
+    const s = new THREE.Shape();
+    const points = 5;
+    const outer = 0.75;
+    const inner = 0.34;
+    for (let i = 0; i < points * 2; i++) {
+      const r = i % 2 === 0 ? outer : inner;
+      const a = (i / (points * 2)) * Math.PI * 2 - Math.PI / 2;
+      const x = Math.cos(a) * r;
+      const y = Math.sin(a) * r;
+      if (i === 0) s.moveTo(x, y);
+      else s.lineTo(x, y);
+    }
+    s.closePath();
+    const g = new THREE.ExtrudeGeometry(s, {
+      depth: 0.28,
+      bevelEnabled: true,
+      bevelThickness: 0.1,
+      bevelSize: 0.1,
+      bevelSegments: 5,
+    });
+    g.center();
+    return g;
+  }, []);
+}
+
+function usePlusGeometry() {
+  return useMemo(() => {
+    const s = new THREE.Shape();
+    const t = 0.24;
+    const r = 0.65;
+    s.moveTo(-t, r);
+    s.lineTo(t, r);
+    s.lineTo(t, t);
+    s.lineTo(r, t);
+    s.lineTo(r, -t);
+    s.lineTo(t, -t);
+    s.lineTo(t, -r);
+    s.lineTo(-t, -r);
+    s.lineTo(-t, -t);
+    s.lineTo(-r, -t);
+    s.lineTo(-r, t);
+    s.lineTo(-t, t);
+    s.closePath();
+    const g = new THREE.ExtrudeGeometry(s, {
+      depth: 0.32,
+      bevelEnabled: true,
+      bevelThickness: 0.07,
+      bevelSize: 0.07,
+      bevelSegments: 4,
+    });
+    g.center();
+    return g;
+  }, []);
+}
+
+// ---- Individual sticker components ----
+
+function SmileySun() {
+  const rays = Array.from({ length: 10 });
   return (
-    <group ref={ref} position={position} rotation={rotation}>
-      <mesh>
-        <torusGeometry args={[radius, tube, 18, 48]} />
-        <meshToonMaterial color={color} />
-        <Edges threshold={15} color={PALETTE.ink} />
-      </mesh>
-      {/* Gear teeth */}
-      {Array.from({ length: teeth }).map((_, i) => {
-        const angle = (i / teeth) * Math.PI * 2;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
+    <group>
+      {rays.map((_, i) => {
+        const a = (i / 10) * Math.PI * 2;
         return (
-          <mesh key={i} position={[x, y, 0]} rotation={[0, 0, angle]}>
-            <boxGeometry args={[tube * 1.8, tube * 1.3, tube * 1.7]} />
-            <meshToonMaterial color={color} />
+          <mesh
+            key={i}
+            position={[Math.cos(a) * 0.95, Math.sin(a) * 0.95, 0]}
+            rotation={[0, 0, a]}
+          >
+            <boxGeometry args={[0.26, 0.14, 0.2]} />
+            <meshToonMaterial color={PALETTE.sun} />
             <Edges threshold={15} color={PALETTE.ink} />
           </mesh>
         );
       })}
-      {/* Hub */}
+      {/* Face disc */}
       <mesh>
-        <cylinderGeometry args={[tube * 1.1, tube * 1.1, tube * 2.2, 20]} />
+        <sphereGeometry args={[0.7, 32, 32]} />
+        <meshToonMaterial color={PALETTE.sun} />
+        <Edges threshold={15} color={PALETTE.ink} />
+      </mesh>
+      {/* Eyes */}
+      <mesh position={[-0.22, 0.12, 0.63]}>
+        <sphereGeometry args={[0.08, 20, 20]} />
+        <meshToonMaterial color={PALETTE.ink} />
+      </mesh>
+      <mesh position={[0.22, 0.12, 0.63]}>
+        <sphereGeometry args={[0.08, 20, 20]} />
+        <meshToonMaterial color={PALETTE.ink} />
+      </mesh>
+      {/* Smile: half-torus */}
+      <mesh position={[0, -0.1, 0.62]} rotation={[0, 0, Math.PI]}>
+        <torusGeometry args={[0.18, 0.035, 14, 24, Math.PI]} />
         <meshToonMaterial color={PALETTE.ink} />
       </mesh>
     </group>
   );
 }
 
-// Ticking arm — rotates around a center
-function TickingArm({
-  position,
-  length = 1.2,
-  color,
-  tipColor,
-  speed = 0.8,
+function Pill({ color }: { color: string }) {
+  return (
+    <group rotation={[0, 0, Math.PI / 4]}>
+      <mesh>
+        <capsuleGeometry args={[0.42, 0.95, 12, 28]} />
+        <meshToonMaterial color={color} />
+        <Edges threshold={15} color={PALETTE.ink} />
+      </mesh>
+      {/* Middle band */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.43, 0.025, 10, 36]} />
+        <meshToonMaterial color={PALETTE.ink} />
+      </mesh>
+    </group>
+  );
+}
+
+// ---- Sticker wrapper (handles scroll + mouse) ----
+
+function Sticker({
+  basePos,
+  scroll,
+  mouse,
+  scrollBias = 1,
+  floatSpeed = 1.4,
+  floatIntensity = 0.5,
+  parallax = 0.3,
+  children,
 }: {
-  position: [number, number, number];
-  length?: number;
-  color: string;
-  tipColor: string;
-  speed?: number;
+  basePos: [number, number, number];
+  scroll: Scroll;
+  mouse: MouseRef;
+  scrollBias?: number;
+  floatSpeed?: number;
+  floatIntensity?: number;
+  parallax?: number;
+  children: React.ReactNode;
 }) {
   const ref = useRef<Group>(null);
-  useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.z += delta * speed;
-  });
-  return (
-    <group position={position}>
-      <mesh>
-        <cylinderGeometry args={[0.07, 0.07, 0.05, 16]} />
-        <meshToonMaterial color={PALETTE.ink} />
-      </mesh>
-      <group ref={ref}>
-        <mesh position={[length / 2, 0, 0]}>
-          <boxGeometry args={[length, 0.08, 0.08]} />
-          <meshToonMaterial color={color} />
-        </mesh>
-        <mesh position={[length, 0, 0]}>
-          <sphereGeometry args={[0.14, 16, 16]} />
-          <meshToonMaterial color={tipColor} />
-        </mesh>
-      </group>
-    </group>
-  );
-}
 
-// Piston — cylinder that pumps up-down
-function Piston({
-  position,
-  color,
-  offset = 0,
-}: {
-  position: [number, number, number];
-  color: string;
-  offset?: number;
-}) {
-  const ref = useRef<Mesh>(null);
   useFrame((state) => {
-    if (ref.current) {
-      ref.current.position.y =
-        Math.sin(state.clock.elapsedTime * 2 + offset) * 0.15;
-    }
+    if (!ref.current) return;
+    const t = state.clock.elapsedTime;
+    const s = scroll.get();
+    const mx = mouse.current?.x ?? 0;
+    const my = mouse.current?.y ?? 0;
+
+    // Eased rotation: scroll drives spin, mouse nudges sideways
+    const targetRy = t * 0.4 * scrollBias + s * Math.PI * 1.2 + mx * 0.4;
+    const targetRx = Math.sin(t * 0.5) * 0.3 + my * 0.35 - s * 0.5;
+    ref.current.rotation.y += (targetRy - ref.current.rotation.y) * 0.1;
+    ref.current.rotation.x += (targetRx - ref.current.rotation.x) * 0.1;
+    ref.current.rotation.z = Math.sin(t * 0.3 + basePos[0]) * 0.1;
+
+    // Position drift + scroll sink + parallax
+    ref.current.position.x = basePos[0] + mx * parallax;
+    ref.current.position.y =
+      basePos[1] + Math.sin(t * 0.6 + basePos[0]) * 0.12 - s * 2.2;
+    ref.current.position.z = basePos[2] + my * parallax * 0.6;
   });
+
   return (
-    <group position={position}>
-      {/* Housing */}
-      <mesh>
-        <boxGeometry args={[0.35, 0.35, 0.35]} />
-        <meshToonMaterial color={PALETTE.cream} />
-      </mesh>
-      {/* Plunger */}
-      <mesh ref={ref} position={[0, 0.3, 0]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.4, 16]} />
-        <meshToonMaterial color={color} />
-      </mesh>
-      {/* Cap */}
-      <mesh position={[0, 0.52, 0]}>
-        <sphereGeometry args={[0.11, 16, 16]} />
-        <meshToonMaterial color={PALETTE.ink} />
-      </mesh>
+    <group ref={ref}>
+      <Float
+        speed={floatSpeed}
+        rotationIntensity={0}
+        floatIntensity={floatIntensity}
+      >
+        {children}
+      </Float>
     </group>
   );
 }
 
-// Little screen with color glow
-function Screen({
-  position,
-  color,
-}: {
-  position: [number, number, number];
-  color: string;
-}) {
-  const ref = useRef<Mesh>(null);
-  useFrame((state) => {
-    if (ref.current) {
-      const mat = ref.current.material as any;
-      if (mat?.emissiveIntensity !== undefined) {
-        mat.emissiveIntensity =
-          0.55 + Math.sin(state.clock.elapsedTime * 3) * 0.25;
-      }
-    }
-  });
-  return (
-    <group position={position} rotation={[0, 0, 0]}>
-      <mesh>
-        <boxGeometry args={[0.55, 0.4, 0.08]} />
-        <meshToonMaterial color={PALETTE.ink} />
-      </mesh>
-      <mesh ref={ref} position={[0, 0, 0.045]}>
-        <planeGeometry args={[0.42, 0.28]} />
-        <meshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={0.7}
-        />
-      </mesh>
-    </group>
-  );
-}
+// ---- Scene composition ----
 
-// The full contraption — a playful isometric machine
-function Contraption({ scrollYProgress }: { scrollYProgress: Scroll }) {
+function Stickers({ scroll }: { scroll: Scroll }) {
   const group = useRef<Group>(null);
   const mouse = useRef({ x: 0, y: 0 });
+
+  const heart = useHeartGeometry();
+  const star = useStarGeometry();
+  const plus = usePlusGeometry();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -199,182 +239,101 @@ function Contraption({ scrollYProgress }: { scrollYProgress: Scroll }) {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (!group.current) return;
-    const t = state.clock.elapsedTime;
-    const scroll = scrollYProgress.get();
-    // Scroll-driven spin + mouse parallax + gentle idle drift
-    const targetY =
-      Math.sin(t * 0.25) * 0.15 + scroll * 1.6 + mouse.current.x * 0.25;
-    const targetX = -0.25 + mouse.current.y * 0.15 - scroll * 0.3;
-    // Ease toward targets for sharpness
-    group.current.rotation.y += (targetY - group.current.rotation.y) * 0.08;
-    group.current.rotation.x += (targetX - group.current.rotation.x) * 0.08;
-    group.current.position.y = Math.sin(t * 0.4) * 0.1 - scroll * 2;
+    group.current.rotation.y +=
+      (mouse.current.x * 0.08 - group.current.rotation.y) * 0.04;
+    group.current.rotation.x +=
+      (mouse.current.y * 0.06 - group.current.rotation.x) * 0.04;
   });
 
   return (
-    <group ref={group} rotation={[-0.25, 0.4, 0]} scale={0.75}>
-      <Float speed={0.9} floatIntensity={0.35} rotationIntensity={0}>
-        {/* Main body — stacked boxes with sharp edge outlines */}
-        <mesh position={[0, -0.4, 0]}>
-          <boxGeometry args={[2.4, 1.2, 1.6]} />
-          <meshToonMaterial color={PALETTE.cream} />
+    <group ref={group}>
+      {/* Hero element: big hot-pink pill, upper right */}
+      <Sticker
+        basePos={[1.5, 0.9, 0]}
+        scroll={scroll}
+        mouse={mouse}
+        scrollBias={1.4}
+        floatSpeed={1.6}
+        floatIntensity={0.6}
+      >
+        <Pill color={PALETTE.pink} />
+      </Sticker>
+
+      {/* Smiley sun — top-left anchor */}
+      <Sticker
+        basePos={[-1.85, 1.2, 0.3]}
+        scroll={scroll}
+        mouse={mouse}
+        scrollBias={0.7}
+        floatSpeed={1.3}
+        floatIntensity={0.55}
+      >
+        <SmileySun />
+      </Sticker>
+
+      {/* Lime puffy star — lower right */}
+      <Sticker
+        basePos={[2.0, -1.0, 0.2]}
+        scroll={scroll}
+        mouse={mouse}
+        scrollBias={1.9}
+        floatSpeed={1.9}
+        floatIntensity={0.75}
+      >
+        <mesh geometry={star}>
+          <meshToonMaterial color={PALETTE.lime} />
           <Edges threshold={15} color={PALETTE.ink} />
         </mesh>
-        <mesh position={[0, -0.4, 0.81]}>
-          <planeGeometry args={[2.38, 1.18]} />
-          <meshToonMaterial color={PALETTE.cream} />
+      </Sticker>
+
+      {/* Cherry heart — mid left */}
+      <Sticker
+        basePos={[-1.5, -0.7, 0.4]}
+        scroll={scroll}
+        mouse={mouse}
+        scrollBias={1.2}
+        floatSpeed={1.4}
+        floatIntensity={0.6}
+      >
+        <mesh geometry={heart} rotation={[0, 0, Math.PI]}>
+          <meshToonMaterial color={PALETTE.cherry} />
+          <Edges threshold={15} color={PALETTE.ink} />
         </mesh>
-        {/* Side panel — colored */}
-        <mesh position={[-1.21, -0.4, 0]} rotation={[0, Math.PI / 2, 0]}>
-          <planeGeometry args={[1.6, 1.2]} />
+      </Sticker>
+
+      {/* Sky plus sign — lower middle */}
+      <Sticker
+        basePos={[0.4, -1.7, 0.1]}
+        scroll={scroll}
+        mouse={mouse}
+        scrollBias={2.2}
+        floatSpeed={2.1}
+        floatIntensity={0.45}
+      >
+        <mesh geometry={plus}>
           <meshToonMaterial color={PALETTE.sky} />
+          <Edges threshold={15} color={PALETTE.ink} />
         </mesh>
-        <mesh position={[1.21, -0.4, 0]} rotation={[0, -Math.PI / 2, 0]}>
-          <planeGeometry args={[1.6, 1.2]} />
-          <meshToonMaterial color={PALETTE.hot} />
+      </Sticker>
+
+      {/* Lavender orb — background depth */}
+      <Sticker
+        basePos={[0, 0.2, -1.3]}
+        scroll={scroll}
+        mouse={mouse}
+        scrollBias={0.5}
+        floatSpeed={1.0}
+        floatIntensity={0.3}
+        parallax={0.15}
+      >
+        <mesh>
+          <sphereGeometry args={[0.42, 32, 32]} />
+          <meshToonMaterial color={PALETTE.iris} />
+          <Edges threshold={15} color={PALETTE.ink} />
         </mesh>
-
-        {/* Top deck */}
-        <mesh position={[0, 0.3, 0]}>
-          <boxGeometry args={[2.2, 0.2, 1.4]} />
-          <meshToonMaterial color={PALETTE.ink} />
-          <Edges threshold={15} color={PALETTE.sun} />
-        </mesh>
-
-        {/* Gear on top-left */}
-        <Gear
-          position={[-0.75, 0.75, 0.35]}
-          color={PALETTE.sun}
-          radius={0.38}
-          tube={0.07}
-          speed={0.9}
-        />
-        {/* Smaller interlocking gear */}
-        <Gear
-          position={[-0.2, 0.8, 0.35]}
-          color={PALETTE.acid}
-          radius={0.22}
-          tube={0.06}
-          speed={1.4}
-          direction={-1}
-        />
-
-        {/* Ticking arm top-right */}
-        <TickingArm
-          position={[0.7, 0.55, 0.4]}
-          length={0.55}
-          color={PALETTE.ink}
-          tipColor={PALETTE.iris}
-          speed={0.9}
-        />
-
-        {/* Piston cluster — back */}
-        <Piston position={[-0.5, 0.55, -0.45]} color={PALETTE.hot} offset={0} />
-        <Piston
-          position={[0, 0.55, -0.45]}
-          color={PALETTE.sun}
-          offset={Math.PI / 2}
-        />
-        <Piston
-          position={[0.5, 0.55, -0.45]}
-          color={PALETTE.iris}
-          offset={Math.PI}
-        />
-
-        {/* Front screen */}
-        <Screen position={[0, -0.4, 0.86]} color={PALETTE.acid} />
-
-        {/* Knobs — front row */}
-        {[-0.85, -0.45, 0.45, 0.85].map((x, i) => (
-          <mesh key={i} position={[x, -0.85, 0.86]}>
-            <cylinderGeometry args={[0.08, 0.08, 0.08, 16]} />
-            <meshToonMaterial
-              color={[PALETTE.hot, PALETTE.sun, PALETTE.iris, PALETTE.acid][i]}
-            />
-          </mesh>
-        ))}
-
-        {/* Antenna */}
-        <group position={[1.0, 0.9, 0]}>
-          <mesh>
-            <cylinderGeometry args={[0.03, 0.03, 0.9, 10]} />
-            <meshToonMaterial color={PALETTE.ink} />
-          </mesh>
-          <mesh position={[0, 0.5, 0]}>
-            <sphereGeometry args={[0.1, 20, 20]} />
-            <meshToonMaterial color={PALETTE.sun} />
-            <Edges threshold={15} color={PALETTE.ink} />
-          </mesh>
-        </group>
-      </Float>
-    </group>
-  );
-}
-
-function Orbiters({ scrollYProgress }: { scrollYProgress: Scroll }) {
-  const group = useRef<Group>(null);
-
-  const satellites = useMemo(
-    () => [
-      {
-        pos: [3.2, 1.4, 0] as [number, number, number],
-        color: PALETTE.acid,
-        size: 0.16,
-        shape: "box" as const,
-      },
-      {
-        pos: [-3.2, -0.4, 0.4] as [number, number, number],
-        color: PALETTE.hot,
-        size: 0.13,
-        shape: "sphere" as const,
-      },
-      {
-        pos: [2.4, -1.6, 0.6] as [number, number, number],
-        color: PALETTE.iris,
-        size: 0.18,
-        shape: "torus" as const,
-      },
-      {
-        pos: [-2.6, 1.8, -0.2] as [number, number, number],
-        color: PALETTE.sun,
-        size: 0.15,
-        shape: "box" as const,
-      },
-    ],
-    []
-  );
-
-  useFrame((state) => {
-    if (!group.current) return;
-    const t = state.clock.elapsedTime;
-    const scroll = scrollYProgress.get();
-    group.current.rotation.y = t * 0.08 + scroll * Math.PI * 1.2;
-    group.current.rotation.x = scroll * 0.5;
-    group.current.position.y = -scroll * 1.8;
-  });
-
-  return (
-    <group ref={group} scale={0.8}>
-      {satellites.map((s, i) => (
-        <Float
-          key={i}
-          speed={1.5 + i * 0.3}
-          rotationIntensity={1.4}
-          floatIntensity={1.1}
-        >
-          <mesh position={s.pos}>
-            {s.shape === "box" && <boxGeometry args={[s.size, s.size, s.size]} />}
-            {s.shape === "sphere" && <sphereGeometry args={[s.size, 20, 20]} />}
-            {s.shape === "torus" && (
-              <torusGeometry args={[s.size, s.size * 0.35, 16, 32]} />
-            )}
-            <meshToonMaterial color={s.color} />
-            <Edges threshold={15} color={PALETTE.ink} />
-          </mesh>
-        </Float>
-      ))}
+      </Sticker>
     </group>
   );
 }
@@ -391,18 +350,21 @@ export default function Scene({
 
   return (
     <Canvas
-      camera={{ position: [0, 0.4, 5.5], fov: 40 }}
+      camera={{ position: [0, 0, 5.8], fov: 42 }}
       gl={{ antialias: true, alpha: true }}
       dpr={[1, 2]}
       style={{ width: "100%", height: "100%" }}
     >
-      <ambientLight intensity={0.75} />
-      <directionalLight position={[5, 6, 5]} intensity={1.5} color="#FFFFFF" />
-      <directionalLight position={[-4, 2, 3]} intensity={0.7} color="#FFD24A" />
-      <pointLight position={[2, -3, 2]} intensity={0.6} color="#FF5ACD" />
+      <ambientLight intensity={0.85} />
+      <directionalLight position={[4, 6, 5]} intensity={1.25} color="#FFFFFF" />
+      <directionalLight
+        position={[-4, 2, 3]}
+        intensity={0.55}
+        color={PALETTE.sun}
+      />
+      <pointLight position={[2, -3, 2]} intensity={0.45} color={PALETTE.pink} />
       <Suspense fallback={null}>
-        <Contraption scrollYProgress={scrollYProgress} />
-        <Orbiters scrollYProgress={scrollYProgress} />
+        <Stickers scroll={scrollYProgress} />
       </Suspense>
     </Canvas>
   );

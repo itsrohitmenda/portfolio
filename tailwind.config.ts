@@ -9,29 +9,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Warm coral-forward palette (pivoted from dark cinematic)
-        void: "#F56B4A",          // coral/salmon — primary bg
-        coral: "#F56B4A",
-        coralDeep: "#E2553A",     // hover/deep coral
-        cream: "#FFF3EA",          // off-white card bg + on-coral text
-        panel: "#FFF3EA",          // cards on coral
-        panel2: "#FFE9DB",        // subtle variant
-        hairline: "rgba(28,18,14,0.12)",
-        ink: "#1C120E",            // deep brown-black on cards
-        inkSoft: "#3A2A22",       // secondary ink
-        cream2: "#FFFBF5",        // brightest cream
-        muted: "#FFD9C7",         // on-coral muted
-        mutedInk: "#7A5A4E",      // muted on cream card
-        dim: "#C58B78",           // dim on coral
-        // Accents — playful bright
-        sun: "#FFD24A",            // primary CTA yellow
-        sunDeep: "#F5B82A",
-        acid: "#C3F53E",           // lime accent
-        violet: "#7C5CFF",
-        signal: "#FF4D2E",
-        iris: "#4AD6D6",           // teal
-        hot: "#FF5ACD",
-        sky: "#4A9EFF",
+        // Gen-Z sticker-book palette — butter paper bg + saturated stickers
+        void: "#FBF3D5",           // butter paper — primary bg
+        paper: "#FBF3D5",
+        paperDeep: "#F4E9B8",     // slightly darker paper for hover
+        coral: "#FF3E9D",          // hot magenta (legacy name, now = hot pink)
+        coralDeep: "#E6297F",     // hover hot-pink
+        cream: "#FFFBEA",          // bright cream card bg
+        panel: "#FFFBEA",
+        panel2: "#FFF5D4",
+        hairline: "rgba(23,20,18,0.14)",
+        ink: "#171412",            // near-black ink
+        inkSoft: "#3A312A",
+        cream2: "#FFFDF3",
+        muted: "#F4E9B8",          // muted paper
+        mutedInk: "#6B5E52",
+        dim: "#A0927F",
+        // Accents — saturated sticker pops
+        sun: "#FFC22E",             // mango
+        sunDeep: "#F5A91F",
+        acid: "#BFFF3D",           // electric lime
+        lime: "#BFFF3D",
+        cherry: "#FF4D4D",          // tomato red
+        violet: "#8F5CFF",
+        signal: "#FF4D2E",          // siren orange
+        iris: "#B8A8FF",           // soft lavender
+        hot: "#FF3E9D",             // hot pink
+        pink: "#FF3E9D",
+        sky: "#7AB9FF",             // soft sky blue
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],

@@ -17,7 +17,7 @@ const socials = [
     bg: "bg-sun",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-        <path d="M4 7l8 5 8-5M4 7v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z" stroke="#1C120E" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M4 7l8 5 8-5M4 7v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z" stroke="#171412" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -27,7 +27,7 @@ const socials = [
     bg: "bg-sky",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-        <path d="M6.5 9v10M6.5 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM11 19v-6a3 3 0 0 1 6 0v6M11 10V19" stroke="#1C120E" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M6.5 9v10M6.5 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM11 19v-6a3 3 0 0 1 6 0v6M11 10V19" stroke="#171412" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -37,7 +37,7 @@ const socials = [
     bg: "bg-hot",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-        <path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M14 3v5h5 M9 13h6 M9 17h4" stroke="#1C120E" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M14 3v5h5 M9 13h6 M9 17h4" stroke="#171412" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -47,7 +47,7 @@ const socials = [
     bg: "bg-acid",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-        <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" stroke="#1C120E" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" stroke="#171412" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -64,7 +64,7 @@ export default function Footer() {
     <footer className="relative z-10 bg-cream text-ink border-t-[1.5px] border-ink overflow-hidden">
       {/* Decorative 3D peeking from the corner */}
       <div className="absolute -bottom-24 -right-16 h-[420px] w-[420px] opacity-80 pointer-events-none hidden md:block">
-        <FloatingObject shape="torus" color="#FF5ACD" />
+        <FloatingObject shape="torus" color="#FF3E9D" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-24">
@@ -73,7 +73,7 @@ export default function Footer() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/60">
               · 04 / let's talk
             </span>
-            <h2 className="mt-4 font-display font-medium text-5xl md:text-7xl lg:text-[6.5rem] leading-[0.95] tracking-[-0.025em]">
+            <h2 className="mt-4 font-display font-bold text-5xl md:text-7xl lg:text-[6.5rem] leading-[0.95] tracking-[-0.03em]">
               a PM who{" "}
               <span className="relative inline-block align-baseline min-w-[6ch]">
                 <AnimatePresence mode="wait">
@@ -125,7 +125,7 @@ export default function Footer() {
                   rel="noreferrer"
                   data-cursor-label={s.label}
                   aria-label={s.label}
-                  className={`inline-flex items-center justify-center h-12 w-12 rounded-2xl ${s.bg} border-[1.5px] border-ink shadow-[0_3px_0_0_#1C120E] transition-transform hover:-translate-y-0.5 hover:shadow-[0_5px_0_0_#1C120E]`}
+                  className={`inline-flex items-center justify-center h-12 w-12 rounded-2xl ${s.bg} border-[1.5px] border-ink shadow-[0_3px_0_0_#171412] transition-transform hover:-translate-y-0.5 hover:shadow-[0_5px_0_0_#171412]`}
                 >
                   {s.icon}
                 </a>

@@ -40,13 +40,13 @@ export default function About() {
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
             · 03 / operating principles
           </span>
-          <h2 className="mt-4 font-display font-medium text-cream text-5xl md:text-7xl leading-[0.98] tracking-[-0.025em]">
+          <h2 className="mt-4 font-display font-bold text-ink text-5xl md:text-7xl leading-[0.98] tracking-[-0.03em]">
             how I<br />
             <span className="italic relative inline-block">
               <span className="relative z-10 text-ink">operate</span>
               <span
                 aria-hidden
-                className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-iris rounded-[0.4em] -z-0"
+                className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-pink rounded-[0.4em] -z-0"
               />
             </span>
             .
@@ -56,7 +56,7 @@ export default function About() {
           </p>
 
           <div className="relative mt-10 h-64 hidden md:block">
-            <FloatingObject shape="torus" color="#4AD6D6" />
+            <FloatingObject shape="torus" color="#B8A8FF" />
           </div>
         </div>
 
@@ -68,7 +68,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="group relative rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-6 md:p-10 shadow-[0_5px_0_0_#1C120E] transition-transform duration-300 hover:-translate-y-1"
+              className="group relative rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-6 md:p-10 shadow-[0_5px_0_0_#171412] transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="flex items-start gap-4 md:gap-6">
                 <span

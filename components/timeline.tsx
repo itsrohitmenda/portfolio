@@ -107,14 +107,14 @@ export default function Timeline() {
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
               · 02 / path
             </span>
-            <h2 className="mt-4 md:mt-0 font-display font-medium text-cream text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.025em]">
+            <h2 className="mt-4 md:mt-0 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
               seven years,
               <br />
               <span className="italic relative inline-block">
                 <span className="relative z-10 text-ink">zero dull quarters</span>
                 <span
                   aria-hidden
-                  className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-acid rounded-[0.4em] -z-0"
+                  className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-sky rounded-[0.4em] -z-0"
                 />
               </span>
               .
@@ -123,7 +123,7 @@ export default function Timeline() {
         </div>
 
         {/* Filter tabs (ref-style pill group) */}
-        <div className="mb-10 inline-flex bg-cream border-[1.5px] border-ink rounded-full p-1.5 shadow-[0_3px_0_0_#1C120E]">
+        <div className="mb-10 inline-flex bg-cream border-[1.5px] border-ink rounded-full p-1.5 shadow-[0_3px_0_0_#171412]">
           {filters.map((f) => (
             <button
               key={f.key}
@@ -149,7 +149,7 @@ export default function Timeline() {
               className="group"
             >
               <div
-                className={`bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#1C120E] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_0_0_#1C120E] overflow-hidden`}
+                className={`bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#171412] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_0_0_#171412] overflow-hidden`}
               >
                 <div className="grid grid-cols-12 items-center gap-3 md:gap-6 px-4 md:px-6 py-4 md:py-5">
                   {/* Year */}

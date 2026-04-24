@@ -9,11 +9,11 @@ const FloatingObject = dynamic(() => import("./floating-object"), { ssr: false }
 
 // Mapped to the warm playful palette
 const accentHex: Record<CaseStudy["accent"], string> = {
-  lime: "#C3F53E",       // acid
-  hot: "#FF5ACD",        // hot pink
-  electric: "#4A9EFF",   // sky (was electric violet)
+  lime: "#BFFF3D",       // acid
+  hot: "#FF3E9D",        // hot pink
+  electric: "#7AB9FF",   // sky (was electric violet)
   peach: "#FFB4A2",      // peach (unused now)
-  butter: "#FFD24A",     // sun yellow
+  butter: "#FFC22E",     // sun yellow
 };
 
 const cardBg: Record<CaseStudy["accent"], string> = {
@@ -40,14 +40,14 @@ export default function CaseStudyGrid() {
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
               · 01 / work
             </span>
-            <h2 className="mt-4 md:mt-0 font-display font-medium text-cream text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.025em]">
+            <h2 className="mt-4 md:mt-0 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
               selected
               <br />
               <span className="italic relative inline-block">
                 <span className="relative z-10 text-ink">case studies</span>
                 <span
                   aria-hidden
-                  className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-sun rounded-[0.4em] -z-0"
+                  className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-lime rounded-[0.4em] -z-0"
                 />
               </span>
               .
@@ -112,7 +112,7 @@ function Card({
       className="group block h-full"
     >
       <article
-        className={`relative h-full rounded-3xl border-[1.5px] border-ink overflow-hidden p-6 md:p-10 flex flex-col text-ink ${bg} shadow-[0_6px_0_0_#1C120E] transition-all duration-400 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_10px_0_0_#1C120E]`}
+        className={`relative h-full rounded-3xl border-[1.5px] border-ink overflow-hidden p-6 md:p-10 flex flex-col text-ink ${bg} shadow-[0_6px_0_0_#171412] transition-all duration-400 ease-out group-hover:-translate-y-1 group-hover:shadow-[0_10px_0_0_#171412]`}
       >
         {/* 3D accent in the top-right */}
         <div

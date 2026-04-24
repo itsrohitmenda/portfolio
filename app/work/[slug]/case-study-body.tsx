@@ -10,11 +10,11 @@ const FloatingObject = dynamic(() => import("@/components/floating-object"), { s
 
 // Accent colors mapped to the warm playful palette
 const accentHex: Record<CaseStudy["accent"], string> = {
-  lime: "#C3F53E",       // acid
-  hot: "#FF5ACD",        // hot pink
-  electric: "#4A9EFF",   // sky
+  lime: "#BFFF3D",       // acid
+  hot: "#FF3E9D",        // hot pink
+  electric: "#7AB9FF",   // sky
   peach: "#FFB4A2",      // peach
-  butter: "#FFD24A",     // sun
+  butter: "#FFC22E",     // sun
 };
 
 const accentBg: Record<CaseStudy["accent"], string> = {
@@ -87,7 +87,7 @@ export default function CaseStudyBody({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 font-display font-medium text-cream text-5xl md:text-8xl lg:text-[7.5rem] leading-[0.95] tracking-[-0.025em] max-w-4xl"
+            className="mt-6 font-display font-bold text-ink text-5xl md:text-8xl lg:text-[7.5rem] leading-[0.95] tracking-[-0.03em] max-w-4xl"
           >
             {study.title}
           </motion.h1>
@@ -114,7 +114,7 @@ export default function CaseStudyBody({
       {/* TL;DR — cream card on coral */}
       <section className="relative px-6 py-20 md:py-28">
         <div className="max-w-7xl mx-auto">
-          <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-8 md:p-14 shadow-[0_6px_0_0_#1C120E]">
+          <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-8 md:p-14 shadow-[0_6px_0_0_#171412]">
             <div className="grid md:grid-cols-12 gap-10 md:gap-14">
               <div className="md:col-span-5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/60">
@@ -139,7 +139,7 @@ export default function CaseStudyBody({
                     return (
                       <div
                         key={m.label}
-                        className={`rounded-2xl border-[1.5px] border-ink ${bg} p-5 shadow-[0_3px_0_0_#1C120E]`}
+                        className={`rounded-2xl border-[1.5px] border-ink ${bg} p-5 shadow-[0_3px_0_0_#171412]`}
                       >
                         <div className="font-display font-medium text-3xl md:text-4xl leading-none text-ink">
                           {m.value}
@@ -163,7 +163,7 @@ export default function CaseStudyBody({
       {/* Shipped + Stack — cream card */}
       <section className="relative px-6 py-20 md:py-24">
         <div className="max-w-7xl mx-auto">
-          <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-8 md:p-14 shadow-[0_6px_0_0_#1C120E]">
+          <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-8 md:p-14 shadow-[0_6px_0_0_#171412]">
             <div className="grid md:grid-cols-12 gap-10 md:gap-14">
               <div className="md:col-span-7">
                 <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/60">
@@ -224,7 +224,7 @@ export default function CaseStudyBody({
               · next up / 0{next.order}
             </span>
             <div className="relative mt-6 flex items-center justify-between gap-6">
-              <h3 className="font-display font-medium text-cream text-4xl md:text-6xl lg:text-[6rem] leading-[0.98] tracking-[-0.025em]">
+              <h3 className="font-display font-bold text-ink text-4xl md:text-6xl lg:text-[6rem] leading-[0.98] tracking-[-0.03em]">
                 <span className="relative inline-block">
                   <span className="relative z-10">{next.title}</span>
                   <span
@@ -233,7 +233,7 @@ export default function CaseStudyBody({
                   />
                 </span>
               </h3>
-              <span className="hidden md:inline-flex items-center justify-center h-16 w-16 rounded-full bg-sun border-[1.5px] border-ink text-ink font-display text-3xl shadow-[0_4px_0_0_#1C120E] transition-transform group-hover:translate-x-2">
+              <span className="hidden md:inline-flex items-center justify-center h-16 w-16 rounded-full bg-sun border-[1.5px] border-ink text-ink font-display text-3xl shadow-[0_4px_0_0_#171412] transition-transform group-hover:translate-x-2">
                 →
               </span>
             </div>
@@ -280,7 +280,7 @@ function StorySection({ story, accent }: { story: Story; accent: CaseStudy["acce
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: "-100%", opacity: 0 }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-display italic font-medium text-cream text-7xl lg:text-8xl leading-none tracking-[-0.025em]"
+                    className="font-display italic font-bold text-ink text-7xl lg:text-8xl leading-none tracking-[-0.03em]"
                   >
                     <span className="relative inline-block">
                       <span className="relative z-10">{STORY_ACTS[active].label}.</span>
@@ -385,7 +385,7 @@ function SceneBlock({
         <span className="font-display italic text-sm text-ink/80">{label}</span>
       </div>
 
-      <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-6 md:p-10 shadow-[0_5px_0_0_#1C120E]">
+      <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-6 md:p-10 shadow-[0_5px_0_0_#171412]">
         <h3 className="font-display font-medium text-2xl md:text-4xl lg:text-5xl leading-[1.1] tracking-[-0.02em] max-w-xl">
           {scene.heading}
         </h3>

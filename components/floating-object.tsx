@@ -56,12 +56,12 @@ function Body({ shape, color }: { shape: Shape; color: string }) {
           {shape === "ring" && <torusGeometry args={[0.9, 0.2, 24, 64]} />}
           <meshToonMaterial color={color} />
           {/* Crisp silhouette edges for sharpness */}
-          <Edges threshold={15} color="#1C120E" />
+          <Edges threshold={15} color="#171412" />
         </mesh>
         {/* Contrast outline ring for playful depth */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[1.25, 0.04, 10, 64]} />
-          <meshToonMaterial color="#1C120E" />
+          <meshToonMaterial color="#171412" />
         </mesh>
       </group>
     </Float>
@@ -70,7 +70,7 @@ function Body({ shape, color }: { shape: Shape; color: string }) {
 
 export default function FloatingObject({
   shape = "icosa",
-  color = "#FFD24A",
+  color = "#FFC22E",
 }: {
   shape?: Shape;
   color?: string;
@@ -84,7 +84,7 @@ export default function FloatingObject({
     >
       <ambientLight intensity={0.75} />
       <directionalLight position={[3, 4, 3]} intensity={1.3} color="#FFFFFF" />
-      <directionalLight position={[-3, 1, 2]} intensity={0.55} color="#FFD24A" />
+      <directionalLight position={[-3, 1, 2]} intensity={0.55} color="#FFC22E" />
       <Suspense fallback={null}>
         <Body shape={shape} color={color} />
       </Suspense>

@@ -55,7 +55,7 @@ export default function Cursor() {
           width: variant === "default" ? 12 : variant === "label" ? 108 : 44,
           height: variant === "default" ? 12 : variant === "label" ? 38 : 44,
           borderRadius: variant === "label" ? 999 : 999,
-          backgroundColor: "#1C120E",
+          backgroundColor: "#171412",
         }}
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
         className="flex items-center justify-center text-[10px] font-mono font-medium uppercase tracking-widest text-cream border-[1.5px] border-ink"
