@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const FloatingObject = dynamic(() => import("./floating-object"), { ssr: false });
+import Image from "next/image";
 
 const beliefs = [
   {
@@ -55,9 +53,42 @@ export default function About() {
             Six years of shipping across AdTech, GenAI, E-commerce, and retail taught me a handful of things. The rest is just discipline and taste.
           </p>
 
-          <div className="relative mt-10 h-64 hidden md:block">
-            <FloatingObject shape="torus" color="#B8A8FF" />
-          </div>
+          {/* Polaroid-style photo — tilts slightly, straightens on hover */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, rotate: -6 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -4 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mt-10 md:mt-12 max-w-[300px] group"
+          >
+            <div className="bg-cream border-[1.5px] border-ink rounded-2xl p-3 shadow-[0_10px_0_0_#171412] transition-transform duration-500 group-hover:rotate-0 group-hover:-translate-y-1">
+              <div className="relative aspect-[3/2] rounded-xl overflow-hidden border-[1.5px] border-ink">
+                <Image
+                  src="/rohit.jpg"
+                  alt="Rohit Menda"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 300px"
+                  className="object-cover"
+                  priority={false}
+                />
+              </div>
+              <div className="flex items-center justify-between px-1 pt-2.5 pb-0.5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/70">
+                  after a ship / blr
+                </p>
+                <span className="inline-block text-lg leading-none" aria-hidden>
+                  🤙
+                </span>
+              </div>
+            </div>
+            {/* Playful sticker peeking from behind */}
+            <span
+              aria-hidden
+              className="absolute -top-3 -right-3 h-10 w-10 md:h-12 md:w-12 rounded-full bg-sun border-[1.5px] border-ink shadow-[0_3px_0_0_#171412] flex items-center justify-center font-mono text-[9px] uppercase tracking-[0.2em] font-bold rotate-12"
+            >
+              hi
+            </span>
+          </motion.div>
         </div>
 
         <ol className="md:col-span-7 space-y-4 md:space-y-5">
