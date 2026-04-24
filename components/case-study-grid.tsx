@@ -38,7 +38,7 @@ export default function CaseStudyGrid() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 mb-10 md:mb-14">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
-              · 01 / work
+              · 02 / work
             </span>
             <h2 className="mt-4 md:mt-0 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
               selected

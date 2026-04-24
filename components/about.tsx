@@ -36,7 +36,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16">
         <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
-            · 03 / operating principles
+            · 01 / operating principles
           </span>
           <h2 className="mt-4 font-display font-bold text-ink text-5xl md:text-7xl leading-[0.98] tracking-[-0.03em]">
             how I<br />

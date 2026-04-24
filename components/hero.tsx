@@ -48,7 +48,7 @@ export default function Hero() {
             </span>
             <span className="font-semibold">open to roles</span>
             <span className="opacity-40">/</span>
-            <span>bangalore · ist</span>
+            <span>bengaluru · ist</span>
           </motion.div>
 
           <h1 className="mt-10 md:mt-14 font-display font-bold leading-[0.9] tracking-[-0.03em] text-ink text-[15vw] md:text-[11vw] lg:text-[9.5rem]">
@@ -101,7 +101,7 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 1 }}
             className="md:col-span-5 md:col-start-1 text-base md:text-lg leading-relaxed text-ink font-medium max-w-lg"
           >
-            hi, I'm{" "}
+            hi macha, I'm{" "}
             <span className="bg-pink text-cream px-2 py-0.5 rounded-md font-bold border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] inline-block">
               Rohit
             </span>{" "}
@@ -143,7 +143,7 @@ export default function Hero() {
         transition={{ delay: 1.4, duration: 1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-ink"
       >
-        <span>lots below ↓</span>
+        <span>scroll maadi ↓</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}

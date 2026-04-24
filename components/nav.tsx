@@ -48,9 +48,9 @@ export default function Nav() {
           }`}
         >
           {[
+            { label: "about", href: "/#about", external: false },
             { label: "work", href: "/#work", external: false },
             { label: "path", href: "/#path", external: false },
-            { label: "about", href: "/#about", external: false },
             { label: "resume", href: "/resume.pdf", external: true },
           ].map((l) =>
             l.external ? (

@@ -23,11 +23,11 @@ export default function Home() {
         <Marquee items={brands} />
       </div>
 
+      <About />
+
       <CaseStudyGrid />
 
       <Timeline />
-
-      <About />
     </>
   );
 }

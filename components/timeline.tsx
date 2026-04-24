@@ -85,7 +85,7 @@ export default function Timeline() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
-              · 02 / path
+              · 03 / path
             </span>
             <h2 className="mt-4 md:mt-0 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
               seven years,
