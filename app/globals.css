@@ -3,10 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --void: #0A0A0C;
-  --ink: #F4F2EC;
-  --acid: #BFFF1A;
+  --coral: #F56B4A;
+  --coral-deep: #E2553A;
+  --cream: #FFF3EA;
+  --ink: #1C120E;
+  --sun: #FFD24A;
+  --acid: #C3F53E;
   --violet: #7C5CFF;
+  --iris: #4AD6D6;
+  --hot: #FF5ACD;
+  --sky: #4A9EFF;
 }
 
 * {
@@ -14,21 +20,21 @@
 }
 
 html {
-  background: var(--void);
-  color-scheme: dark;
+  background: var(--coral);
+  color-scheme: light;
 }
 
 body {
-  background: var(--void);
-  color: var(--ink);
+  background: var(--coral);
+  color: var(--cream);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--acid);
-  color: var(--void);
+  background: var(--sun);
+  color: var(--ink);
 }
 
 /* Lenis smooth scroll */
@@ -53,16 +59,16 @@ html.lenis body {
   }
 }
 
-/* Grain overlay for cinematic texture */
+/* Subtle warm grain */
 .noise::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.06;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+  mix-blend-mode: multiply;
 }
 
 .ticker-mask {
@@ -70,45 +76,104 @@ html.lenis body {
   -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
 }
 
+/* Chips — pill-shaped, cream on coral or ink on cream */
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid rgba(244, 242, 236, 0.2);
+  padding: 0.4rem 0.85rem;
+  border: 1.5px solid var(--ink);
   border-radius: 999px;
   font-size: 0.7rem;
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ink);
-  background: rgba(244, 242, 236, 0.03);
-  backdrop-filter: blur(8px);
+  background: var(--cream);
+  font-weight: 500;
 }
 
 .chip-solid {
-  border-color: var(--ink);
   background: var(--ink);
-  color: var(--void);
+  color: var(--cream);
 }
 
+.chip-sun {
+  background: var(--sun);
+  color: var(--ink);
+}
+
+/* Soft hairline on cream */
 .hairline-border {
-  border: 1px solid #2A2A33;
+  border: 1px solid rgba(28, 18, 14, 0.12);
 }
 
-/* Glow for acid accents */
-.glow-acid {
-  text-shadow: 0 0 30px rgba(191, 255, 26, 0.3);
+.hairline-strong {
+  border: 1.5px solid var(--ink);
 }
 
+/* Card shell — rounded, popped shadow (ref-accurate) */
+.card-pop {
+  background: var(--cream);
+  border-radius: 1.75rem;
+  box-shadow: 0 20px 40px -20px rgba(28, 18, 14, 0.25),
+              0 6px 12px -6px rgba(28, 18, 14, 0.1);
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-pop:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -25px rgba(28, 18, 14, 0.35),
+              0 10px 20px -8px rgba(28, 18, 14, 0.15);
+}
+
+/* Chunky solid button with drop-shadow (Fisher-Price pop) */
+.btn-pop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--sun);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1.5px solid var(--ink);
+  box-shadow: 0 4px 0 0 var(--ink);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.btn-pop:hover {
+  transform: translate(0, 2px);
+  box-shadow: 0 2px 0 0 var(--ink);
+}
+
+.btn-pop:active {
+  transform: translate(0, 4px);
+  box-shadow: 0 0 0 0 var(--ink);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--cream);
+  border-color: var(--cream);
+  box-shadow: 0 4px 0 0 rgba(28, 18, 14, 0.85);
+}
+
+/* Glow for playful emphasis */
 .radial-fade {
-  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124, 92, 255, 0.15), transparent 60%);
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 210, 74, 0.35), transparent 60%);
 }
 
-/* Horizontal rule — hairline with gradient */
+/* Horizontal rule */
 .rule {
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(244, 242, 236, 0.2) 20%, rgba(244, 242, 236, 0.2) 80%, transparent);
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, var(--ink) 20%, var(--ink) 80%, transparent);
+  opacity: 0.2;
 }
 
 .clip-reveal {
@@ -120,30 +185,31 @@ html.lenis body {
   to { clip-path: inset(0 0 0 0); }
 }
 
-/* Magnetic button inner glow */
-.magnetic {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.magnetic::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(191, 255, 26, 0.4), transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: -1;
-}
-
-.magnetic:hover::before {
-  opacity: 1;
-}
-
 /* Vertical section label */
 .vlabel {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   letter-spacing: 0.3em;
+}
+
+/* Tabs like the ref */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  color: var(--ink);
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.tab-active {
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: 0 2px 0 0 var(--ink);
 }

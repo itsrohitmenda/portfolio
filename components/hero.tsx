@@ -22,9 +22,10 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-[100svh] overflow-hidden"
     >
+      {/* Warm radial glow */}
       <div className="absolute inset-0 radial-fade pointer-events-none" />
 
-      {/* 3D scene as background — scroll-linked */}
+      {/* 3D contraption — right-ish on desktop, center on mobile */}
       <div className="absolute inset-0 z-0">
         <Scene scrollRef={ref} />
       </div>
@@ -32,25 +33,25 @@ export default function Hero() {
       {/* Foreground content */}
       <motion.div
         style={{ y: yText, opacity: opacityText }}
-        className="relative z-10 max-w-7xl mx-auto px-6 pt-36 pb-20 min-h-[100svh] flex flex-col justify-between"
+        className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 min-h-[100svh] flex flex-col justify-between"
       >
         <div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-muted"
+            className="inline-flex items-center gap-3 bg-cream border-[1.5px] border-ink rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink shadow-[0_3px_0_0_#1C120E]"
           >
             <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-acid opacity-75 animate-ping_slow" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-acid" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-signal opacity-75 animate-ping_slow" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-signal" />
             </span>
-            <span className="text-ink">open to roles</span>
+            <span className="font-medium">open to roles</span>
             <span className="opacity-40">/</span>
-            <span>bangalore · ist (utc+5:30)</span>
+            <span>bangalore · ist</span>
           </motion.div>
 
-          <h1 className="mt-10 md:mt-14 font-display font-medium leading-[0.92] tracking-[-0.025em] text-[14vw] md:text-[10vw] lg:text-[9.5rem]">
+          <h1 className="mt-10 md:mt-14 font-display font-medium leading-[0.9] tracking-[-0.025em] text-cream text-[15vw] md:text-[11vw] lg:text-[10rem]">
             <motion.span
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -63,7 +64,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="block italic text-ink/90"
+              className="block italic text-cream/90"
             >
               with taste,
             </motion.span>
@@ -73,7 +74,15 @@ export default function Hero() {
               transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="block"
             >
-              shipped with <span className="italic text-acid">velocity</span>.
+              shipped with{" "}
+              <span className="italic relative inline-block">
+                <span className="relative z-10 text-ink">velocity</span>
+                <span
+                  aria-hidden
+                  className="absolute inset-x-[-0.08em] bottom-[0.12em] top-[0.2em] bg-sun rounded-[0.4em] -z-0"
+                />
+              </span>
+              .
             </motion.span>
           </h1>
         </div>
@@ -83,9 +92,9 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
-            className="md:col-span-5 md:col-start-1 text-base md:text-lg leading-relaxed text-ink/80 max-w-lg"
+            className="md:col-span-5 md:col-start-1 text-base md:text-lg leading-relaxed text-cream/95 max-w-lg"
           >
-            I'm <span className="text-ink font-medium">Rohit Menda</span> — product manager and founder with six years turning chaotic briefs into products that ship. AdTech, GenAI, E-commerce, retail. Built with Flipkart, Reliance, and friends.
+            I'm <span className="text-ink bg-cream px-1.5 rounded font-medium">Rohit Menda</span> — product manager and founder with six years turning chaotic briefs into products that ship. AdTech, GenAI, E-commerce, retail. Built with Flipkart, Reliance, and friends.
           </motion.p>
 
           <motion.div
@@ -95,19 +104,19 @@ export default function Hero() {
             className="md:col-span-6 md:col-start-7 grid grid-cols-2 md:grid-cols-4 gap-3"
           >
             {[
-              { v: "15×", l: "user growth" },
-              { v: "+750%", l: "DAU uplift" },
-              { v: "₹18Cr+", l: "revenue" },
-              { v: "1B+", l: "impressions" },
+              { v: "15×", l: "user growth", c: "bg-sun" },
+              { v: "+750%", l: "DAU uplift", c: "bg-cream" },
+              { v: "₹18Cr+", l: "revenue", c: "bg-acid" },
+              { v: "1B+", l: "impressions", c: "bg-iris" },
             ].map((m) => (
               <div
                 key={m.l}
-                className="hairline-border rounded-2xl p-4 bg-ink/[0.02] backdrop-blur"
+                className={`${m.c} rounded-2xl border-[1.5px] border-ink p-4 shadow-[0_3px_0_0_#1C120E] text-ink`}
               >
-                <div className="font-display text-3xl leading-none text-ink">
+                <div className="font-display font-medium text-3xl leading-none">
                   {m.v}
                 </div>
-                <div className="mt-2 font-mono text-[10px] uppercase tracking-widest text-muted">
+                <div className="mt-2 font-mono text-[10px] uppercase tracking-widest opacity-70">
                   {m.l}
                 </div>
               </div>
@@ -121,13 +130,13 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-cream/80"
       >
         <span>scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="h-8 w-px bg-gradient-to-b from-muted to-transparent"
+          className="h-8 w-[1.5px] bg-gradient-to-b from-cream/80 to-transparent"
         />
       </motion.div>
     </section>

@@ -48,17 +48,18 @@ export default function Cursor() {
   return (
     <motion.div
       style={{ translateX: sx, translateY: sy }}
-      className="pointer-events-none fixed top-0 left-0 z-[100] -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
+      className="pointer-events-none fixed top-0 left-0 z-[100] -translate-x-1/2 -translate-y-1/2"
     >
       <motion.div
         animate={{
-          width: variant === "default" ? 10 : variant === "label" ? 100 : 40,
-          height: variant === "default" ? 10 : variant === "label" ? 36 : 40,
-          borderRadius: variant === "label" ? 14 : 999,
-          backgroundColor: "#F4F2EC",
+          width: variant === "default" ? 12 : variant === "label" ? 108 : 44,
+          height: variant === "default" ? 12 : variant === "label" ? 38 : 44,
+          borderRadius: variant === "label" ? 999 : 999,
+          backgroundColor: "#1C120E",
         }}
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        className="flex items-center justify-center text-[10px] font-mono uppercase tracking-widest text-void"
+        className="flex items-center justify-center text-[10px] font-mono font-medium uppercase tracking-widest text-cream border-[1.5px] border-ink"
+        style={{ boxShadow: "0 2px 0 0 rgba(28,18,14,0.9)" }}
       >
         {variant === "label" && <span className="px-1 whitespace-nowrap">{label}</span>}
       </motion.div>

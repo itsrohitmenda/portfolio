@@ -1,7 +1,11 @@
 "use client";
 
+import { LogoMark } from "./logo-mark";
+
+export type LogoItem = { name: string; slug: string };
+
 type Props = {
-  items: string[];
+  items: LogoItem[];
   reverse?: boolean;
   className?: string;
 };
@@ -19,15 +23,17 @@ export default function Marquee({ items, reverse, className = "" }: Props) {
         {loop.map((item, i) => (
           <li
             key={i}
-            className="flex items-center gap-8 md:gap-12 pr-8 md:pr-12 font-display text-5xl md:text-7xl leading-[0.9] text-ink"
+            className="flex items-center gap-10 md:gap-16 pr-10 md:pr-16"
           >
-            <span className="inline-block translate-y-[-0.05em]">{item}</span>
+            <LogoMark
+              name={item.name}
+              slug={item.slug}
+              className="h-10 md:h-14 max-w-[240px] md:max-w-[320px] text-3xl md:text-5xl"
+            />
             <span
               aria-hidden
-              className="inline-block text-acid text-2xl md:text-3xl translate-y-[-0.1em]"
-            >
-              ◆
-            </span>
+              className="inline-block h-2 w-2 rounded-full bg-ink/80 shrink-0"
+            />
           </li>
         ))}
       </ul>

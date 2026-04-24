@@ -30,20 +30,20 @@ export default function Nav() {
             initial={{ rotate: 0 }}
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-block h-9 w-9 rounded-full border border-ink/40 bg-ink/5 backdrop-blur grid place-items-center font-display text-xl"
+            className="relative inline-block h-11 w-11 rounded-2xl bg-cream border-[1.5px] border-ink grid place-items-center font-display text-xl text-ink shadow-[0_3px_0_0_#1C120E]"
           >
-            <span className="italic">r</span>
+            <span className="italic font-medium">r</span>
           </motion.span>
-          <div className="flex flex-col leading-tight">
-            <span className="text-sm">rohit menda</span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
+          <div className="flex flex-col leading-tight text-cream">
+            <span className="text-sm font-medium">rohit menda</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest opacity-80">
               product manager
             </span>
           </div>
         </Link>
 
         <nav
-          className={`hidden md:flex items-center gap-1 rounded-full hairline-border bg-panel/60 backdrop-blur-xl px-2 py-1.5 transition-all ${
+          className={`hidden md:flex items-center gap-1 rounded-full bg-cream border-[1.5px] border-ink px-2 py-1.5 transition-all shadow-[0_3px_0_0_#1C120E] ${
             scrolled ? "opacity-100" : "opacity-0 md:opacity-100"
           }`}
         >
@@ -60,7 +60,7 @@ export default function Nav() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor-label={l.label}
-                className="px-3 py-1.5 text-xs font-mono uppercase tracking-widest rounded-full text-muted hover:text-ink hover:bg-ink/10 transition-colors"
+                className="px-3 py-1.5 text-xs font-mono font-medium uppercase tracking-widest rounded-full text-ink hover:bg-sun transition-colors"
               >
                 {l.label}
               </a>
@@ -69,7 +69,7 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 data-cursor-label={l.label}
-                className="px-3 py-1.5 text-xs font-mono uppercase tracking-widest rounded-full text-muted hover:text-ink hover:bg-ink/10 transition-colors"
+                className="px-3 py-1.5 text-xs font-mono font-medium uppercase tracking-widest rounded-full text-ink hover:bg-sun transition-colors"
               >
                 {l.label}
               </Link>
@@ -80,14 +80,14 @@ export default function Nav() {
         <a
           href="mailto:itsrohitmenda@gmail.com"
           data-cursor-label="say hi"
-          className="group relative inline-flex items-center gap-2.5 rounded-full bg-ink text-void pl-2 pr-4 py-2 text-xs font-mono uppercase tracking-widest hover:bg-acid transition-colors"
+          className="btn-pop group"
         >
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-signal opacity-75 animate-ping_slow" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-signal" />
+            <span className="absolute inline-flex h-full w-full rounded-full bg-ink opacity-40 animate-ping_slow" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-ink" />
           </span>
           say hi
-          <span aria-hidden className="opacity-60">→</span>
+          <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
         </a>
       </div>
     </motion.header>
