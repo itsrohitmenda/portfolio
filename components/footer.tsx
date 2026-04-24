@@ -67,7 +67,7 @@ export default function Footer() {
         <FloatingObject shape="torus" color="#FF3E9D" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 py-24">
+      <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-24">
         <div className="grid md:grid-cols-12 gap-12">
           <div className="md:col-span-7">
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/60">
@@ -156,7 +156,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-20 pt-6 border-t border-ink/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="mt-14 md:mt-16 pt-6 border-t border-ink/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/60">
             © {new Date().getFullYear()} rohit menda / built with next.js + r3f
           </p>

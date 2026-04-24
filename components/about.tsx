@@ -34,7 +34,7 @@ const beliefs = [
 
 export default function About() {
   return (
-    <section id="about" className="relative px-6 py-24 md:py-32 overflow-hidden">
+    <section id="about" className="relative px-6 py-20 md:py-28 overflow-hidden">
       <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16">
         <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">

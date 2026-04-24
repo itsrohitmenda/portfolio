@@ -80,9 +80,9 @@ const accentBg: Record<Stop["accent"], string> = {
 
 export default function Timeline() {
   return (
-    <section id="path" className="relative px-6 py-24 md:py-32">
+    <section id="path" className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
               · 02 / path

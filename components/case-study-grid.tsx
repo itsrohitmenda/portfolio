@@ -33,9 +33,9 @@ const shapeMap: Record<string, "torus" | "box" | "icosa" | "octa" | "ring"> = {
 
 export default function CaseStudyGrid() {
   return (
-    <section id="work" className="relative px-6 py-24 md:py-32">
+    <section id="work" className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 mb-12 md:mb-16">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 mb-10 md:mb-14">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
               · 01 / work

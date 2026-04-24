@@ -219,7 +219,7 @@ export default function CaseStudyBody({
           data-cursor-label="next case →"
           className="group block transition"
         >
-          <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 overflow-hidden">
+          <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28 overflow-hidden">
             <span className="relative font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
               · next up / 0{next.order}
             </span>

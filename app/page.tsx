@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <div className="py-10 bg-cream border-y-[1.5px] border-ink/90 overflow-hidden">
+      <div className="py-8 bg-cream border-y-[1.5px] border-ink/90 overflow-hidden">
         <Marquee items={brands} />
       </div>
 
