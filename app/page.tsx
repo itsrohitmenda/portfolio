@@ -2,6 +2,7 @@ import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
 import CaseStudyGrid from "@/components/case-study-grid";
 import About from "@/components/about";
+import Moments from "@/components/moments";
 import Timeline from "@/components/timeline";
 
 const brands = [
@@ -59,6 +60,8 @@ export default function Home() {
       <About />
 
       <CaseStudyGrid />
+
+      <Moments />
 
       <Timeline />
     </>

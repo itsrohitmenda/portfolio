@@ -7,25 +7,25 @@ const beliefs = [
   {
     n: "01",
     t: "Ship beats perfect.",
-    b: "A v1 in prod learns more in a week than a v2 in a deck learns in a quarter. Direction beats precision until you know the direction.",
+    b: "A v1 in prod learns more in a week than a v2 in a deck learns in a quarter. I'd rather argue with real users than ideal ones.",
     accent: "bg-sun",
   },
   {
     n: "02",
     t: "Metrics describe. Narrative decides.",
-    b: "Dashboards prove you're not crazy. Stories tell the team what to do next. A PM who can only read charts is a report.",
+    b: "Dashboards prove you're not crazy. Stories tell the team what to do on Monday. A PM who can only read charts is just a report with legs.",
     accent: "bg-acid",
   },
   {
     n: "03",
     t: "Kill features proudly.",
-    b: "The most under-rated PM muscle is saying no with a smile and a reason. Every no is a yes to the thing that matters.",
+    b: "The most under-rated PM muscle is saying no with a smile and a reason. Every no is a yes to the thing that actually matters this quarter.",
     accent: "bg-hot",
   },
   {
     n: "04",
     t: "Ops is product.",
-    b: "Community, logistics, CX, vendor ops — if the user feels it, it's in scope. The best products look like software and run like restaurants.",
+    b: "Community, logistics, CX, vendor calls at 11pm — if the user feels it, it's in scope. The best products look like software and run like restaurants.",
     accent: "bg-iris",
   },
 ];
@@ -51,7 +51,7 @@ export default function About() {
             .
           </h2>
           <p className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-ink/80 font-medium max-w-2xl">
-            Six years of shipping across AdTech, GenAI, E-commerce, and retail, boiled down to a handful of rules. The rest is just discipline and taste.
+            Six years across AdTech, GenAI, e-commerce and retail — Jio interns to founder mode to head of product. These are the four rules I keep coming back to. The rest is taste, conviction, and showing up on Monday.
           </p>
         </div>
 

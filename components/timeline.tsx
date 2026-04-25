@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
 
 type Stop = {
   year: string;
@@ -10,32 +12,43 @@ type Stop = {
   tag: string;
   domain: string;
   accent: "sun" | "acid" | "iris" | "hot" | "sky" | "cream";
+  image?: { src: string; caption: string; rotate: number };
 };
 
 const stops: Stop[] = [
   {
     year: "2017",
     place: "Reliance Jio",
-    role: "Intern",
-    note: "First campaign, first wins. 250K impressions in 3 weeks.",
+    role: "Intern · Brand Marketing",
+    note: "first campaign, first standing ovation. 250K impressions in three weeks. also the year I learned that 'just one tweak' takes a week.",
     tag: "start",
     domain: "Telecom · AdTech",
     accent: "sky",
+    image: {
+      src: "/photos/gdg-talk.jpg",
+      caption: "first time on a stage that wasn't a college fest",
+      rotate: -4,
+    },
   },
   {
     year: "2020",
     place: "Under 25",
     role: "Product Manager",
-    note: "First real PM seat. 20K users in 90 days, 40% MoM retention.",
+    note: "first real PM seat. 0 → 20K users in 90 days, 40% MoM retention. also my first PM heartbreak, then the fix the next morning.",
     tag: "0 → 1",
     domain: "Consumer · Community",
     accent: "sun",
+    image: {
+      src: "/photos/under-25.jpg",
+      caption: "the under 25 fam, after the show",
+      rotate: 3,
+    },
   },
   {
     year: "2023",
     place: "War Room × Flipkart",
     role: "Product Manager",
-    note: "Shipped generative AI inside Big Billion Day 2023. Record engagement, record sales.",
+    note: "shipped generative AI inside Big Billion Day '23 — record engagement, record sales. eight weeks of deploys at 2am, on filter coffee and absolute conviction.",
     tag: "genai",
     domain: "GenAI · E-commerce",
     accent: "acid",
@@ -44,25 +57,35 @@ const stops: Stop[] = [
     year: "2024",
     place: "Buthey",
     role: "Co-Founder / COO",
-    note: "Premium women's wear, ₹25L in 6 months. Supply chain to CX.",
+    note: "premium women's wear from scratch — ₹25L in six months. learned ops the messy way: pack-outs, returns, vendor calls, the lot. founder mode is a personality trait now.",
     tag: "founder",
     domain: "Retail · Ops",
     accent: "hot",
+    image: {
+      src: "/photos/buthey.jpg",
+      caption: "first pack-outs · co-founder day",
+      rotate: -3,
+    },
   },
   {
     year: "2025",
     place: "Collective Artists",
     role: "Head of Product",
-    note: "AdTech 0 → 1 → scale. 100K → 1.6M users. ₹12Cr in-app revenue.",
+    note: "took an AdTech 0 → 1 → scale. 100K → 1.6M users, ₹12Cr in-app revenue. the team that turned a deck into a brand.",
     tag: "scale",
     domain: "AdTech · Creator economy",
     accent: "iris",
+    image: {
+      src: "/photos/team-brick.jpg",
+      caption: "huddle on the brick-wall table",
+      rotate: 4,
+    },
   },
   {
     year: "now",
     place: "Nagarro × Reliance Retail",
     role: "Product Owner",
-    note: "Swadesh US launch in 45 days. +32% conversion. AI demand forecasting.",
+    note: "Swadesh US launch in 45 days, +32% conversion, AI demand forecasting now in prod. currently shipping at midnight, currently loving it.",
     tag: "current",
     domain: "E-commerce · AI/ML",
     accent: "cream",
@@ -79,8 +102,18 @@ const accentBg: Record<Stop["accent"], string> = {
 };
 
 export default function Timeline() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+
+  // Rail fill ties to the rail's own scroll position so the line "draws itself"
+  const { scrollYProgress } = useScroll({
+    target: railRef,
+    offset: ["start 80%", "end 20%"],
+  });
+  const railHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
-    <section id="path" className="relative px-6 py-20 md:py-28">
+    <section id="path" ref={sectionRef} className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
@@ -100,67 +133,124 @@ export default function Timeline() {
               .
             </h2>
           </div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink/60 max-w-xs md:text-right">
+            jio interns to founder mode to head of product. the actual order, no greatest-hits remix.
+          </p>
         </div>
 
-        {/* Timeline rail — mobile: year stacks above card; desktop: year left of rail */}
+        {/* Timeline rail */}
         <div className="relative md:pl-32">
-          <div className="relative pl-10 md:pl-12">
-            {/* Vertical ink rail (rail center sits at left-4 md:left-5) */}
+          <div ref={railRef} className="relative pl-10 md:pl-12">
+            {/* Rail track (greyed) */}
             <span
               aria-hidden
-              className="absolute top-3 bottom-3 w-[2px] bg-ink/25"
+              className="absolute top-3 bottom-3 w-[2px] bg-ink/15"
               style={{ left: "1rem" }}
             />
+            {/* Rail fill — animates with scroll */}
+            <motion.span
+              aria-hidden
+              style={{ height: railHeight, left: "1rem" }}
+              className="absolute top-3 w-[2px] bg-ink rounded-full origin-top"
+            />
 
-            <ul className="space-y-8 md:space-y-10">
+            <ul className="space-y-10 md:space-y-14">
               {stops.map((s, i) => (
-                <motion.li
-                  key={s.year + s.place}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  className="relative"
-                >
-                  {/* Year — mobile: bold accent pill above card; desktop: subtle left gutter */}
-                  <div className="mb-3 md:hidden">
-                    <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-ink shadow-[0_2px_0_0_#171412]`}
-                    >
-                      {s.year}
-                    </span>
-                  </div>
-                  <div className="hidden md:block md:absolute md:top-[0.65rem] md:w-28 md:text-right md:-left-32">
-                    <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-ink/70">
-                      {s.year}
-                    </span>
-                  </div>
-
-                  {/* Card */}
-                  <div className="bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#171412] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#171412] overflow-hidden">
-                    <div className="p-5 md:p-6">
-                      <div className="flex items-start justify-between gap-3 mb-1">
-                        <h3 className="font-display font-medium text-xl md:text-2xl leading-tight text-ink">
-                          {s.place}
-                        </h3>
-                        <span className="chip chip-solid text-[9px] shrink-0 hidden md:inline-flex">
-                          {s.tag}
-                        </span>
-                      </div>
-                      <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-ink/60">
-                        {s.role} · {s.domain}
-                      </p>
-                      <p className="mt-3 text-sm md:text-[15px] text-ink/75 leading-relaxed">
-                        {s.note}
-                      </p>
-                    </div>
-                  </div>
-                </motion.li>
+                <Row key={s.year + s.place} stop={s} index={i} />
               ))}
             </ul>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Row({ stop: s, index }: { stop: Stop; index: number }) {
+  const rowRef = useRef<HTMLLIElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: rowRef,
+    offset: ["start 90%", "end 30%"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [30, -10]);
+  const dotScale = useTransform(scrollYProgress, [0, 0.2, 1], [0, 1.2, 1]);
+
+  return (
+    <motion.li
+      ref={rowRef}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      className="relative"
+      style={{ y }}
+    >
+      {/* Rail dot — pops in as the row enters */}
+      <motion.span
+        aria-hidden
+        style={{ scale: dotScale, left: "0.625rem" }}
+        className={`absolute top-4 h-3 w-3 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} shadow-[0_2px_0_0_#171412] z-[1]`}
+      />
+
+      {/* Year — mobile: bold accent pill above card; desktop: subtle left gutter */}
+      <div className="mb-3 md:hidden">
+        <span
+          className={`inline-flex items-center px-3 py-1 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-ink shadow-[0_2px_0_0_#171412]`}
+        >
+          {s.year}
+        </span>
+      </div>
+      <div className="hidden md:block md:absolute md:top-[0.65rem] md:w-28 md:text-right md:-left-32">
+        <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-ink/70">
+          {s.year}
+        </span>
+      </div>
+
+      {/* Card + optional polaroid */}
+      <div className="flex items-start gap-4 md:gap-6">
+        <div className="flex-1 min-w-0 bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#171412] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#171412] overflow-hidden">
+          <div className="p-5 md:p-6">
+            <div className="flex items-start justify-between gap-3 mb-1">
+              <h3 className="font-display font-medium text-xl md:text-2xl leading-tight text-ink">
+                {s.place}
+              </h3>
+              <span className="chip chip-solid text-[9px] shrink-0 hidden md:inline-flex">
+                {s.tag}
+              </span>
+            </div>
+            <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-ink/60">
+              {s.role} · {s.domain}
+            </p>
+            <p className="mt-3 text-sm md:text-[15px] text-ink/75 leading-relaxed">
+              {s.note}
+            </p>
+          </div>
+        </div>
+
+        {/* Polaroid — desktop only, floats to the right of the card */}
+        {s.image ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, rotate: 0 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: s.image.rotate }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, delay: index * 0.05 + 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden md:block shrink-0 w-[180px] lg:w-[210px] bg-cream border-[1.5px] border-ink rounded-xl p-2 shadow-[0_5px_0_0_#171412] hover:rotate-0 transition-transform duration-500"
+          >
+            <div className="relative aspect-[4/5] rounded-md overflow-hidden border-[1.5px] border-ink">
+              <Image
+                src={s.image.src}
+                alt={s.image.caption}
+                fill
+                sizes="210px"
+                className="object-cover"
+              />
+            </div>
+            <p className="mt-2 px-1 font-mono text-[9px] uppercase tracking-[0.18em] text-ink/60 leading-snug">
+              {s.image.caption}
+            </p>
+          </motion.div>
+        ) : null}
+      </div>
+    </motion.li>
   );
 }

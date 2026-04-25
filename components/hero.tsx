@@ -127,7 +127,7 @@ export default function Hero() {
               <span className="bg-pink text-cream px-2 py-0.5 rounded-md font-bold border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] inline-block">
                 Rohit
               </span>
-              {" "}— a product person shipping at AdTech, GenAI, E-comm and retail. six years of turning chaotic briefs into products that stick. built with Flipkart, Reliance, and friends along the way.
+              {" "}— product, AdTech, GenAI, e-comm and a small dent in Indian retail. six years of turning chaotic briefs into products that stick around. built with Flipkart, Reliance, Under 25, and a co-founder + a brick-wall table.
             </p>
 
             {/* Signed tag — quiet, not tacked on */}
