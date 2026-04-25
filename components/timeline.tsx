@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
 
 type Stop = {
   year: string;
@@ -12,7 +11,6 @@ type Stop = {
   tag: string;
   domain: string;
   accent: "sun" | "acid" | "iris" | "hot" | "sky" | "cream";
-  image?: { src: string; caption: string; rotate: number };
 };
 
 const stops: Stop[] = [
@@ -24,11 +22,6 @@ const stops: Stop[] = [
     tag: "start",
     domain: "Telecom · AdTech",
     accent: "sky",
-    image: {
-      src: "/photos/gdg-talk.jpg",
-      caption: "first time on a stage that wasn't a college fest",
-      rotate: -4,
-    },
   },
   {
     year: "2020",
@@ -38,11 +31,6 @@ const stops: Stop[] = [
     tag: "0 → 1",
     domain: "Consumer · Community",
     accent: "sun",
-    image: {
-      src: "/photos/under-25.jpg",
-      caption: "the under 25 fam, after the show",
-      rotate: 3,
-    },
   },
   {
     year: "2023",
@@ -61,11 +49,6 @@ const stops: Stop[] = [
     tag: "founder",
     domain: "Retail · Ops",
     accent: "hot",
-    image: {
-      src: "/photos/buthey.jpg",
-      caption: "first pack-outs · co-founder day",
-      rotate: -3,
-    },
   },
   {
     year: "2025",
@@ -75,11 +58,6 @@ const stops: Stop[] = [
     tag: "scale",
     domain: "AdTech · Creator economy",
     accent: "iris",
-    image: {
-      src: "/photos/team-brick.jpg",
-      caption: "huddle on the brick-wall table",
-      rotate: 4,
-    },
   },
   {
     year: "now",
@@ -172,7 +150,6 @@ function Row({ stop: s, index }: { stop: Stop; index: number }) {
     target: rowRef,
     offset: ["start 90%", "end 30%"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [30, -10]);
   const dotScale = useTransform(scrollYProgress, [0, 0.2, 1], [0, 1.2, 1]);
 
   return (
@@ -183,7 +160,6 @@ function Row({ stop: s, index }: { stop: Stop; index: number }) {
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
       className="relative"
-      style={{ y }}
     >
       {/* Rail dot — pops in as the row enters */}
       <motion.span
@@ -206,50 +182,24 @@ function Row({ stop: s, index }: { stop: Stop; index: number }) {
         </span>
       </div>
 
-      {/* Card + optional polaroid */}
-      <div className="flex items-start gap-4 md:gap-6">
-        <div className="flex-1 min-w-0 bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#171412] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#171412] overflow-hidden">
-          <div className="p-5 md:p-6">
-            <div className="flex items-start justify-between gap-3 mb-1">
-              <h3 className="font-display font-medium text-xl md:text-2xl leading-tight text-ink">
-                {s.place}
-              </h3>
-              <span className="chip chip-solid text-[9px] shrink-0 hidden md:inline-flex">
-                {s.tag}
-              </span>
-            </div>
-            <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-ink/60">
-              {s.role} · {s.domain}
-            </p>
-            <p className="mt-3 text-sm md:text-[15px] text-ink/75 leading-relaxed">
-              {s.note}
-            </p>
+      {/* Card */}
+      <div className="bg-cream border-[1.5px] border-ink rounded-2xl shadow-[0_4px_0_0_#171412] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#171412] overflow-hidden">
+        <div className="p-5 md:p-6">
+          <div className="flex items-start justify-between gap-3 mb-1">
+            <h3 className="font-display font-medium text-xl md:text-2xl leading-tight text-ink">
+              {s.place}
+            </h3>
+            <span className="chip chip-solid text-[9px] shrink-0 hidden md:inline-flex">
+              {s.tag}
+            </span>
           </div>
+          <p className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-ink/60">
+            {s.role} · {s.domain}
+          </p>
+          <p className="mt-3 text-sm md:text-[15px] text-ink/75 leading-relaxed">
+            {s.note}
+          </p>
         </div>
-
-        {/* Polaroid — desktop only, floats to the right of the card */}
-        {s.image ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85, rotate: 0 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: s.image.rotate }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, delay: index * 0.05 + 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden md:block shrink-0 w-[180px] lg:w-[210px] bg-cream border-[1.5px] border-ink rounded-xl p-2 shadow-[0_5px_0_0_#171412] hover:rotate-0 transition-transform duration-500"
-          >
-            <div className="relative aspect-[4/5] rounded-md overflow-hidden border-[1.5px] border-ink">
-              <Image
-                src={s.image.src}
-                alt={s.image.caption}
-                fill
-                sizes="210px"
-                className="object-cover"
-              />
-            </div>
-            <p className="mt-2 px-1 font-mono text-[9px] uppercase tracking-[0.18em] text-ink/60 leading-snug">
-              {s.image.caption}
-            </p>
-          </motion.div>
-        ) : null}
       </div>
     </motion.li>
   );
