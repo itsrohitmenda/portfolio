@@ -66,6 +66,15 @@ const moments: Moment[] = [
     rotate: -1,
     aspect: "aspect-[4/5]",
   },
+  {
+    src: "/photos/collective-team.jpg",
+    caption: "the whole CAN family · post-launch night",
+    sub: "1.6M users, eight quarters, one team that ships",
+    badge: "2025",
+    accent: "bg-iris",
+    rotate: 2,
+    aspect: "aspect-[16/9]",
+  },
 ];
 
 function useIsDesktop() {

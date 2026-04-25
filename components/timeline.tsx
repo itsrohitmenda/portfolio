@@ -145,29 +145,14 @@ export default function Timeline() {
 }
 
 function Row({ stop: s, index }: { stop: Stop; index: number }) {
-  const rowRef = useRef<HTMLLIElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: rowRef,
-    offset: ["start 90%", "end 30%"],
-  });
-  const dotScale = useTransform(scrollYProgress, [0, 0.2, 1], [0, 1.2, 1]);
-
   return (
     <motion.li
-      ref={rowRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
       className="relative"
     >
-      {/* Rail dot — pops in as the row enters */}
-      <motion.span
-        aria-hidden
-        style={{ scale: dotScale, left: "0.625rem" }}
-        className={`absolute top-4 h-3 w-3 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} shadow-[0_2px_0_0_#171412] z-[1]`}
-      />
-
       {/* Year — mobile: bold accent pill above card; desktop: subtle left gutter */}
       <div className="mb-3 md:hidden">
         <span
