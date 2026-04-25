@@ -9,18 +9,19 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Words that cycle inside the tagline. Kept short + punchy + parallel
- * grammar so "I ship ___." reads cleanly through every swap. Length
- * variance is OK — the container has min-width so the layout doesn't
- * snap between cycles.
+ * Words that cycle inside the tagline. Every entry must grammatically
+ * complete "I ship ___." — so all of these are things you can actually
+ * ship in product / dev parlance (a launch, an experiment, a feature,
+ * a v1). Length variance is OK; the container has a min-width so the
+ * surrounding line doesn't reflow on each swap.
  */
 const SHIPPING = [
   "products",
-  "communities",
-  "GenAI bets",
-  "0 → 1 vibes",
-  "founder mode",
-  "monday energy",
+  "feature drops",
+  "0 → 1 launches",
+  "GenAI experiments",
+  "side projects",
+  "what I said I would",
 ];
 
 export default function Hero() {
@@ -59,7 +60,7 @@ export default function Hero() {
             </span>
             <span className="font-semibold">open to roles</span>
             <span className="opacity-40">/</span>
-            <span>bengaluru · ist</span>
+            <span>namma blr · ist</span>
           </motion.div>
 
           <motion.div
@@ -124,7 +125,7 @@ export default function Hero() {
             transition={{ delay: 1.3, duration: 0.6 }}
             className="mt-7 md:mt-9 text-base md:text-lg leading-[1.55] text-ink font-medium max-w-xl"
           >
-            a product person from bengaluru. six years shipping things that stick — across AdTech, GenAI, e-commerce, and one stubborn little retail brand.
+            a product person from bengaluru. six years shipping things that stick — across AdTech, GenAI, e-commerce, and one stubborn little retail brand. loyal to CTR masala dosa + filter coffee, in that order.
           </motion.p>
 
           {/* CTAs — same h-11, same px-5, only shadow colour differs */}
@@ -145,7 +146,7 @@ export default function Hero() {
               href="mailto:itsrohitmenda@gmail.com"
               className="group inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full border-[1.5px] border-ink bg-cream text-ink font-mono text-[11px] uppercase tracking-[0.22em] font-semibold shadow-[0_4px_0_0_#171412] transition-transform hover:-translate-y-0.5"
             >
-              say hi
+              say hi macha
               <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↗</span>
             </a>
           </motion.div>
@@ -208,13 +209,15 @@ function StaggerLetters({
 }
 
 /**
- * Cycling word inside the "I ship ___." tagline. Words swap on a fixed
- * 2.4s loop using AnimatePresence — old word slides up + fades out, new
- * word slides up + fades in. Wrapped in an inline-flex with a min-width
- * so the surrounding line doesn't reflow on each swap.
+ * Cycling word inside the "I ship ___." tagline. Words swap on a 2.4s
+ * loop via AnimatePresence — old word slides up + fades out, new word
+ * slides up + fades in. The parent's width is locked to the longest
+ * word via an invisible sizing reference, so the surrounding line and
+ * the trailing period don't jump as words swap.
  */
 function CyclingWord() {
   const [idx, setIdx] = useState(0);
+  const longest = SHIPPING.reduce((a, b) => (a.length >= b.length ? a : b));
 
   useEffect(() => {
     const id = setInterval(
@@ -225,10 +228,17 @@ function CyclingWord() {
   }, []);
 
   return (
-    <span
-      className="relative inline-flex items-baseline overflow-hidden align-baseline pb-1"
-      style={{ minWidth: "8ch" }}
-    >
+    <span className="relative inline-block overflow-hidden align-baseline pb-1">
+      {/* Sizing reference — invisible but takes layout space, so the parent
+          stays as wide as the longest cycling word. */}
+      <span
+        aria-hidden
+        className="invisible whitespace-nowrap not-italic font-medium"
+      >
+        {longest}
+      </span>
+
+      {/* Visible cycling word, layered on top of the sizer */}
       <AnimatePresence mode="wait">
         <motion.span
           key={idx}
@@ -236,9 +246,11 @@ function CyclingWord() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="not-italic font-medium border-b-2 border-ink pb-0.5 inline-block whitespace-nowrap"
+          className="absolute inset-0"
         >
-          {SHIPPING[idx]}
+          <span className="not-italic font-medium border-b-2 border-ink pb-0.5 inline-block whitespace-nowrap">
+            {SHIPPING[idx]}
+          </span>
         </motion.span>
       </AnimatePresence>
     </span>
