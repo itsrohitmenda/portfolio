@@ -20,6 +20,7 @@ const LOGO_HEIGHT: Record<string, number> = {
   "reliance-retail": 95, // stacked mark with "RETAIL" descender, needs height
   nagarro: 70,          // horizontal wordmark (3.6:1) — let it breathe
   "reliance-jio": 75,
+  warroom: 85,          // emblem + dotted "WARROOM" wordmark (3.5:1)
   "under-25": 85,
   buthey: 95,
   swadesh: 65,          // horizontal wordmark — don't stretch, keep it proportional

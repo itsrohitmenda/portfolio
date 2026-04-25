@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   AnimatePresence,
   motion,
@@ -133,6 +134,9 @@ export default function CaseStudyBody({
         </motion.div>
       </div>
 
+      {/* ── Cover photo — editorial team shot, only when the study has one ── */}
+      {study.cover ? <CoverPhoto cover={study.cover} /> : null}
+
       {/* ── Stats band — large, visual, scroll-reveals ──────────────── */}
       <StatsBand metrics={study.metrics} accent={study.accent} />
 
@@ -242,6 +246,54 @@ export default function CaseStudyBody({
         </Link>
       </section>
     </article>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════ *
+ *  Cover photo — wide editorial slab between hero and stats. Subtle
+ *  scale-up on scroll so it feels alive without competing with the band.
+ * ═══════════════════════════════════════════════════════════════════ */
+
+function CoverPhoto({ cover }: { cover: NonNullable<CaseStudy["cover"]> }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
+
+  return (
+    <section ref={ref} className="relative px-6 pt-4 md:pt-8 pb-2 md:pb-4">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-3xl border-[1.5px] border-ink shadow-[0_8px_0_0_#171412] aspect-[16/9] md:aspect-[21/9]"
+        >
+          <motion.div style={{ y }} className="absolute inset-0 scale-110">
+            <Image
+              src={cover.src}
+              alt={cover.alt}
+              fill
+              sizes="(max-width: 1280px) 100vw, 1200px"
+              className="object-cover"
+              priority
+            />
+          </motion.div>
+          {/* Frame index chip */}
+          <div className="absolute top-3 left-3 md:top-4 md:left-4 font-mono text-[10px] uppercase tracking-[0.25em] text-cream bg-ink/75 backdrop-blur-sm rounded-md px-2.5 py-1 z-10">
+            in the room
+          </div>
+        </motion.div>
+
+        {/* Caption strip — magazine cutline, italic, sits below the photo */}
+        <p className="mt-4 md:mt-5 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-ink/60 max-w-2xl">
+          ↳ {cover.caption}
+        </p>
+      </div>
+    </section>
   );
 }
 

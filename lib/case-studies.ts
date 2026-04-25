@@ -31,6 +31,11 @@ export type CaseStudy = {
   story: Story;
   stack: string[];
   shipped: string[];
+  /**
+   * Optional editorial cover photo — slotted between hero and stats on the
+   * detail page when present. Use a wide team/situational shot, not a logo.
+   */
+  cover?: { src: string; caption: string; alt: string };
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -130,6 +135,11 @@ export const caseStudies: CaseStudy[] = [
       "In-app monetisation engine → ₹12Cr",
       "97% roadmap completion, 3 quarters running",
     ],
+    cover: {
+      src: "/photos/collective-team.jpg",
+      caption: "the team that turned a deck into a brand · CAN HQ, '25",
+      alt: "Collective Artists Network product team group photo",
+    },
   },
   {
     slug: "flipkart-nme",

@@ -57,7 +57,7 @@ export default function About() {
 
         {/* Editorial split: portrait (4) + principles (8) */}
         <div className="mt-14 md:mt-20 grid md:grid-cols-12 gap-10 md:gap-14">
-          {/* Portrait column — sticky on desktop */}
+          {/* Portrait column — sticky polaroid on desktop */}
           <motion.aside
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -65,9 +65,22 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="md:col-span-4 md:sticky md:top-28 md:self-start"
           >
-            <div className="relative">
-              {/* Editorial portrait — clean rounded rectangle, no polaroid tilt */}
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border-[1.5px] border-ink shadow-[0_8px_0_0_#171412]">
+            {/* Polaroid frame: cream card, thicker bottom border for the caption strip,
+                gentle tilt, springy hover that levels it out. */}
+            <motion.div
+              initial={{ rotate: 0 }}
+              whileInView={{ rotate: -3 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="relative bg-cream border-[1.5px] border-ink rounded-2xl p-3 md:p-4 pb-12 md:pb-14 shadow-[0_10px_0_0_#171412] hover:rotate-0 transition-transform duration-500 origin-center"
+            >
+              {/* Strip of washi tape across the top — the polaroid touch */}
+              <span
+                aria-hidden
+                className="absolute -top-3 left-1/2 -translate-x-1/2 -rotate-2 h-6 w-24 md:w-28 bg-sun/80 border-[1px] border-ink/30 shadow-[0_1px_0_0_rgba(23,20,18,0.15)] rounded-[2px]"
+              />
+
+              <div className="relative aspect-[4/5] rounded-md overflow-hidden border-[1.5px] border-ink">
                 <Image
                   src="/rohit.jpg"
                   alt="Rohit Menda"
@@ -75,48 +88,45 @@ export default function About() {
                   sizes="(max-width: 768px) 100vw, 420px"
                   className="object-cover"
                 />
-
-                {/* Subtle bottom gradient for caption legibility */}
-                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-ink/45 to-transparent pointer-events-none" />
-
-                {/* Index corner — top-left, like a contact-sheet frame */}
-                <div className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-[0.25em] text-cream/90 bg-ink/70 backdrop-blur-sm rounded-md px-2 py-1">
+                {/* Frame index — bottom-left, polaroid-developer-style stamp */}
+                <div className="absolute top-2 left-2 font-mono text-[9px] uppercase tracking-[0.25em] text-cream/95 bg-ink/70 backdrop-blur-sm rounded-md px-2 py-0.5">
                   frame · 01
-                </div>
-
-                {/* Photo caption bar — locked to image */}
-                <div className="absolute left-3 right-3 bottom-3 flex items-end justify-between gap-3">
-                  <div>
-                    <p className="font-display font-medium text-lg md:text-xl text-cream leading-tight">
-                      Rohit Menda
-                    </p>
-                    <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.25em] text-cream/80">
-                      product · namma bengaluru
-                    </p>
-                  </div>
-                  <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-sun border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] text-base" aria-hidden>
-                    🤙
-                  </span>
                 </div>
               </div>
 
-              {/* Ticket-stub stamp — editorial, not a polaroid tilt */}
+              {/* Polaroid caption strip — the wide white space below the photo,
+                  written like a sharpie scrawl */}
+              <div className="absolute left-4 right-4 bottom-3 md:bottom-4 flex items-end justify-between gap-3">
+                <div>
+                  <p className="font-display italic font-medium text-lg md:text-xl text-ink leading-tight">
+                    rohit, blr 26&apos;
+                  </p>
+                  <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.22em] text-ink/55">
+                    product · namma bengaluru
+                  </p>
+                </div>
+                <span aria-hidden className="font-display italic text-ink/60 text-base">
+                  🤙
+                </span>
+              </div>
+
+              {/* Ticket-stub stamp — sits in the corner of the polaroid */}
               <motion.span
                 initial={{ scale: 0.6, rotate: 0, opacity: 0 }}
-                whileInView={{ scale: 1, rotate: -8, opacity: 1 }}
+                whileInView={{ scale: 1, rotate: 12, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 aria-hidden
-                className="absolute -top-4 -right-4 md:-top-5 md:-right-5 h-16 w-16 md:h-20 md:w-20 rounded-full bg-cream border-[1.5px] border-ink shadow-[0_3px_0_0_#171412] flex flex-col items-center justify-center font-mono text-[9px] uppercase tracking-[0.15em] font-bold text-ink"
+                className="absolute -bottom-5 -right-5 md:-bottom-6 md:-right-6 h-16 w-16 md:h-20 md:w-20 rounded-full bg-acid border-[1.5px] border-ink shadow-[0_3px_0_0_#171412] flex flex-col items-center justify-center font-mono text-[9px] uppercase tracking-[0.15em] font-bold text-ink"
               >
                 <span className="text-[10px] tracking-[0.2em]">rm</span>
-                <span className="h-[1px] w-5 bg-ink/30 my-0.5" />
-                <span className="text-[8px] tracking-[0.2em] text-ink/70">2026</span>
+                <span className="h-[1px] w-5 bg-ink/40 my-0.5" />
+                <span className="text-[8px] tracking-[0.2em] text-ink/75">2026</span>
               </motion.span>
-            </div>
+            </motion.div>
 
-            {/* Editorial credit strip below the portrait */}
-            <div className="mt-6 grid grid-cols-3 gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-ink/60">
+            {/* Editorial credit strip below the polaroid */}
+            <div className="mt-10 md:mt-12 grid grid-cols-3 gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-ink/60">
               <div>
                 <p className="text-ink/40">years</p>
                 <p className="mt-1 text-ink font-semibold">6+</p>

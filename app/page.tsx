@@ -10,6 +10,7 @@ const brands = [
   { name: "Reliance Retail", slug: "reliance-retail" },
   { name: "Nagarro", slug: "nagarro" },
   { name: "Reliance Jio", slug: "reliance-jio" },
+  { name: "War Room", slug: "warroom" },
   { name: "Swadesh", slug: "swadesh" },
   { name: "Under 25", slug: "under-25" },
   { name: "Buthey", slug: "buthey" },
@@ -38,22 +39,8 @@ export default function Home() {
         </div>
 
         {/* Marquee row */}
-        <div className="py-6 md:py-8">
+        <div className="py-6 md:py-8 pb-7 md:pb-9">
           <Marquee items={brands} />
-        </div>
-
-        {/* Footer rail */}
-        <div className="relative border-t border-dashed border-ink/25">
-          <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.3em] text-ink/70">
-            <span className="inline-flex items-center gap-2">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-cherry opacity-75 animate-ping_slow" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cherry" />
-              </span>
-              currently shipping at reliance retail
-            </span>
-            <span className="hidden md:inline">signed / bengaluru</span>
-          </div>
         </div>
       </section>
 
