@@ -96,19 +96,18 @@ export default function Timeline() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <div className="flex flex-col md:flex-row md:items-end md:gap-6">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
-              · 03 / path
+              · 04 / path
             </span>
             <h2 className="mt-4 md:mt-0 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
               seven years,
               <br />
               <span className="italic relative inline-block">
-                <span className="relative z-10 text-ink">zero dull quarters</span>
+                <span className="relative z-10 text-ink">zero dull quarters.</span>
                 <span
                   aria-hidden
                   className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-sky rounded-[0.4em] -z-0"
                 />
               </span>
-              .
             </h2>
           </div>
           <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink/60 max-w-xs md:text-right">

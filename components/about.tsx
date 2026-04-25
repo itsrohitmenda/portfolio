@@ -42,13 +42,12 @@ export default function About() {
           <h2 className="mt-4 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
             how I{" "}
             <span className="italic relative inline-block">
-              <span className="relative z-10 text-ink">operate</span>
+              <span className="relative z-10 text-ink">operate.</span>
               <span
                 aria-hidden
                 className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-pink rounded-[0.4em] -z-0"
               />
             </span>
-            .
           </h2>
           <p className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-ink/80 font-medium max-w-2xl">
             Six years across AdTech, GenAI, e-commerce and retail — Jio interns to founder mode to head of product. These are the four rules I keep coming back to. The rest is taste, conviction, and showing up on Monday.

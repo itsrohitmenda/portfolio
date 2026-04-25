@@ -38,6 +38,11 @@ export type CaseStudy = {
   cover?: { src: string; caption: string; alt: string };
 };
 
+/**
+ * Cards display in array order on the homepage and the order field drives
+ * the "01 / 06" badge. Both kept in reverse-chronological order so the
+ * grid reads newest → oldest top-to-bottom.
+ */
 export const caseStudies: CaseStudy[] = [
   {
     slug: "swadesh",
@@ -142,8 +147,57 @@ export const caseStudies: CaseStudy[] = [
     },
   },
   {
-    slug: "flipkart-nme",
+    slug: "buthey",
     order: 3,
+    title: "Buthey: depth was the only strategy",
+    tagline: "An MBA, a sewing machine, a D2C site I built myself, and zero returns to date.",
+    company: "Buthey",
+    role: "Co-Founder / COO",
+    year: "2024",
+    duration: "Apr '24 → Oct '24",
+    domain: ["D2C", "Retail", "Ops", "0 → 1"],
+    accent: "hot",
+    emoji: "👗",
+    hook: "Walked out of business school with a deck habit. Walked into an industry that grades you on stitch-count, dye lots, and how fast a vendor returns your call.",
+    tldr: "Co-founded Buthey, a premium women's wear D2C brand. Learned manufacturing, D2C tooling, performance marketing and supply chain from scratch. Hit ₹25L in six months with zero product returns to date.",
+    metrics: [
+      { value: "0", label: "returns to date" },
+      { value: "₹25L", label: "rev in 6 mo" },
+      { value: "100%", label: "hand-QC'd" },
+    ],
+    story: {
+      context: {
+        heading: "An MBA grade, and a sewing machine.",
+        body: "Just out of business school. Co-founded Buthey — premium women's wear, India-first, sold direct. The MBA gave me decks, frameworks, a comfort with strategy. The industry asked for stitch-counts, dye-lot consistency, and a vendor who'd actually pick up the phone on a Tuesday. Day one was a sewing-machine demo and a Notion doc I rewrote three times that week.",
+        beat: "0 industry experience",
+      },
+      problem: {
+        heading: "Six different jobs disguised as one company.",
+        body: "Manufacturing — find a karkhana, get sample-to-prod right, learn what GSM means. D2C — build a Shopify-tier site, run checkout, returns, COD, the whole funnel. Performance marketing — Meta + WhatsApp, every rupee accountable to a number. Supply chain — fabric sourcing, QC, dispatch, last-mile reverse logistics. Brand — the part the MBA actually trained me for. Each blocked launch. None outsourceable at our cheque size.",
+      },
+      bet: {
+        heading: "Go deep, not wide. Learn one floor at a time.",
+        body: "Refused to scale before unit economics + quality were locked. Spent the first two months sitting on factory floors learning which weave returns to a steam press without distorting. Built the website myself on a no-code stack because nobody else would care more about the cart abandonment flow. Ran the first ₹3L of ads myself on Meta, learning what a creative refresh actually means. Hand-checked every single garment before pack-out — that's where the zero-returns number was earned.",
+        beat: "Hand-QC every single order",
+      },
+      outcome: {
+        heading: "₹25L in six months, zero returns ever.",
+        body: "₹25L in revenue across the first six months. Performance marketing ROAS held above 3.5×. Most importantly: zero product returns to date. That stat isn't an accident — it's the receipt for showing up to factory inspections and saying no to dye lots that didn't match. Walked out of Buthey with industry depth I couldn't have read about, and a healthy respect for anyone who builds physical product. Founder mode is a personality trait now.",
+        beat: "0 product returns",
+      },
+    },
+    stack: ["Shopify", "Meta Ads", "WhatsApp Business", "Razorpay", "Notion", "Excel (a lot)"],
+    shipped: [
+      "Premium women's wear D2C brand, 0 → ₹25L in 6 months",
+      "Manufacturing pipeline with vetted vendor stack",
+      "D2C site + checkout + returns flow, built in-house",
+      "Performance marketing engine, ROAS 3.5×+",
+      "Hand-QC operating model → zero product returns to date",
+    ],
+  },
+  {
+    slug: "flipkart-nme",
+    order: 4,
     title: "NME: Generative AI on Big Billion Day",
     tagline: "The highest-stakes sale in India, and we shipped GenAI into it.",
     company: "War Room × Flipkart Labs",
@@ -191,7 +245,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "under-25",
-    order: 4,
+    order: 5,
     title: "Under 25: the internet's coolest student corner",
     tagline: "A community app for Indian Gen Z, built with Indian Gen Z.",
     company: "Under 25",
@@ -237,6 +291,59 @@ export const caseStudies: CaseStudy[] = [
       "100+ on-ground events",
       "5,000-fellow operating model",
     ],
+  },
+  {
+    slug: "iesa-vr-rover",
+    order: 6,
+    title: "VR Rover: world's first, at 21",
+    tagline: "World's first VR-controlled rover, built in 48 hours at IESA Vision Summit '17.",
+    company: "IESA Vision Summit · Makeathon",
+    role: "Team Lead · Build",
+    year: "2017",
+    duration: "Feb 21–22, 2017",
+    domain: ["AR/VR", "Hardware", "Hackathon"],
+    accent: "electric",
+    emoji: "🤖",
+    hook: "21, in college, no PRDs, no production constraints. Just two days, a VR headset, a rover chassis, and a stubborn idea: drive it from your eyes.",
+    tldr: "Built the world's first VR-controlled rover at IESA Vision Summit Makeathon 2017. AR/VR theme, 2nd place out of 100+ teams, ₹50K prize. Two days, four-person team, one stubborn idea.",
+    metrics: [
+      { value: "2nd", label: "of 100+ teams" },
+      { value: "48h", label: "to live demo" },
+      { value: "₹50K", label: "prize money" },
+    ],
+    story: {
+      context: {
+        heading: "Two days. AR/VR theme. Bring something built.",
+        body: "IESA Vision Summit Makeathon, Bangalore, February 2017. India's largest electronics body, 100+ teams across IoT / AR-VR / embedded, 48 hours to ship a working prototype that judges could actually pick up and use. We were a four-person student team. The brief was open. We wanted to drive a rover — from inside a headset.",
+        beat: "100+ teams, 48 hours",
+      },
+      problem: {
+        heading: "VR latency, radio control, and a camera stream — all on a student budget.",
+        body: "VR demands sub-50ms head-tracking response or your stomach files a complaint. Radio rovers have wobbly latency. Streaming a camera over consumer WiFi in 2017 meant frame drops + stutter at every demo table. Parts had to ship in a one-week order window. Every component had to do double duty or it didn't make the build.",
+      },
+      bet: {
+        heading: "Strip the stack. Stream + tilt + drive, nothing else.",
+        body: "Cut every feature that wasn't 'see what the rover sees, tilt your head to steer.' Used a smartphone as both the rover's onboard camera and a Cardboard-style headset on the driver side. WiFi-direct between the two phones to skip the venue's router (and its 200ms of grief). Custom Arduino code for the chassis. The whole rig fit on a kitchen table for the build week.",
+        beat: "One feature, done well",
+      },
+      outcome: {
+        heading: "2nd of 100+ teams. Cheque, photos, claim.",
+        body: "Demoed live on the IESA stage. Judges drove the rover from their seats while wearing the headset. Took 2nd place across 100+ teams in the AR/VR theme — walked off with a ₹50,000 cheque and the 'world's first VR rover' claim, defensible because no one had shipped one as a single integrated demo at scale yet. The bigger win was the lesson nobody told me at 21: ruthless scoping wins hackathons. Same lesson applied to every product I shipped after.",
+        beat: "₹50K + 'world's first'",
+      },
+    },
+    stack: ["Arduino", "Unity", "Android (Cardboard SDK)", "WiFi Direct", "Soldering iron", "Hot glue"],
+    shipped: [
+      "World's first VR-controlled rover, working demo",
+      "Live judges-on-stage drive",
+      "2nd of 100+ teams · AR/VR theme · IESA '17",
+      "₹50,000 prize money",
+    ],
+    cover: {
+      src: "/photos/iesa-vr-rover.jpg",
+      caption: "team VR ROOVER · 2nd winner · IESA Vision Summit, blr · feb '17",
+      alt: "Rohit and team accepting the ₹50,000 second-prize cheque at IESA Vision Summit 2017 Makeathon for the VR Rover project",
+    },
   },
 ];
 

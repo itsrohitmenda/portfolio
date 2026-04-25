@@ -23,12 +23,21 @@ type Moment = {
 const moments: Moment[] = [
   {
     src: "/photos/gdg-talk.jpg",
-    caption: "ESA Vision Summit · 2nd prize",
+    caption: "IESA Vision Summit · 2nd prize",
     sub: "the kid who built robots before slide decks",
-    badge: "2016",
+    badge: "2017",
     accent: "bg-sky",
     rotate: -3,
     aspect: "aspect-[4/5]",
+  },
+  {
+    src: "/photos/iesa-vr-rover.jpg",
+    caption: "team VR ROOVER · ₹50K cheque",
+    sub: "world's first VR rover · 2nd of 100+ teams",
+    badge: "2017",
+    accent: "bg-cream",
+    rotate: 2,
+    aspect: "aspect-[16/10]",
   },
   {
     src: "/photos/award.jpg",
@@ -36,7 +45,7 @@ const moments: Moment[] = [
     sub: "before product had a name for what I was doing",
     badge: "2017",
     accent: "bg-acid",
-    rotate: 2,
+    rotate: -2,
     aspect: "aspect-[4/5]",
   },
   {
@@ -186,22 +195,21 @@ function Header() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
-            · 02.5 / contact sheet
+            · 03 / contact sheet
           </span>
-          <h2 className="mt-3 font-display font-bold text-ink text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.98] tracking-[-0.03em]">
+          <h2 className="mt-4 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
             moments,{" "}
             <span className="italic relative inline-block">
-              <span className="relative z-10">not the highlight reel</span>
+              <span className="relative z-10">not the highlight reel.</span>
               <span
                 aria-hidden
                 className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-acid rounded-[0.4em] -z-0"
               />
             </span>
-            .
           </h2>
         </div>
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-ink/60 max-w-xs">
-          ten years, five frames. the wins, the scrappy bits, the people who shipped it with me.
+          ten years, seven frames. the wins, the scrappy bits, the people who shipped it with me.
         </p>
       </div>
     </div>

@@ -27,8 +27,10 @@ const accentBg: Record<CaseStudy["accent"], string> = {
 const shapeMap: Record<string, "torus" | "box" | "icosa" | "octa" | "ring"> = {
   swadesh: "box",
   "collective-artists-network": "torus",
+  buthey: "ring",
   "flipkart-nme": "icosa",
   "under-25": "octa",
+  "iesa-vr-rover": "icosa",
 };
 
 export default function CaseStudyGrid() {
@@ -44,13 +46,12 @@ export default function CaseStudyGrid() {
               selected
               <br />
               <span className="italic relative inline-block">
-                <span className="relative z-10 text-ink">case studies</span>
+                <span className="relative z-10 text-ink">case studies.</span>
                 <span
                   aria-hidden
                   className="absolute inset-x-[-0.06em] bottom-[0.12em] top-[0.2em] bg-lime rounded-[0.4em] -z-0"
                 />
               </span>
-              .
             </h2>
           </div>
           <div className="text-left md:text-right text-ink font-medium">

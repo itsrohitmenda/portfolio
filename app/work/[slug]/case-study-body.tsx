@@ -35,8 +35,10 @@ const accentBg: Record<CaseStudy["accent"], string> = {
 const shapeMap: Record<string, "torus" | "box" | "icosa" | "octa" | "ring"> = {
   swadesh: "box",
   "collective-artists-network": "torus",
+  buthey: "ring",
   "flipkart-nme": "icosa",
   "under-25": "octa",
+  "iesa-vr-rover": "icosa",
 };
 
 export default function CaseStudyBody({
