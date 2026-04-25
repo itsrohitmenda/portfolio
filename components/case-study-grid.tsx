@@ -126,26 +126,28 @@ function Card({ study }: { study: CaseStudy }) {
             {study.tagline}
           </p>
 
-          {/* Metrics strip — always 3 on every card */}
-          <div className="mt-6 grid grid-cols-3 gap-3 md:gap-4 py-4 border-y border-ink/15">
+          {/* Metrics strip — always 3 on every card. Tighter type + tracking
+              on mobile so 3 cells share a narrow card without wrapping. */}
+          <div className="mt-6 grid grid-cols-3 gap-2 md:gap-4 py-4 border-y border-ink/15">
             {metrics.map((m) => (
-              <div key={m.label}>
-                <div className="font-display font-bold text-xl md:text-2xl leading-none tracking-tight">
+              <div key={m.label} className="min-w-0">
+                <div className="font-display font-bold text-lg sm:text-xl md:text-2xl leading-none tracking-tight">
                   {m.value}
                 </div>
-                <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.15em] text-ink/60 leading-tight">
+                <div className="mt-1.5 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.08em] sm:tracking-[0.15em] text-ink/60 leading-tight">
                   {m.label}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Domain chips */}
+          {/* Domain chips — whitespace-nowrap keeps each pill on one line, the
+              flex-wrap parent pushes overflow pills to the next row instead */}
           <div className="mt-5 flex flex-wrap gap-2">
             {study.domain.slice(0, 3).map((d) => (
               <span
                 key={d}
-                className="inline-flex items-center rounded-full border-[1.5px] border-ink bg-paperDeep px-2.5 py-1 text-[10px] font-mono font-medium uppercase tracking-widest"
+                className="inline-flex items-center whitespace-nowrap rounded-full border-[1.5px] border-ink bg-paperDeep px-2.5 py-1 text-[10px] font-mono font-medium uppercase tracking-[0.08em]"
               >
                 {d}
               </span>

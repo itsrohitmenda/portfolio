@@ -7,7 +7,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const beliefs = [
   {
@@ -136,10 +136,13 @@ export default function About() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════ *
- *  OperatingArt — the sticky scroll-reactive art piece on the left.
- *  Cycling 01→04 numeral, accent swatch that shifts with the active
- *  principle, four floating sticker shapes that parallax + rotate with
- *  scroll, and a progress pill at the bottom.
+ *  OperatingArt — sticky scroll-reactive machinery illustration.
+ *  Three interlocking SVG gears (one big, two satellites) styled to
+ *  match the site's pop UI (ink outlines, layered detail, brand
+ *  palette fills). Each gear rotates at a rate inversely proportional
+ *  to its size and adjacent gears spin in opposite directions to sell
+ *  the meshing. The big gear's hub fills with the active principle's
+ *  accent colour, and the cycling 01–04 numeral floats over it.
  * ═══════════════════════════════════════════════════════════════════ */
 
 function OperatingArt({
@@ -149,28 +152,20 @@ function OperatingArt({
   activeIdx: number;
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
 }) {
-  // Each sticker reads the same scroll value but transforms it differently,
-  // giving the canvas a layered parallax that comes alive only on scroll.
-  const stickerYA = useTransform(progress, [0, 1], [-10, 30]);
-  const stickerYB = useTransform(progress, [0, 1], [20, -30]);
-  const stickerYC = useTransform(progress, [0, 1], [-20, 25]);
-  const stickerYD = useTransform(progress, [0, 1], [15, -20]);
-
-  const stickerRotA = useTransform(progress, [0, 1], [-8, 30]);
-  const stickerRotB = useTransform(progress, [0, 1], [12, -45]);
-  const stickerRotC = useTransform(progress, [0, 1], [0, 90]);
-  const stickerRotD = useTransform(progress, [0, 1], [-25, 25]);
-
-  // Big disc rotates a quarter-turn as you scroll the section.
-  const discRot = useTransform(progress, [0, 1], [-15, 15]);
+  // Each gear rotates at a rate roughly inverse to its size (smaller
+  // gears spin faster). Adjacent gears spin in opposite directions to
+  // sell the meshing illusion. Big gear is slowest CW, small ones flip.
+  const gearBigRot = useTransform(progress, [0, 1], [0, 240]);
+  const gearTopRot = useTransform(progress, [0, 1], [0, -480]);
+  const gearLeftRot = useTransform(progress, [0, 1], [0, -380]);
 
   const active = beliefs[activeIdx];
 
   return (
     <div className="relative">
-      {/* Canvas */}
+      {/* Canvas — cream blueprint tile */}
       <div className="relative aspect-square rounded-3xl border-[1.5px] border-ink bg-cream shadow-[0_8px_0_0_#171412] overflow-hidden">
-        {/* Subtle grid texture so the bg isn't a flat slab */}
+        {/* Blueprint dot grid */}
         <div
           aria-hidden
           className="absolute inset-0 opacity-[0.07]"
@@ -181,104 +176,191 @@ function OperatingArt({
           }}
         />
 
-        {/* Floating stickers — geometric shapes in brand palette,
-            each parallaxes at a different rate as you scroll. */}
-        <motion.span
-          aria-hidden
-          style={{ y: stickerYA, rotate: stickerRotA }}
-          className="absolute top-5 left-5 h-12 w-12 rounded-2xl bg-sun border-[1.5px] border-ink shadow-[0_3px_0_0_#171412]"
-        />
-        <motion.span
-          aria-hidden
-          style={{ y: stickerYB, rotate: stickerRotB }}
-          className="absolute top-7 right-6 h-10 w-10 rounded-full bg-iris border-[1.5px] border-ink shadow-[0_3px_0_0_#171412]"
-        />
-        <motion.span
-          aria-hidden
-          style={{ y: stickerYC, rotate: stickerRotC }}
-          className="absolute bottom-12 left-7 h-9 w-9 rotate-45 bg-acid border-[1.5px] border-ink shadow-[0_3px_0_0_#171412]"
-        />
-        <motion.span
-          aria-hidden
-          style={{ y: stickerYD, rotate: stickerRotD }}
-          className="absolute bottom-14 right-5 font-display font-bold text-2xl text-hot leading-none"
+        {/* Decorative rivet marks in the corners — sells the "this is a
+            machined plate" feel without competing with the gears. */}
+        {[
+          { top: "8%", left: "8%" },
+          { top: "8%", right: "8%" },
+          { bottom: "8%", left: "8%" },
+          { bottom: "8%", right: "8%" },
+        ].map((pos, i) => (
+          <span
+            key={i}
+            aria-hidden
+            className="absolute h-1.5 w-1.5 rounded-full bg-ink/40"
+            style={pos}
+          />
+        ))}
+
+        {/* Big central gear — holds the cycling number in its hub */}
+        <motion.div
+          style={{ rotate: gearBigRot, x: "-50%", y: "-50%" }}
+          className="absolute left-1/2 top-1/2 w-[62%] h-[62%]"
         >
-          ✦
-        </motion.span>
+          <Gear teeth={16} fill="#FAF6E8" hubFill={active.swatch} />
+        </motion.div>
 
-        {/* Centre cluster: live status + cycling numeral + active accent disc */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
-          <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] font-bold text-ink mb-1">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-cherry opacity-75 animate-ping_slow" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cherry" />
-            </span>
-            now operating
-          </span>
+        {/* Top-right small gear */}
+        <motion.div
+          style={{ rotate: gearTopRot, x: "-50%", y: "-50%" }}
+          className="absolute left-[78%] top-[18%] w-[26%] h-[26%]"
+        >
+          <Gear teeth={10} fill="#FFC22E" minimal />
+        </motion.div>
 
-          {/* Big disc behind the number, fills with the active accent.
-              Rotates with scroll for the kinetic feel. */}
-          <div className="relative flex items-center justify-center my-2">
-            <motion.div
-              style={{ rotate: discRot, backgroundColor: active.swatch }}
-              transition={{ backgroundColor: { duration: 0.5 } }}
-              className="absolute h-[7.5rem] w-[7.5rem] md:h-[9rem] md:w-[9rem] rounded-full border-[1.5px] border-ink shadow-[0_4px_0_0_#171412]"
-            />
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={activeIdx}
-                initial={{ y: 60, opacity: 0, scale: 0.85 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                exit={{ y: -60, opacity: 0, scale: 0.85 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="relative font-display font-bold text-[5.5rem] md:text-[7rem] leading-none tracking-[-0.04em] text-ink z-[1]"
-              >
-                {String(activeIdx + 1).padStart(2, "0")}
-              </motion.span>
-            </AnimatePresence>
-          </div>
+        {/* Bottom-left medium gear */}
+        <motion.div
+          style={{ rotate: gearLeftRot, x: "-50%", y: "-50%" }}
+          className="absolute left-[16%] top-[80%] w-[34%] h-[34%]"
+        >
+          <Gear teeth={12} fill="#7C5CFF" minimal />
+        </motion.div>
 
-          {/* Active title — fades through */}
-          <div className="relative mt-3 h-8 md:h-9 w-full overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={activeIdx}
-                initial={{ y: 24, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -24, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0 text-center font-display italic font-medium text-ink text-base md:text-lg leading-tight tracking-tight"
-              >
-                {active.t.replace(/\.$/, "")}
-              </motion.p>
-            </AnimatePresence>
-          </div>
+        {/* Cycling number in the big gear's hub (overlay, doesn't rotate) */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={activeIdx}
+              initial={{ y: 40, opacity: 0, scale: 0.85 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: -40, opacity: 0, scale: 0.85 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display font-bold text-3xl md:text-5xl tracking-[-0.04em] leading-none text-ink"
+            >
+              {String(activeIdx + 1).padStart(2, "0")}
+            </motion.span>
+          </AnimatePresence>
         </div>
 
-        {/* Bottom progress bar — pill widens for the active step */}
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-[2]">
+        {/* Frame chip — top-left, contact-sheet style */}
+        <div className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-[0.25em] text-cream/95 bg-ink/75 backdrop-blur-sm rounded-md px-2 py-0.5 z-[2]">
+          op · {String(activeIdx + 1).padStart(2, "0")}/04
+        </div>
+
+        {/* Live status — top-right */}
+        <div className="absolute top-3 right-3 inline-flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.22em] font-bold text-ink bg-cream/95 backdrop-blur-sm rounded-md px-2 py-0.5 border-[1px] border-ink/30 z-[2]">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-cherry opacity-75 animate-ping_slow" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cherry" />
+          </span>
+          live
+        </div>
+
+        {/* Bottom progress pills */}
+        <div className="absolute bottom-3.5 left-0 right-0 flex justify-center gap-1.5 z-[2]">
           {beliefs.map((_, i) => (
             <span
               key={i}
               className={`h-1.5 rounded-full border-[1.5px] border-ink transition-all duration-500 ${
-                i === activeIdx
-                  ? "w-8 bg-ink"
-                  : "w-1.5 bg-cream"
+                i === activeIdx ? "w-8 bg-ink" : "w-1.5 bg-cream"
               }`}
             />
           ))}
         </div>
-
-        {/* Frame chip — top-left, like a contact-sheet card */}
-        <div className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-[0.25em] text-cream/95 bg-ink/75 backdrop-blur-sm rounded-md px-2 py-0.5 z-[2]">
-          op · {String(activeIdx + 1).padStart(2, "0")}/04
-        </div>
       </div>
 
-      {/* Caption strip below the canvas — magazine cutline */}
-      <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-ink/55 leading-snug">
-        ↳ scroll the principles · the dial follows
+      {/* Active principle title — fades through underneath the canvas */}
+      <div className="mt-4 relative h-7 overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={activeIdx}
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -24, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 font-display italic font-medium text-ink text-base md:text-lg leading-tight tracking-tight"
+          >
+            currently:&nbsp;{active.t.replace(/\.$/, "").toLowerCase()}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+
+      {/* Footer caption */}
+      <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.25em] text-ink/55 leading-snug">
+        ↳ scroll the principles · the machine ticks
       </p>
     </div>
   );
+}
+
+/* ═══════════════════════════════════════════════════════════════════ *
+ *  Gear — single SVG cog. Drawn in a normalized -100..100 viewBox so
+ *  the parent <div> can scale it via width/height. `minimal` skips the
+ *  inner detail ring for the smaller gears so they don't look noisy.
+ * ═══════════════════════════════════════════════════════════════════ */
+
+function Gear({
+  teeth,
+  fill,
+  hubFill,
+  minimal,
+}: {
+  teeth: number;
+  fill: string;
+  hubFill?: string;
+  minimal?: boolean;
+}) {
+  const outerR = 95;
+  const innerR = outerR * 0.84;
+  const path = useMemo(
+    () => buildCogPath(outerR, innerR, teeth),
+    [teeth]
+  );
+  const hubR = outerR * 0.34;
+
+  return (
+    <svg viewBox="-100 -100 200 200" className="h-full w-full overflow-visible">
+      {/* Cog teeth + body */}
+      <path
+        d={path}
+        fill={fill}
+        stroke="#171412"
+        strokeWidth={3}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      {/* Inner detail ring — only on the big gear so small gears stay clean */}
+      {!minimal && (
+        <circle
+          cx={0}
+          cy={0}
+          r={innerR * 0.78}
+          fill="none"
+          stroke="#171412"
+          strokeWidth={1.5}
+          opacity={0.25}
+        />
+      )}
+      {/* Hub — fills with the active accent on the big gear */}
+      <motion.circle
+        cx={0}
+        cy={0}
+        r={hubR}
+        animate={{ fill: hubFill ?? "#FAF6E8" }}
+        transition={{ duration: 0.5 }}
+        stroke="#171412"
+        strokeWidth={3}
+      />
+      {/* Center bolt */}
+      <circle cx={0} cy={0} r={outerR * 0.07} fill="#171412" />
+    </svg>
+  );
+}
+
+/**
+ * Build a stylised cog SVG path. We walk N×4 segments around the circle —
+ * two outer (tooth tip) then two inner (tooth root) — and connect them
+ * with straight lines, giving each tooth a trapezoidal silhouette.
+ */
+function buildCogPath(outerR: number, innerR: number, teeth: number): string {
+  const segs = teeth * 4;
+  const points: string[] = [];
+  for (let i = 0; i < segs; i++) {
+    const angle = (i / segs) * 2 * Math.PI - Math.PI / 2;
+    const r = i % 4 < 2 ? outerR : innerR;
+    const x = r * Math.cos(angle);
+    const y = r * Math.sin(angle);
+    points.push(`${i === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`);
+  }
+  return points.join(" ") + " Z";
 }

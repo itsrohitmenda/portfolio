@@ -116,8 +116,10 @@ export default function Timeline() {
           </p>
         </div>
 
-        {/* Timeline rail */}
-        <div className="relative md:pl-32">
+        {/* Timeline rail. Outer pl is the year-gutter on desktop; the inner
+            div carries the rail itself + cards. Bumped pl-32 → pl-36 so the
+            absolute year column (md:-left-44 below) clears the rail line. */}
+        <div className="relative md:pl-36">
           <div ref={railRef} className="relative pl-10 md:pl-12">
             {/* Rail track (greyed) */}
             <span
@@ -161,8 +163,13 @@ function Row({ stop: s, index }: { stop: Stop; index: number }) {
           {s.year}
         </span>
       </div>
-      <div className="hidden md:block md:absolute md:top-[0.65rem] md:w-28 md:text-right md:-left-32">
-        <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-ink/70">
+      {/* Year gutter — sits in its own absolute column to the left of the
+          rail. Math: outer pl-36 (9rem) + inner pl-12 (3rem) puts each li
+          at 12rem from the wrap. Rail is at 9rem + 1rem = 10rem. Year box
+          (w-24 = 6rem, left = -10rem from li) lands at [2rem, 8rem] —
+          clears the rail with a 2rem gap. */}
+      <div className="hidden md:block md:absolute md:top-[0.65rem] md:w-24 md:text-right md:-left-40">
+        <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-ink/70 whitespace-nowrap">
           {s.year}
         </span>
       </div>

@@ -95,6 +95,9 @@ html.lenis body {
   color: var(--ink);
   background: var(--cream);
   font-weight: 500;
+  /* Pills shouldn't soft-wrap their text — keeps "GenAI / E-commerce"
+     from snapping onto two lines on narrow mobile cards. */
+  white-space: nowrap;
 }
 
 .chip-solid {
