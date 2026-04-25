@@ -240,13 +240,17 @@ function Polaroid({
   const y = useTransform(scrollYProgress, [0, 1], [20, -20]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 0.96]);
 
+  // Card width is aspect-aware so every photo lands at roughly the same
+  // visual height on the rail. Portraits stay narrow; landscapes get a
+  // wider frame so they don't read as half-cards next to the 4:5 stack.
+  const widthClass = aspectWidth(m.aspect, mobile);
+  const sizes = aspectSizes(m.aspect, mobile);
+
   return (
     <motion.div
       ref={itemRef}
       style={mobile ? undefined : { y, scale }}
-      className={`shrink-0 snap-center ${
-        mobile ? "w-[260px] sm:w-[300px]" : "w-[320px] lg:w-[400px]"
-      }`}
+      className={`shrink-0 snap-center ${widthClass}`}
     >
       <div
         className="bg-cream border-[1.5px] border-ink rounded-2xl p-3 shadow-[0_8px_0_0_#171412] transition-transform duration-500 hover:rotate-0"
@@ -257,7 +261,7 @@ function Polaroid({
             src={m.src}
             alt={m.caption}
             fill
-            sizes="(max-width: 1024px) 300px, 400px"
+            sizes={sizes}
             className="object-cover"
           />
           {/* Frame index */}
@@ -284,4 +288,36 @@ function Polaroid({
       </div>
     </motion.div>
   );
+}
+
+/**
+ * Pick a card width that keeps every photo at roughly the same visual
+ * height as the 4:5 portraits, regardless of source aspect.
+ *
+ *   portrait (4:5)  → w 320 / 400  → h ≈ 400 / 500
+ *   landscape 16/10 → w 500 / 640  → h ≈ 312 / 400  (close enough)
+ *   landscape 16/9  → w 560 / 720  → h ≈ 315 / 405
+ *
+ * Mobile gets smaller numbers but the same proportional logic so the
+ * snap carousel doesn't jump heights between cards.
+ */
+function aspectWidth(aspect: string, mobile?: boolean): string {
+  if (aspect.includes("[16/9]")) {
+    return mobile ? "w-[420px]" : "w-[560px] lg:w-[720px]";
+  }
+  if (aspect.includes("[16/10]")) {
+    return mobile ? "w-[380px]" : "w-[500px] lg:w-[640px]";
+  }
+  // Portrait (4:5) baseline
+  return mobile ? "w-[260px] sm:w-[300px]" : "w-[320px] lg:w-[400px]";
+}
+
+function aspectSizes(aspect: string, mobile?: boolean): string {
+  if (aspect.includes("[16/9]")) {
+    return mobile ? "420px" : "(max-width: 1024px) 560px, 720px";
+  }
+  if (aspect.includes("[16/10]")) {
+    return mobile ? "380px" : "(max-width: 1024px) 500px, 640px";
+  }
+  return mobile ? "300px" : "(max-width: 1024px) 320px, 400px";
 }
