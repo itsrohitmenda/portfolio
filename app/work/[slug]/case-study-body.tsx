@@ -385,7 +385,14 @@ function StorySection({ story, accent }: { story: Story; accent: CaseStudy["acce
               <span className="relative font-mono text-[11px] font-medium uppercase tracking-[0.3em] text-ink">
                 act {String(active + 1).padStart(2, "0")} / {String(STORY_ACTS.length).padStart(2, "0")}
               </span>
-              <div className="relative mt-5 h-[1.05em] overflow-hidden">
+              {/* Wrapper height is in rem (NOT em) so it tracks the h2's font
+                  size, not the inherited 16px. h-[1.05em] previously computed
+                  against the parent div's 16px context, collapsing the wrapper
+                  to ~17px and clipping the act label down to a horizontal slit
+                  through the middle of the glyphs. Now: h-[4rem] for text-6xl
+                  on md, h-[4.75rem] for text-7xl on lg, with a small buffer
+                  for the italic glyph overhang and the period descender. */}
+              <div className="relative mt-5 overflow-hidden h-[4rem] lg:h-[4.75rem]">
                 <AnimatePresence mode="wait">
                   <motion.h2
                     key={active}
