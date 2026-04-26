@@ -37,12 +37,15 @@ export default function CaseStudyGrid() {
   return (
     <section id="work" className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
+        {/* Header: label stacks ABOVE h2 (matches About). Side meta sits to
+            the right on desktop, below on mobile. md:items-end keeps the
+            meta baseline-aligned with the h2's last line. */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 mb-10 md:mb-14">
-          <div className="flex flex-col md:flex-row md:items-end md:gap-6">
-            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
+          <div>
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
               · 02 / work
             </span>
-            <h2 className="mt-4 md:mt-0 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
+            <h2 className="mt-4 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
               selected
               <br />
               <span className="italic relative inline-block">
@@ -59,7 +62,7 @@ export default function CaseStudyGrid() {
               {caseStudies.length} stories
             </p>
             <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.3em]">
-              2020 — now
+              2017 — now
             </p>
           </div>
         </div>

@@ -93,12 +93,14 @@ export default function Timeline() {
   return (
     <section id="path" ref={sectionRef} className="relative px-6 py-20 md:py-28">
       <div className="max-w-7xl mx-auto">
+        {/* Header: label stacks ABOVE h2 (matches About + Case Studies).
+            Subline lives on the right at desktop, drops below at mobile. */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
-          <div className="flex flex-col md:flex-row md:items-end md:gap-6">
-            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink md:mb-3">
+          <div>
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink">
               · 04 / path
             </span>
-            <h2 className="mt-4 md:mt-0 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
+            <h2 className="mt-4 font-display font-bold text-ink text-5xl md:text-7xl lg:text-8xl leading-[0.98] tracking-[-0.03em]">
               seven years,
               <br />
               <span className="italic relative inline-block">

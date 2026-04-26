@@ -211,9 +211,14 @@ function StaggerLetters({
 /**
  * Cycling word inside the "I ship ___." tagline. Words swap on a 2.4s
  * loop via AnimatePresence — old word slides up + fades out, new word
- * slides up + fades in. The parent's width is locked to the longest
- * word via an invisible sizing reference, so the surrounding line and
- * the trailing period don't jump as words swap.
+ * slides up + fades in.
+ *
+ * Layout uses inline-grid with both children sharing the same grid cell
+ * so they overlay perfectly: the invisible sizing reference reserves
+ * width and sets the baseline, the visible motion.span renders on top
+ * with identical type metrics. That keeps the cycling word's baseline
+ * locked to "I ship" and the trailing period — no vertical drift, no
+ * layout shift on swap.
  */
 function CyclingWord() {
   const [idx, setIdx] = useState(0);
@@ -228,17 +233,20 @@ function CyclingWord() {
   }, []);
 
   return (
-    <span className="relative inline-block overflow-hidden align-baseline pb-1">
-      {/* Sizing reference — invisible but takes layout space, so the parent
-          stays as wide as the longest cycling word. */}
+    <span className="relative inline-grid overflow-hidden align-baseline">
+      {/* Sizing reference — invisible but takes layout space and provides
+          the baseline that the surrounding "I ship ___." line aligns to. */}
       <span
         aria-hidden
-        className="invisible whitespace-nowrap not-italic font-medium"
+        className="invisible whitespace-nowrap not-italic font-medium border-b-2 pb-0.5 col-start-1 row-start-1"
       >
         {longest}
       </span>
 
-      {/* Visible cycling word, layered on top of the sizer */}
+      {/* Visible cycling word in the same grid cell — overlays the sizer
+          so its text baseline sits exactly on the reference baseline.
+          justify-self-start keeps it left-aligned (so the underline
+          shrinks to fit each word, not the whole reserved width). */}
       <AnimatePresence mode="wait">
         <motion.span
           key={idx}
@@ -246,11 +254,9 @@ function CyclingWord() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0"
+          className="not-italic font-medium border-b-2 border-ink pb-0.5 whitespace-nowrap col-start-1 row-start-1 justify-self-start"
         >
-          <span className="not-italic font-medium border-b-2 border-ink pb-0.5 inline-block whitespace-nowrap">
-            {SHIPPING[idx]}
-          </span>
+          {SHIPPING[idx]}
         </motion.span>
       </AnimatePresence>
     </span>
