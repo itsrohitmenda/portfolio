@@ -27,12 +27,12 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rohit Menda — Product",
+  title: "Rohit Menda - Product",
   description:
     "Product Manager & Founder. Scaled products from 100K to 1.6M users, shipped GenAI on Big Billion Day, and launched Reliance Retail in the US in 45 days.",
   metadataBase: new URL("https://rohitmenda.com"),
   openGraph: {
-    title: "Rohit Menda — Product",
+    title: "Rohit Menda - Product",
     description: "AdTech. GenAI. E-comm. Retail. Four case studies, one operator.",
     type: "website",
   },

@@ -25,7 +25,7 @@ const beliefs = [
   {
     n: "04",
     t: "Ops is product.",
-    b: "Community, logistics, CX, vendor calls at 11pm — if the user feels it, it's in scope. The best products look like software and run like restaurants.",
+    b: "Community, logistics, CX, vendor calls at 11pm - if the user feels it, it's in scope. The best products look like software and run like restaurants.",
     accent: "bg-iris",
   },
 ];
@@ -50,13 +50,13 @@ export default function About() {
             </span>
           </h2>
           <p className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-ink/80 font-medium max-w-2xl">
-            Six years across AdTech, GenAI, e-commerce and retail — Jio interns to founder mode to head of product. These are the four rules I keep coming back to. The rest is taste, conviction, and showing up on Monday.
+            Six years across AdTech, GenAI, e-commerce and retail - Jio interns to founder mode to head of product. These are the four rules I keep coming back to. The rest is taste, conviction, and showing up on Monday.
           </p>
         </div>
 
         {/* Editorial split: portrait (4) + principles (8) */}
         <div className="mt-14 md:mt-20 grid md:grid-cols-12 gap-10 md:gap-14">
-          {/* Portrait column — sticky polaroid on desktop */}
+          {/* Portrait column - sticky polaroid on desktop */}
           <motion.aside
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ export default function About() {
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="relative bg-cream border-[1.5px] border-ink rounded-2xl p-3 md:p-4 pb-12 md:pb-14 shadow-[0_10px_0_0_#171412] hover:rotate-0 transition-transform duration-500 origin-center"
             >
-              {/* Strip of washi tape across the top — the polaroid touch */}
+              {/* Strip of washi tape across the top - the polaroid touch */}
               <span
                 aria-hidden
                 className="absolute -top-3 left-1/2 -translate-x-1/2 -rotate-2 h-6 w-24 md:w-28 bg-sun/80 border-[1px] border-ink/30 shadow-[0_1px_0_0_rgba(23,20,18,0.15)] rounded-[2px]"
@@ -87,21 +87,21 @@ export default function About() {
                   sizes="(max-width: 768px) 100vw, 420px"
                   className="object-cover"
                 />
-                {/* Frame index — bottom-left, polaroid-developer-style stamp */}
+                {/* Frame index - bottom-left, polaroid-developer-style stamp */}
                 <div className="absolute top-2 left-2 font-mono text-[9px] uppercase tracking-[0.25em] text-cream/95 bg-ink/70 backdrop-blur-sm rounded-md px-2 py-0.5">
                   frame · 01
                 </div>
               </div>
 
-              {/* Polaroid caption strip — the wide white space below the photo,
+              {/* Polaroid caption strip - the wide white space below the photo,
                   written like a sharpie scrawl */}
               <div className="absolute left-4 right-4 bottom-3 md:bottom-4 flex items-end justify-between gap-3">
                 <div>
                   <p className="font-display italic font-medium text-lg md:text-xl text-ink leading-tight">
-                    rohit, blr 26&apos;
+                    shipped on monday, smiled all week
                   </p>
                   <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.22em] text-ink/55">
-                    product · namma bengaluru
+                    rohit · 3 chai/day · namma bengaluru
                   </p>
                 </div>
                 <span aria-hidden className="font-display italic text-ink/60 text-base">
@@ -109,7 +109,7 @@ export default function About() {
                 </span>
               </div>
 
-              {/* Ticket-stub stamp — sits in the corner of the polaroid */}
+              {/* Ticket-stub stamp - sits in the corner of the polaroid */}
               <motion.span
                 initial={{ scale: 0.6, rotate: 0, opacity: 0 }}
                 whileInView={{ scale: 1, rotate: 12, opacity: 1 }}

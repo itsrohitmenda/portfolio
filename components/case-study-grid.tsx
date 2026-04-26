@@ -7,7 +7,7 @@ import { caseStudies, type CaseStudy } from "@/lib/case-studies";
 
 const FloatingObject = dynamic(() => import("./floating-object"), { ssr: false });
 
-// Accent colour per card — drives the 3D object and the top band of the card.
+// Accent colour per card - drives the 3D object and the top band of the card.
 const accentHex: Record<CaseStudy["accent"], string> = {
   lime: "#BFFF3D",
   hot: "#FF3E9D",
@@ -62,12 +62,12 @@ export default function CaseStudyGrid() {
               {caseStudies.length} stories
             </p>
             <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.3em]">
-              2017 — now
+              2017 - now
             </p>
           </div>
         </div>
 
-        {/* Uniform 2-col grid — every card same size + same structure */}
+        {/* Uniform 2-col grid - every card same size + same structure */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
           {caseStudies.map((c, i) => (
             <motion.div
@@ -112,7 +112,7 @@ function Card({ study }: { study: CaseStudy }) {
             </span>
           </div>
 
-          {/* 3D accent — breathing room from every edge */}
+          {/* 3D accent - breathing room from every edge */}
           <div
             aria-hidden
             className="absolute top-2 right-3 md:top-3 md:right-5 h-24 w-24 md:h-28 md:w-28 pointer-events-none transition-transform duration-500 ease-out group-hover:scale-110"
@@ -130,7 +130,7 @@ function Card({ study }: { study: CaseStudy }) {
             {study.tagline}
           </p>
 
-          {/* Metrics strip — always 3 on every card. Tighter type + tracking
+          {/* Metrics strip - always 3 on every card. Tighter type + tracking
               on mobile so 3 cells share a narrow card without wrapping. */}
           <div className="mt-6 grid grid-cols-3 gap-2 md:gap-4 py-4 border-y border-ink/15">
             {metrics.map((m) => (
@@ -145,13 +145,15 @@ function Card({ study }: { study: CaseStudy }) {
             ))}
           </div>
 
-          {/* Domain chips — whitespace-nowrap keeps each pill on one line, the
-              flex-wrap parent pushes overflow pills to the next row instead */}
+          {/* Domain chips - whitespace-nowrap keeps each pill on one line, the
+              flex-wrap parent pushes overflow pills to the next row instead.
+              leading-none + symmetric vertical padding keeps the uppercase
+              glyphs optically centred inside the pill at every size. */}
           <div className="mt-5 flex flex-wrap gap-2">
             {study.domain.slice(0, 3).map((d) => (
               <span
                 key={d}
-                className="inline-flex items-center whitespace-nowrap rounded-full border-[1.5px] border-ink bg-paperDeep px-2.5 py-1 text-[10px] font-mono font-medium uppercase tracking-[0.08em]"
+                className="inline-flex items-center justify-center whitespace-nowrap leading-none rounded-full border-[1.5px] border-ink bg-paperDeep px-2.5 pt-[0.35rem] pb-[0.3rem] text-[10px] font-mono font-medium uppercase tracking-[0.08em]"
               >
                 {d}
               </span>

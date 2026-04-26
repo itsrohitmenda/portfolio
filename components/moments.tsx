@@ -110,7 +110,7 @@ export default function Moments() {
     offset: ["start start", "end end"],
   });
 
-  // Measure how far the horizontal track exceeds the viewport — pan by that delta
+  // Measure how far the horizontal track exceeds the viewport - pan by that delta
   useEffect(() => {
     if (!isDesktop) return;
     const measure = () => {
@@ -174,7 +174,7 @@ export default function Moments() {
           </div>
         )}
 
-        {/* Footer hint — desktop shows pan progress, mobile shows swipe hint */}
+        {/* Footer hint - desktop shows pan progress, mobile shows swipe hint */}
         {useScrollPin ? (
           <ProgressBar progress={scrollYProgress} />
         ) : (
@@ -279,7 +279,7 @@ function Polaroid({
           {/* Year badge */}
           <span
             aria-hidden
-            className={`absolute bottom-2 right-2 inline-flex items-center px-2 py-0.5 rounded-full ${m.accent} border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] font-mono text-[9px] uppercase tracking-[0.2em] font-bold`}
+            className={`absolute bottom-2 right-2 inline-flex items-center justify-center leading-none px-2 pt-[0.3rem] pb-[0.25rem] rounded-full ${m.accent} border-[1.5px] border-ink shadow-[0_2px_0_0_#171412] font-mono text-[9px] uppercase tracking-[0.2em] font-bold`}
           >
             {m.badge}
           </span>

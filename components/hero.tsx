@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Words that cycle inside the tagline. Every entry must grammatically
- * complete "I ship ___." — so all of these are things you can actually
+ * complete "I ship ___." - so all of these are things you can actually
  * ship in product / dev parlance (a launch, an experiment, a feature,
  * a v1). Length variance is OK; the container has a min-width so the
  * surrounding line doesn't reflow on each swap.
@@ -39,7 +39,7 @@ export default function Hero() {
       ref={ref}
       className="relative min-h-[100svh] overflow-hidden"
     >
-      {/* Warm radial glow — only ambient backdrop */}
+      {/* Warm radial glow - only ambient backdrop */}
       <div className="absolute inset-0 radial-fade pointer-events-none" />
 
       <motion.div
@@ -75,7 +75,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Center stack — text only, animated entry + cycling tagline */}
+        {/* Center stack - text only, animated entry + cycling tagline */}
         <div className="max-w-5xl">
           {/* Headline: "hi, i'm" fades up, then "rohit menda." stagger-reveals
               letter by letter, then the pink marker swipes in behind "rohit". */}
@@ -108,7 +108,7 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Cycling tagline — words swap on a loop, underline animates with them */}
+          {/* Cycling tagline - words swap on a loop, underline animates with them */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,10 +125,10 @@ export default function Hero() {
             transition={{ delay: 1.3, duration: 0.6 }}
             className="mt-7 md:mt-9 text-base md:text-lg leading-[1.55] text-ink font-medium max-w-xl"
           >
-            a product person from bengaluru. six years shipping things that stick — across AdTech, GenAI, e-commerce, and one stubborn little retail brand. loyal to CTR masala dosa + filter coffee, in that order.
+            a product person from bengaluru. six years shipping things that stick - across AdTech, GenAI, e-commerce, and one stubborn little retail brand. loyal to CTR masala dosa + filter coffee, in that order.
           </motion.p>
 
-          {/* CTAs — same h-11, same px-5, only shadow colour differs */}
+          {/* CTAs - same h-11, same px-5, only shadow colour differs */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -210,14 +210,14 @@ function StaggerLetters({
 
 /**
  * Cycling word inside the "I ship ___." tagline. Words swap on a 2.4s
- * loop via AnimatePresence — old word slides up + fades out, new word
+ * loop via AnimatePresence - old word slides up + fades out, new word
  * slides up + fades in.
  *
  * Layout uses inline-grid with both children sharing the same grid cell
  * so they overlay perfectly: the invisible sizing reference reserves
  * width and sets the baseline, the visible motion.span renders on top
  * with identical type metrics. That keeps the cycling word's baseline
- * locked to "I ship" and the trailing period — no vertical drift, no
+ * locked to "I ship" and the trailing period - no vertical drift, no
  * layout shift on swap.
  */
 function CyclingWord() {
@@ -234,7 +234,7 @@ function CyclingWord() {
 
   return (
     <span className="relative inline-grid overflow-hidden align-baseline">
-      {/* Sizing reference — invisible but takes layout space and provides
+      {/* Sizing reference - invisible but takes layout space and provides
           the baseline that the surrounding "I ship ___." line aligns to. */}
       <span
         aria-hidden
@@ -243,7 +243,7 @@ function CyclingWord() {
         {longest}
       </span>
 
-      {/* Visible cycling word in the same grid cell — overlays the sizer
+      {/* Visible cycling word in the same grid cell - overlays the sizer
           so its text baseline sits exactly on the reference baseline.
           justify-self-start keeps it left-aligned (so the underline
           shrinks to fit each word, not the whole reserved width). */}

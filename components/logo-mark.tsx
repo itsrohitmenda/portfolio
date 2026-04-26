@@ -16,14 +16,14 @@ import { useState } from "react";
 // Tight wordmarks → 95-100. Padded square icons → 75-85 so the mark doesn't
 // drown in its own negative space.
 const LOGO_HEIGHT: Record<string, number> = {
-  flipkart: 75,         // horizontal wordmark (3.3:1) — width binds, keep optical weight
+  flipkart: 75,         // horizontal wordmark (3.3:1) - width binds, keep optical weight
   "reliance-retail": 95, // stacked mark with "RETAIL" descender, needs height
-  nagarro: 70,          // horizontal wordmark (3.6:1) — let it breathe
+  nagarro: 70,          // horizontal wordmark (3.6:1) - let it breathe
   "reliance-jio": 75,
   warroom: 85,          // emblem + dotted "WARROOM" wordmark (3.5:1)
   "under-25": 85,
   buthey: 95,
-  swadesh: 65,          // horizontal wordmark — don't stretch, keep it proportional
+  swadesh: 65,          // horizontal wordmark - don't stretch, keep it proportional
 };
 
 export function LogoMark({

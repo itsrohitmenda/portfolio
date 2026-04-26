@@ -11,7 +11,7 @@ function Body({ shape, color }: { shape: Shape; color: string }) {
   const group = useRef<Group>(null);
   const mesh = useRef<Mesh>(null);
 
-  // Scroll-linked rotation — reads window.scrollY directly inside the frame loop
+  // Scroll-linked rotation - reads window.scrollY directly inside the frame loop
   // so every FloatingObject in the page responds to scroll, no matter its container.
   const scroll = useRef({ y: 0, last: 0, velocity: 0 });
   useEffect(() => {
@@ -25,7 +25,7 @@ function Body({ shape, color }: { shape: Shape; color: string }) {
   }, []);
 
   useFrame((_, delta) => {
-    // Scroll velocity feeds rotation — the object spins while you scroll,
+    // Scroll velocity feeds rotation - the object spins while you scroll,
     // then eases back to a gentle idle rotation when you stop.
     const velocity = scroll.current.y - scroll.current.last;
     scroll.current.last = scroll.current.y;

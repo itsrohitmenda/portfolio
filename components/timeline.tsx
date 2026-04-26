@@ -36,7 +36,7 @@ const stops: Stop[] = [
     year: "2023",
     place: "War Room × Flipkart",
     role: "Product Manager",
-    note: "shipped generative AI inside Big Billion Day '23 — record engagement, record sales. eight weeks of deploys at 2am, on filter coffee and absolute conviction.",
+    note: "shipped generative AI inside Big Billion Day '23 - record engagement, record sales. eight weeks of deploys at 2am, on filter coffee and absolute conviction.",
     tag: "genai",
     domain: "GenAI · E-commerce",
     accent: "acid",
@@ -45,7 +45,7 @@ const stops: Stop[] = [
     year: "2024",
     place: "Buthey",
     role: "Co-Founder / COO",
-    note: "premium women's wear from scratch — ₹25L in six months. learned ops the messy way: pack-outs, returns, vendor calls, the lot. founder mode is a personality trait now.",
+    note: "premium women's wear from scratch - ₹25L in six months. learned ops the messy way: pack-outs, returns, vendor calls, the lot. founder mode is a personality trait now.",
     tag: "founder",
     domain: "Retail · Ops",
     accent: "hot",
@@ -56,7 +56,7 @@ const stops: Stop[] = [
     role: "Head of Product",
     note: "took an AdTech 0 → 1 → scale. 100K → 1.6M users, ₹12Cr in-app revenue. the team that turned a deck into a brand.",
     tag: "scale",
-    domain: "AdTech · Creator economy",
+    domain: "AdTech · Student economy",
     accent: "iris",
   },
   {
@@ -128,7 +128,7 @@ export default function Timeline() {
               className="absolute top-3 bottom-3 w-[2px] bg-ink/15"
               style={{ left: "1rem" }}
             />
-            {/* Rail fill — animates with scroll */}
+            {/* Rail fill - animates with scroll */}
             <motion.span
               aria-hidden
               style={{ height: railHeight, left: "1rem" }}
@@ -156,18 +156,18 @@ function Row({ stop: s, index }: { stop: Stop; index: number }) {
       transition={{ duration: 0.5, delay: index * 0.05 }}
       className="relative"
     >
-      {/* Year — mobile: bold accent pill above card; desktop: subtle left gutter */}
+      {/* Year - mobile: bold accent pill above card; desktop: subtle left gutter */}
       <div className="mb-3 md:hidden">
         <span
-          className={`inline-flex items-center px-3 py-1 rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-ink shadow-[0_2px_0_0_#171412]`}
+          className={`inline-flex items-center justify-center leading-none px-3 pt-[0.4rem] pb-[0.35rem] rounded-full border-[1.5px] border-ink ${accentBg[s.accent]} font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-ink shadow-[0_2px_0_0_#171412]`}
         >
           {s.year}
         </span>
       </div>
-      {/* Year gutter — sits in its own absolute column to the left of the
+      {/* Year gutter - sits in its own absolute column to the left of the
           rail. Math: outer pl-36 (9rem) + inner pl-12 (3rem) puts each li
           at 12rem from the wrap. Rail is at 9rem + 1rem = 10rem. Year box
-          (w-24 = 6rem, left = -10rem from li) lands at [2rem, 8rem] —
+          (w-24 = 6rem, left = -10rem from li) lands at [2rem, 8rem] -
           clears the rail with a 2rem gap. */}
       <div className="hidden md:block md:absolute md:top-[0.65rem] md:w-24 md:text-right md:-left-40">
         <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-ink/70 whitespace-nowrap">

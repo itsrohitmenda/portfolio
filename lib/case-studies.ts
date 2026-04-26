@@ -32,7 +32,7 @@ export type CaseStudy = {
   stack: string[];
   shipped: string[];
   /**
-   * Optional editorial cover photo — slotted between hero and stats on the
+   * Optional editorial cover photo - slotted between hero and stats on the
    * detail page when present. Use a wide team/situational shot, not a logo.
    */
   cover?: { src: string; caption: string; alt: string };
@@ -51,13 +51,13 @@ export const caseStudies: CaseStudy[] = [
     tagline: "Taking a Reliance Retail brand cross-Pacific in 45 days.",
     company: "Nagarro × Reliance Retail",
     role: "Product Owner",
-    year: "2025–now",
+    year: "2025-now",
     duration: "Dec '25 → present",
     domain: ["E-commerce", "Global launch", "AI/ML"],
     accent: "electric",
     emoji: "🇺🇸",
     hook: "Picture this: a giant Indian retail conglomerate wants to plant a flag in the US, and the clock is 45 days. No pressure.",
-    tldr: "Led the US launch of Swadesh — payments, tax, logistics, localisation, legal, inventory, all of it. Landed on time with a 32% conversion uplift and AI demand-forecasting baked into the storefront.",
+    tldr: "Led the US launch of Swadesh - payments, tax, logistics, localisation, legal, inventory, all of it. Landed on time with a 32% conversion uplift and AI demand-forecasting baked into the storefront.",
     metrics: [
       { value: "45d", label: "to launch-ready" },
       { value: "+32%", label: "storefront conversion" },
@@ -66,7 +66,7 @@ export const caseStudies: CaseStudy[] = [
     story: {
       context: {
         heading: "A $120B market, and a 45-day clock.",
-        body: "Reliance Retail wanted Swadesh — an India-rooted premium label — to plant a US flag. Fully compliant, fully localised, six weeks end-to-end. The brief arrived with more footnotes than runway.",
+        body: "Reliance Retail wanted Swadesh - an India-rooted premium label - to plant a US flag. Fully compliant, fully localised, six weeks end-to-end. The brief arrived with more footnotes than runway.",
         beat: "45 days to launch-ready",
       },
       problem: {
@@ -80,7 +80,7 @@ export const caseStudies: CaseStudy[] = [
       },
       outcome: {
         heading: "Shipped on day 45. Checkout did the rest.",
-        body: "Storefront launched on schedule. The single biggest unlock was funnel surgery on PDP and checkout — US shoppers bounce at any surprise (tax, shipping, 'international fee'), so we surfaced the total early. Three weeks of iteration → +32% conversion. AI forecasting kept the P&L from crying.",
+        body: "Storefront launched on schedule. The single biggest unlock was funnel surgery on PDP and checkout - US shoppers bounce at any surprise (tax, shipping, 'international fee'), so we surfaced the total early. Three weeks of iteration → +32% conversion. AI forecasting kept the P&L from crying.",
         beat: "+32% storefront conversion",
       },
     },
@@ -96,7 +96,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "collective-artists-network",
     order: 2,
     title: "CAN: 100K → 1.6M, no growth hack theatre",
-    tagline: "Zero-to-PMF AdTech for the creator economy.",
+    tagline: "Zero-to-PMF AdTech for the student economy.",
     company: "Collective Artists Network",
     role: "Head of Product",
     year: "2025",
@@ -105,7 +105,7 @@ export const caseStudies: CaseStudy[] = [
     accent: "hot",
     emoji: "📣",
     hook: "I walked in on day one and the product was half a PRD and a lot of vibes. Walked out with 1.6M users, ₹12Cr revenue, and a team that actually knew what 'DAU' meant.",
-    tldr: "Built and launched an AdTech platform for a top Indian creator agency. Hit PMF in four months, scaled to 1.6M users (15×), and shipped monetisation funnels that generated ₹12Cr+ from in-app behaviour alone.",
+    tldr: "Built and launched an AdTech platform for a top Indian student agency. Hit PMF in four months, scaled to 1.6M users (15×), and shipped monetisation funnels that generated ₹12Cr+ from in-app behaviour alone.",
     metrics: [
       { value: "15×", label: "user growth" },
       { value: "+750%", label: "DAU" },
@@ -115,7 +115,7 @@ export const caseStudies: CaseStudy[] = [
     story: {
       context: {
         heading: "Half a PRD and a lot of vibes.",
-        body: "Early-stage AdTech inside a top Indian creator agency. Three half-working features, no north-star, 100K users with a retention curve that wouldn't flatten. Month one was twenty user calls and a single page titled 'what we are' — and, more importantly, what we're not.",
+        body: "Early-stage AdTech inside a top Indian student agency. Three half-working features, no north-star, 100K users with a retention curve that wouldn't flatten. Month one was twenty user calls and a single page titled 'what we are' - and, more importantly, what we're not.",
         beat: "100K users, zero PMF",
       },
       problem: {
@@ -124,12 +124,12 @@ export const caseStudies: CaseStudy[] = [
       },
       bet: {
         heading: "Narrow to two sides, compound the loops.",
-        body: "Cut to 'creators who want brand deals' and 'brands who want measurable reach'. Killed two features in week one. Rebuilt onboarding to front-load value in under 60 seconds. Shipped a daily creator 'brief' notification — not a streak, a reason to open. Referral loops with product-shaped incentives, not rupee bribes.",
+        body: "Cut to 'students who want brand deals' and 'brands who want measurable reach'. Killed two features in week one. Rebuilt onboarding to front-load value in under 60 seconds. Shipped a daily student 'brief' notification - not a streak, a reason to open. Referral loops with product-shaped incentives, not rupee bribes.",
         beat: "Feature list cut in half",
       },
       outcome: {
         heading: "15× users, ₹12Cr revenue, no curve bending.",
-        body: "100K to 1.6M users. DAU up 750% in two quarters. Monetisation funnels built off in-app behaviour — relevance over frequency — hit ₹12Cr without the retention curve breaking. 97% roadmap completion, three quarters running, because we scoped ruthlessly and shipped what we said.",
+        body: "100K to 1.6M users. DAU up 750% in two quarters. Monetisation funnels built off in-app behaviour - relevance over frequency - hit ₹12Cr without the retention curve breaking. 97% roadmap completion, three quarters running, because we scoped ruthlessly and shipped what we said.",
         beat: "97% roadmap completion, 3 quarters",
       },
     },
@@ -168,21 +168,21 @@ export const caseStudies: CaseStudy[] = [
     story: {
       context: {
         heading: "An MBA grade, and a sewing machine.",
-        body: "Just out of business school. Co-founded Buthey — premium women's wear, India-first, sold direct. The MBA gave me decks, frameworks, a comfort with strategy. The industry asked for stitch-counts, dye-lot consistency, and a vendor who'd actually pick up the phone on a Tuesday. Day one was a sewing-machine demo and a Notion doc I rewrote three times that week.",
+        body: "Just out of business school. Co-founded Buthey - premium women's wear, India-first, sold direct. The MBA gave me decks, frameworks, a comfort with strategy. The industry asked for stitch-counts, dye-lot consistency, and a vendor who'd actually pick up the phone on a Tuesday. Day one was a sewing-machine demo and a Notion doc I rewrote three times that week.",
         beat: "0 industry experience",
       },
       problem: {
         heading: "Six different jobs disguised as one company.",
-        body: "Manufacturing — find a karkhana, get sample-to-prod right, learn what GSM means. D2C — build a Shopify-tier site, run checkout, returns, COD, the whole funnel. Performance marketing — Meta + WhatsApp, every rupee accountable to a number. Supply chain — fabric sourcing, QC, dispatch, last-mile reverse logistics. Brand — the part the MBA actually trained me for. Each blocked launch. None outsourceable at our cheque size.",
+        body: "Manufacturing - find a karkhana, get sample-to-prod right, learn what GSM means. D2C - build a Shopify-tier site, run checkout, returns, COD, the whole funnel. Performance marketing - Meta + WhatsApp, every rupee accountable to a number. Supply chain - fabric sourcing, QC, dispatch, last-mile reverse logistics. Brand - the part the MBA actually trained me for. Each blocked launch. None outsourceable at our cheque size.",
       },
       bet: {
         heading: "Go deep, not wide. Learn one floor at a time.",
-        body: "Refused to scale before unit economics + quality were locked. Spent the first two months sitting on factory floors learning which weave returns to a steam press without distorting. Built the website myself on a no-code stack because nobody else would care more about the cart abandonment flow. Ran the first ₹3L of ads myself on Meta, learning what a creative refresh actually means. Hand-checked every single garment before pack-out — that's where the zero-returns number was earned.",
+        body: "Refused to scale before unit economics + quality were locked. Spent the first two months sitting on factory floors learning which weave returns to a steam press without distorting. Built the website myself on a no-code stack because nobody else would care more about the cart abandonment flow. Ran the first ₹3L of ads myself on Meta, learning what a creative refresh actually means. Hand-checked every single garment before pack-out - that's where the zero-returns number was earned.",
         beat: "Hand-QC every single order",
       },
       outcome: {
         heading: "₹25L in six months, zero returns ever.",
-        body: "₹25L in revenue across the first six months. Performance marketing ROAS held above 3.5×. Most importantly: zero product returns to date. That stat isn't an accident — it's the receipt for showing up to factory inspections and saying no to dye lots that didn't match. Walked out of Buthey with industry depth I couldn't have read about, and a healthy respect for anyone who builds physical product. Founder mode is a personality trait now.",
+        body: "₹25L in revenue across the first six months. Performance marketing ROAS held above 3.5×. Most importantly: zero product returns to date. That stat isn't an accident - it's the receipt for showing up to factory inspections and saying no to dye lots that didn't match. Walked out of Buthey with industry depth I couldn't have read about, and a healthy respect for anyone who builds physical product. Founder mode is a personality trait now.",
         beat: "0 product returns",
       },
     },
@@ -194,6 +194,11 @@ export const caseStudies: CaseStudy[] = [
       "Performance marketing engine, ROAS 3.5×+",
       "Hand-QC operating model → zero product returns to date",
     ],
+    cover: {
+      src: "/photos/buthey.jpg",
+      caption: "co-founder day · first pack-outs · blr '24",
+      alt: "Rohit at the Buthey co-founder pack-out day, holding a branded postcard",
+    },
   },
   {
     slug: "flipkart-nme",
@@ -217,21 +222,21 @@ export const caseStudies: CaseStudy[] = [
     story: {
       context: {
         heading: "Labs wanted GenAI inside the Super Bowl.",
-        body: "Big Billion Day is Flipkart's highest-traffic, highest-revenue event of the year. The entire point of Labs is to push novel tech at real traffic — if GenAI moves the needle, it'll show up here first. Sale event, not a beta.",
+        body: "Big Billion Day is Flipkart's highest-traffic, highest-revenue event of the year. The entire point of Labs is to push novel tech at real traffic - if GenAI moves the needle, it'll show up here first. Sale event, not a beta.",
         beat: "Highest-traffic event in Indian e-commerce",
       },
       problem: {
         heading: "LLMs are slow. BBD shoppers are not patient.",
-        body: "One visible spinner on the home page during BBD is an incident. Flipkart's infra was built for sub-second responses; LLM latency lives on a different planet. And scope creep was the other enemy — everyone wanted NME to be a chatbot for everything.",
+        body: "One visible spinner on the home page during BBD is an incident. Flipkart's infra was built for sub-second responses; LLM latency lives on a different planet. And scope creep was the other enemy - everyone wanted NME to be a chatbot for everything.",
       },
       bet: {
         heading: "One job, and over-invest in the fallback.",
-        body: "Scoped NME to one thing: help customers discover products they wouldn't have searched for. Not a chatbot. Spent more time on prompt architecture, caching, and graceful degradation than on model choice. If AI didn't respond in under a beat, we fell back to a curated experience — invisibly.",
+        body: "Scoped NME to one thing: help customers discover products they wouldn't have searched for. Not a chatbot. Spent more time on prompt architecture, caching, and graceful degradation than on model choice. If AI didn't respond in under a beat, we fell back to a curated experience - invisibly.",
         beat: "One job, done well",
       },
       outcome: {
         heading: "Record engagement. Zero incidents. A playbook.",
-        body: "NME drove record customer engagement during BBD '23. Bigger lesson: GenAI in consumer retail isn't about impressing people with intelligence — it's about reducing the 'what now?' moment. The best outcome was invisible: people found stuff faster, bought more, nobody said 'wow, AI'. Playbook got reused across later Labs experiments.",
+        body: "NME drove record customer engagement during BBD '23. Bigger lesson: GenAI in consumer retail isn't about impressing people with intelligence - it's about reducing the 'what now?' moment. The best outcome was invisible: people found stuff faster, bought more, nobody said 'wow, AI'. Playbook got reused across later Labs experiments.",
         beat: "0 incidents across the sale window",
       },
     },
@@ -250,7 +255,7 @@ export const caseStudies: CaseStudy[] = [
     tagline: "A community app for Indian Gen Z, built with Indian Gen Z.",
     company: "Under 25",
     role: "Product Manager",
-    year: "2020–23",
+    year: "2020-23",
     duration: "Feb '20 → Mar '23",
     domain: ["Consumer", "Community", "0→1"],
     accent: "butter",
@@ -266,21 +271,21 @@ export const caseStudies: CaseStudy[] = [
     story: {
       context: {
         heading: "My first real PM seat, 5,000 fellows deep.",
-        body: "Community product for Indian Gen Z, with a 5,000-student fellow cohort running IRL alongside it. Half app, half logistics operation. My first actual PM job — which is another way of saying: no framework survives contact with a group chat of sixteen-year-olds.",
+        body: "Community product for Indian Gen Z, with a 5,000-student fellow cohort running IRL alongside it. Half app, half logistics operation. My first actual PM job - which is another way of saying: no framework survives contact with a group chat of sixteen-year-olds.",
         beat: "5,000 student fellows IRL",
       },
       problem: {
         heading: "Quarterly roadmaps don't match Gen Z attention spans.",
-        body: "Retention was flat. Every feature pitch was a streak or a push-notif — the engagement-loop greatest hits, all slightly gross. The team was running quarterly roadmaps against an audience that re-decides what's cool every Tuesday. The frameworks were the problem.",
+        body: "Retention was flat. Every feature pitch was a streak or a push-notif - the engagement-loop greatest hits, all slightly gross. The team was running quarterly roadmaps against an audience that re-decides what's cool every Tuesday. The frameworks were the problem.",
       },
       bet: {
         heading: "Ship on a student rhythm, treat ops as product.",
-        body: "Moved the team off quarterly roadmaps onto a two-week 'what did students say this week' cadence. Tied engagement to real rewards — tangible, local, sometimes goofy — delivered via a vendor network we stitched together. Treated events and rewards as product surface, not marketing spend.",
+        body: "Moved the team off quarterly roadmaps onto a two-week 'what did students say this week' cadence. Tied engagement to real rewards - tangible, local, sometimes goofy - delivered via a vendor network we stitched together. Treated events and rewards as product surface, not marketing spend.",
         beat: "12K+ rewards delivered",
       },
       outcome: {
         heading: "20K users, +40% retention, a team that cuts.",
-        body: "20K users in 90 days. 1.5K DAU. 40% MoM retention uplift. 100+ on-ground events. Budget got tight, events got smaller, events got better — the constraint sharpened the product. By year two the team was asking 'what would we cut?' instead of 'what would we add?'.",
+        body: "20K users in 90 days. 1.5K DAU. 40% MoM retention uplift. 100+ on-ground events. Budget got tight, events got smaller, events got better - the constraint sharpened the product. By year two the team was asking 'what would we cut?' instead of 'what would we add?'.",
         beat: "+40% MoM retention",
       },
     },
@@ -291,6 +296,11 @@ export const caseStudies: CaseStudy[] = [
       "100+ on-ground events",
       "5,000-fellow operating model",
     ],
+    cover: {
+      src: "/photos/under-25.jpg",
+      caption: "the under 25 fam, after the show · '20",
+      alt: "The Under 25 community team and audience, group photo on stage after the launch event",
+    },
   },
   {
     slug: "iesa-vr-rover",
@@ -300,7 +310,7 @@ export const caseStudies: CaseStudy[] = [
     company: "IESA Vision Summit · Makeathon",
     role: "Team Lead · Build",
     year: "2017",
-    duration: "Feb 21–22, 2017",
+    duration: "Feb 21-22, 2017",
     domain: ["AR/VR", "Hardware", "Hackathon"],
     accent: "electric",
     emoji: "🤖",
@@ -314,11 +324,11 @@ export const caseStudies: CaseStudy[] = [
     story: {
       context: {
         heading: "Two days. AR/VR theme. Bring something built.",
-        body: "IESA Vision Summit Makeathon, Bangalore, February 2017. India's largest electronics body, 100+ teams across IoT / AR-VR / embedded, 48 hours to ship a working prototype that judges could actually pick up and use. We were a four-person student team. The brief was open. We wanted to drive a rover — from inside a headset.",
+        body: "IESA Vision Summit Makeathon, Bangalore, February 2017. India's largest electronics body, 100+ teams across IoT / AR-VR / embedded, 48 hours to ship a working prototype that judges could actually pick up and use. We were a four-person student team. The brief was open. We wanted to drive a rover - from inside a headset.",
         beat: "100+ teams, 48 hours",
       },
       problem: {
-        heading: "VR latency, radio control, and a camera stream — all on a student budget.",
+        heading: "VR latency, radio control, and a camera stream - all on a student budget.",
         body: "VR demands sub-50ms head-tracking response or your stomach files a complaint. Radio rovers have wobbly latency. Streaming a camera over consumer WiFi in 2017 meant frame drops + stutter at every demo table. Parts had to ship in a one-week order window. Every component had to do double duty or it didn't make the build.",
       },
       bet: {
@@ -328,7 +338,7 @@ export const caseStudies: CaseStudy[] = [
       },
       outcome: {
         heading: "2nd of 100+ teams. Cheque, photos, claim.",
-        body: "Demoed live on the IESA stage. Judges drove the rover from their seats while wearing the headset. Took 2nd place across 100+ teams in the AR/VR theme — walked off with a ₹50,000 cheque and the 'world's first VR rover' claim, defensible because no one had shipped one as a single integrated demo at scale yet. The bigger win was the lesson nobody told me at 21: ruthless scoping wins hackathons. Same lesson applied to every product I shipped after.",
+        body: "Demoed live on the IESA stage. Judges drove the rover from their seats while wearing the headset. Took 2nd place across 100+ teams in the AR/VR theme - walked off with a ₹50,000 cheque and the 'world's first VR rover' claim, defensible because no one had shipped one as a single integrated demo at scale yet. The bigger win was the lesson nobody told me at 21: ruthless scoping wins hackathons. Same lesson applied to every product I shipped after.",
         beat: "₹50K + 'world's first'",
       },
     },

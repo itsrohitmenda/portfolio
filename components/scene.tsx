@@ -261,7 +261,7 @@ function Stickers({ scroll }: { scroll: Scroll }) {
 
   return (
     <group ref={group} scale={groupScale}>
-      {/* Hot-pink pill — far upper right, pushed out of the headline block */}
+      {/* Hot-pink pill - far upper right, pushed out of the headline block */}
       <Sticker
         basePos={[3.1, 1.7, -0.2]}
         scroll={scroll}
@@ -273,7 +273,7 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         <Pill color={PALETTE.pink} />
       </Sticker>
 
-      {/* Smiley sun — far upper left */}
+      {/* Smiley sun - far upper left */}
       <Sticker
         basePos={[-3.2, 1.9, 0.2]}
         scroll={scroll}
@@ -285,7 +285,7 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         <SmileySun />
       </Sticker>
 
-      {/* Lime puffy star — far lower right */}
+      {/* Lime puffy star - far lower right */}
       <Sticker
         basePos={[3.3, -1.6, 0.2]}
         scroll={scroll}
@@ -300,7 +300,7 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         </mesh>
       </Sticker>
 
-      {/* Cherry heart — far lower left */}
+      {/* Cherry heart - far lower left */}
       <Sticker
         basePos={[-2.9, -1.4, 0.3]}
         scroll={scroll}
@@ -315,7 +315,7 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         </mesh>
       </Sticker>
 
-      {/* Sky plus sign — bottom center, below the metric tiles area */}
+      {/* Sky plus sign - bottom center, below the metric tiles area */}
       <Sticker
         basePos={[0.3, -2.6, 0.1]}
         scroll={scroll}
@@ -330,7 +330,7 @@ function Stickers({ scroll }: { scroll: Scroll }) {
         </mesh>
       </Sticker>
 
-      {/* Lavender orb — deep background, a soft anchor */}
+      {/* Lavender orb - deep background, a soft anchor */}
       <Sticker
         basePos={[0, 0.2, -2.2]}
         scroll={scroll}

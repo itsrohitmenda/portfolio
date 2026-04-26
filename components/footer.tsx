@@ -150,7 +150,7 @@ export default function Footer() {
                 <p className="text-[10px] uppercase tracking-[0.3em] text-ink/50 mb-1">
                   based in
                 </p>
-                <p className="text-ink font-medium">Namma Bengaluru — IST · UTC+5:30</p>
+                <p className="text-ink font-medium">Namma Bengaluru - IST · UTC+5:30</p>
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ export async function generateMetadata({
   const study = getCaseStudy(slug);
   if (!study) return {};
   return {
-    title: `${study.title} — Rohit Menda`,
+    title: `${study.title} - Rohit Menda`,
     description: study.tldr,
   };
 }

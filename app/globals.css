@@ -80,12 +80,25 @@ html.lenis body {
   -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
 }
 
-/* Chips — pill-shaped, cream on coral or ink on cream */
+/* Hide native scrollbar on horizontal carousels (Moments mobile, etc.)
+   while still allowing the container to scroll. Apply via .hide-scrollbar */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / old Edge */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome / Safari / Edge */
+  width: 0;
+  height: 0;
+}
+
+/* Chips - pill-shaped, cream on coral or ink on cream */
 .chip {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.85rem 0.4rem; /* slight pull-up: caps look top-heavy */
   border: 1.5px solid var(--ink);
   border-radius: 999px;
   font-size: 0.7rem;
@@ -95,7 +108,11 @@ html.lenis body {
   color: var(--ink);
   background: var(--cream);
   font-weight: 500;
-  /* Pills shouldn't soft-wrap their text — keeps "GenAI / E-commerce"
+  /* line-height locked so the chip text sits centred vertically. Without
+     this, the inherited line-height (~1.5) pushes uppercase glyphs above
+     the optical centre of the pill. */
+  line-height: 1;
+  /* Pills shouldn't soft-wrap their text - keeps "GenAI / E-commerce"
      from snapping onto two lines on narrow mobile cards. */
   white-space: nowrap;
 }
@@ -119,7 +136,7 @@ html.lenis body {
   border: 1.5px solid var(--ink);
 }
 
-/* Card shell — rounded, popped shadow (ref-accurate) */
+/* Card shell - rounded, popped shadow (ref-accurate) */
 .card-pop {
   background: var(--cream);
   border-radius: 1.75rem;

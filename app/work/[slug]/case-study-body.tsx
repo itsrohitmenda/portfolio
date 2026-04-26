@@ -71,7 +71,7 @@ export default function CaseStudyBody({
 
   return (
     <article ref={rootRef}>
-      {/* Scroll progress bar — thin ink line that fills as you scroll the page */}
+      {/* Scroll progress bar - thin ink line that fills as you scroll the page */}
       <motion.div
         aria-hidden
         style={{ scaleX }}
@@ -100,7 +100,7 @@ export default function CaseStudyBody({
             ← all work
           </Link>
 
-          <div className="mt-12 flex flex-wrap items-center gap-3 font-mono text-[11px] font-medium uppercase tracking-[0.25em] text-ink">
+          <div className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] md:text-xs font-medium uppercase tracking-[0.25em] text-ink">
             <span>{study.company}</span>
             <span className="opacity-50">·</span>
             <span>{study.role}</span>
@@ -112,7 +112,7 @@ export default function CaseStudyBody({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 font-display font-bold text-ink text-5xl md:text-8xl lg:text-[7.5rem] leading-[0.95] tracking-[-0.03em] max-w-4xl"
+            className="mt-6 font-display font-bold text-ink text-5xl md:text-7xl lg:text-[6.5rem] leading-[0.95] tracking-[-0.03em] max-w-4xl"
           >
             {study.title}
           </motion.h1>
@@ -121,12 +121,12 @@ export default function CaseStudyBody({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15 }}
-            className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-ink/75"
+            className="mt-6 max-w-2xl text-lg md:text-xl lg:text-2xl leading-relaxed text-ink/80 font-medium"
           >
             {study.tagline}
           </motion.p>
 
-          <div className="mt-12 flex flex-wrap gap-2">
+          <div className="mt-10 md:mt-12 flex flex-wrap gap-2">
             {study.domain.map((d) => (
               <span key={d} className="chip">
                 {d}
@@ -136,14 +136,14 @@ export default function CaseStudyBody({
         </motion.div>
       </div>
 
-      {/* ── Cover photo — editorial team shot, only when the study has one ── */}
+      {/* ── Cover photo - editorial team shot, only when the study has one ── */}
       {study.cover ? <CoverPhoto cover={study.cover} /> : null}
 
-      {/* ── Stats band — large, visual, scroll-reveals ──────────────── */}
+      {/* ── Stats band - large, visual, scroll-reveals ──────────────── */}
       <StatsBand metrics={study.metrics} accent={study.accent} />
 
-      {/* ── Hook — single pull-quote, minimal text ──────────────────── */}
-      <section className="relative px-6 py-16 md:py-24">
+      {/* ── Hook - single pull-quote, minimal text ──────────────────── */}
+      <section className="relative px-6 py-14 md:py-20">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -154,17 +154,17 @@ export default function CaseStudyBody({
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-ink/60">
               · the hook
             </span>
-            <p className="mt-6 font-display italic font-medium text-2xl md:text-4xl lg:text-5xl leading-[1.15] tracking-[-0.02em] text-ink">
+            <p className="mt-6 font-display italic font-medium text-2xl md:text-3xl lg:text-[2.75rem] leading-[1.2] tracking-[-0.02em] text-ink">
               &ldquo;{study.hook}&rdquo;
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Story — split-screen scrollytelling, tightened copy ─────── */}
+      {/* ── Story - split-screen scrollytelling, tightened copy ─────── */}
       <StorySection story={study.story} accent={study.accent} />
 
-      {/* ── Receipts + stack — compact chip rows ────────────────────── */}
+      {/* ── Receipts + stack - compact chip rows ────────────────────── */}
       <section className="relative px-6 py-16 md:py-24">
         <div className="max-w-7xl mx-auto">
           <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-8 md:p-14 shadow-[0_6px_0_0_#171412]">
@@ -176,7 +176,7 @@ export default function CaseStudyBody({
                 <h2 className="mt-4 font-display font-medium text-3xl md:text-4xl leading-[1.05] tracking-[-0.02em]">
                   receipts.
                 </h2>
-                <ul className="mt-8 flex flex-col gap-2.5">
+                <ul className="mt-8 flex flex-col gap-3">
                   {study.shipped.map((s, i) => (
                     <motion.li
                       key={s}
@@ -184,10 +184,10 @@ export default function CaseStudyBody({
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.06 }}
-                      className="flex items-start gap-3 text-sm md:text-base"
+                      className="flex items-start gap-3.5 text-[15px] md:text-base lg:text-lg"
                     >
                       <span
-                        className={`font-mono text-[9px] font-semibold shrink-0 mt-1 px-2 py-0.5 rounded-full border-[1.5px] border-ink ${accentBg[study.accent]}`}
+                        className={`inline-flex items-center justify-center leading-none font-mono text-[9px] font-semibold shrink-0 mt-1.5 px-2 pt-[0.3rem] pb-[0.25rem] rounded-full border-[1.5px] border-ink ${accentBg[study.accent]}`}
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>
@@ -252,7 +252,7 @@ export default function CaseStudyBody({
 }
 
 /* ═══════════════════════════════════════════════════════════════════ *
- *  Cover photo — wide editorial slab between hero and stats. Subtle
+ *  Cover photo - wide editorial slab between hero and stats. Subtle
  *  scale-up on scroll so it feels alive without competing with the band.
  * ═══════════════════════════════════════════════════════════════════ */
 
@@ -290,7 +290,7 @@ function CoverPhoto({ cover }: { cover: NonNullable<CaseStudy["cover"]> }) {
           </div>
         </motion.div>
 
-        {/* Caption strip — magazine cutline, italic, sits below the photo */}
+        {/* Caption strip - magazine cutline, italic, sits below the photo */}
         <p className="mt-4 md:mt-5 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-ink/60 max-w-2xl">
           ↳ {cover.caption}
         </p>
@@ -300,7 +300,7 @@ function CoverPhoto({ cover }: { cover: NonNullable<CaseStudy["cover"]> }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════ *
- *  Stats band — oversized numbers, scroll-reveal, accent-rotating tiles
+ *  Stats band - oversized numbers, scroll-reveal, accent-rotating tiles
  * ═══════════════════════════════════════════════════════════════════ */
 
 function StatsBand({
@@ -318,7 +318,7 @@ function StatsBand({
     target: ref,
     offset: ["start end", "end start"],
   });
-  // Subtle horizontal drift — tiles scroll slightly against the page motion
+  // Subtle horizontal drift - tiles scroll slightly against the page motion
   const x = useTransform(scrollYProgress, [0, 1], ["2%", "-2%"]);
 
   return (
@@ -349,7 +349,7 @@ function StatsBand({
 }
 
 /* ═══════════════════════════════════════════════════════════════════ *
- *  Story section — sticky act nav + scroll-pinned scenes, tighter copy
+ *  Story section - sticky act nav + scroll-pinned scenes, tighter copy
  * ═══════════════════════════════════════════════════════════════════ */
 
 const STORY_ACTS: { key: keyof Story; label: string }[] = [
@@ -364,7 +364,7 @@ function StorySection({ story, accent }: { story: Story; accent: CaseStudy["acce
   const accentColor = accentHex[accent];
   const accentBgClass = accentBg[accent];
 
-  // Section-wide scroll progress — drives the vertical rail fill
+  // Section-wide scroll progress - drives the vertical rail fill
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -393,7 +393,7 @@ function StorySection({ story, accent }: { story: Story; accent: CaseStudy["acce
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: "-100%", opacity: 0 }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-display italic font-bold text-ink text-7xl lg:text-8xl leading-none tracking-[-0.03em]"
+                    className="font-display italic font-bold text-ink text-6xl lg:text-7xl leading-none tracking-[-0.03em]"
                   >
                     <span className="relative inline-block">
                       <span className="relative z-10">{STORY_ACTS[active].label}.</span>
@@ -500,8 +500,8 @@ function SceneBlock({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7 }}
-      className={`relative ${first ? "md:pt-[22vh]" : "md:pt-[32vh]"} ${
-        last ? "md:pb-[28vh]" : "md:pb-[8vh]"
+      className={`relative ${first ? "md:pt-[14vh]" : "md:pt-[18vh]"} ${
+        last ? "md:pb-[18vh]" : "md:pb-[6vh]"
       }`}
     >
       <div className="md:hidden flex items-center gap-3 mb-5">
@@ -512,19 +512,21 @@ function SceneBlock({
         <span className="font-display italic text-sm text-ink/80">{label}</span>
       </div>
 
-      <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-6 md:p-8 shadow-[0_5px_0_0_#171412]">
-        <h3 className="font-display font-medium text-2xl md:text-3xl lg:text-4xl leading-[1.1] tracking-[-0.02em] max-w-xl">
+      {/* Scene card. Wider max-w on body so long-form copy breathes; bumped
+          body type to 17px / 18px so reading at desktop distance is easy. */}
+      <div className="rounded-3xl border-[1.5px] border-ink bg-cream text-ink p-6 md:p-9 lg:p-10 shadow-[0_5px_0_0_#171412]">
+        <h3 className="font-display font-medium text-2xl md:text-3xl lg:text-[2.25rem] leading-[1.1] tracking-[-0.02em] max-w-2xl">
           {scene.heading}
         </h3>
 
-        <p className="mt-4 md:mt-5 text-[15px] md:text-base leading-[1.65] text-ink/70 max-w-xl">
+        <p className="mt-5 md:mt-6 text-[16px] md:text-[17px] lg:text-lg leading-[1.7] text-ink/80 max-w-2xl">
           {scene.body}
         </p>
 
         {scene.beat && (
           <motion.div
             style={{ scale: beatScale, opacity: beatOpacity }}
-            className="mt-7 md:mt-8 flex items-start gap-4 max-w-lg"
+            className="mt-8 md:mt-10 flex items-start gap-4 max-w-xl"
           >
             <span
               aria-hidden
